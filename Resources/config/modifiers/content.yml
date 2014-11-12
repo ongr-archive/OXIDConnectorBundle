@@ -1,0 +1,18 @@
+parameters:
+    ongr_oxid.modifier.content.class: ONGR\OXIDConnectorBundle\Modifier\ContentModifier
+
+services:
+    ongr_oxid.modifier.content:
+        class: %ongr_oxid.modifier.content.class%
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'content' }
+
+    ongr_oxid.modifier.content_seo:
+        parent: ongr_oxid.modifier.seo
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'content' }
+
+    ongr_oxid.modifier.content_seo_url:
+        parent: ongr_oxid.modifier.seo_url
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'content' }

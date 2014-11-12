@@ -1,0 +1,7 @@
+.idea
+vendor/*
+
+composer.lock
+Tests/app/cache
+Tests/app/build
+cache.properties

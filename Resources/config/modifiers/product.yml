@@ -1,0 +1,18 @@
+parameters:
+    ongr_oxid.modifier.product.class: ONGR\OXIDConnectorBundle\Modifier\ProductModifier
+
+services:
+    ongr_oxid.modifier.product:
+        class: %ongr_oxid.modifier.product.class%
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'product' }
+
+    ongr_oxid.modifier.product_seo:
+        parent: ongr_oxid.modifier.seo
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'product' }
+
+    ongr_oxid.modifier.product_seo_url:
+        parent: ongr_oxid.modifier.seo_url
+        tags:
+            - { name: 'ongr_connections.doctrine.modifier', type: 'product' }
