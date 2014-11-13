@@ -24,6 +24,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
+        //TODO
+        die("********");
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ongr_oxid');
 

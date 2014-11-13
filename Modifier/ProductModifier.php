@@ -23,7 +23,7 @@ use ONGR\OXIDConnectorBundle\Entity\Article;
 use ONGR\OXIDConnectorBundle\Entity\ObjectToCategory;
 
 /**
- * Converts OXID article to Fox product document
+ * Converts OXID article to ONGR product document
  */
 class ProductModifier implements ModifierInterface
 {

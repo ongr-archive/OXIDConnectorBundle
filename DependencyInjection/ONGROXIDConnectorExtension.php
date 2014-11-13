@@ -19,12 +19,12 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * This is the class that loads and manages bundle configuration
+ * This is the class that loads and manages bundle configuration.
  */
-class ONGROXIDExtension extends Extension
+class ONGROXIDConnectorExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -63,10 +63,9 @@ class ONGROXIDExtension extends Extension
         }
 
         if (!empty($config['database_mapping'])) {
-
             if ($activeShop === null) {
                 throw new \LogicException(
-                    "Database mapping is defined but active shop ID is not set."
+                    'Database mapping is defined but active shop ID is not set.'
                 );
             }
 
@@ -87,6 +86,9 @@ class ONGROXIDExtension extends Extension
         );
         $definition->addTag('doctrine.event_listener', ['event' => 'loadClassMetadata']);
         $container->setDefinition('ongr_oxid.mapping_listener', $definition);
+        //TODO
+
+        die('*******super********');
     }
 
     /**
@@ -108,5 +110,10 @@ class ONGROXIDExtension extends Extension
                 }
             }
         }
+    }
+
+    public function getAlias()
+    {
+        return 'ongr_oxid';
     }
 }
