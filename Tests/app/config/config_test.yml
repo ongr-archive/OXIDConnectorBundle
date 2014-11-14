@@ -52,9 +52,9 @@ doctrine:
                 is_bundle: false
             Test:
                 type: annotation
-                dir: %kernel.root_dir%/../Integration/Entity
+                dir: %kernel.root_dir%/../Functional/Entity
                 alias: ONGROXIDConnectorBundleTest
-                prefix: ONGR\OXIDConnectorBundle\Tests\Integration\Entity
+                prefix: ONGR\OXIDConnectorBundle\Tests\Functional\Entity
                 is_bundle: false
 
 ongr_oxid:
@@ -71,3 +71,25 @@ ongr_connections:
     active_shop: test
     shops:
         test: ~
+
+ongr_elasticsearch:
+    connections:
+        default:
+            hosts:
+                - { host: 127.0.0.1:9200 }
+            index_name: ongr-content-bundle-test
+            settings:
+                refresh_interval: -1
+                number_of_replicas: 0
+    managers:
+        default:
+            connection: default
+            mappings:
+                - AcmeTestBundle
+
+ongr_content:
+    es:
+        repositories:
+            product: es.manager.default.product
+            content: es.manager.default.content
+            category: es.manager.default.category

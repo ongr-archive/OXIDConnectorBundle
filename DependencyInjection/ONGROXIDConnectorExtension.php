@@ -86,9 +86,6 @@ class ONGROXIDConnectorExtension extends Extension
         );
         $definition->addTag('doctrine.event_listener', ['event' => 'loadClassMetadata']);
         $container->setDefinition('ongr_oxid.mapping_listener', $definition);
-        //TODO
-
-        die('*******super********');
     }
 
     /**

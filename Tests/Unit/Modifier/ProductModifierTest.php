@@ -27,7 +27,7 @@ use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test for modify()
+     * Test for modify().
      */
     public function testModify()
     {
@@ -103,7 +103,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
 
         $document = new Product();
         $modifier->modify($document, $entity);
-        
+
         $this->assertEquals($expectedDocument, $document);
     }
 }

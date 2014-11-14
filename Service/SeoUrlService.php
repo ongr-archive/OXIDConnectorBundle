@@ -23,9 +23,9 @@ use ONGR\OXIDConnectorBundle\Entity\Seo;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\EntityAliasAwareTrait;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\LanguageAwareTrait;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\ShopAwareTrait;
-use ONGR\OXIDConnectorBundle\Tests\Integration\Entity\Category;
-use ONGR\OXIDConnectorBundle\Tests\Integration\Entity\Content;
-use ONGR\OXIDConnectorBundle\Tests\Integration\Entity\SeoHistory;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\SeoHistory;
 
 /**
  * This class is able to load seo urls for given entity

@@ -16,16 +16,16 @@ use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 /**
- * Tests if product modifier works as expected
+ * Tests if product modifier works as expected.
  */
 class ProductModifierTest extends TestBase
 {
     /**
-     * test modification
+     * Test modification.
      */
     public function testModify()
     {
-        //non-existant category in db
+        // Non-existant category in db.
         $expectedEntity1 = new Product();
         $expectedEntity1->id = '6b698c33118caee4ca0882c33f513d2f';
         $expectedEntity1->active = true;

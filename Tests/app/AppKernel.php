@@ -28,6 +28,8 @@ class AppKernel extends Kernel
             new ONGR\ConnectionsBundle\ONGRConnectionsBundle(),
             new ONGR\ContentBundle\ONGRContentBundle(),
             new ONGR\OXIDConnectorBundle\ONGROXIDConnectorBundle(),
+            new ONGR\RouterBundle\ONGRRouterBundle(),
+            new ONGR\ContentBundle\Tests\app\fixture\Acme\TestBundle\AcmeTestBundle(),
         ];
     }
 
