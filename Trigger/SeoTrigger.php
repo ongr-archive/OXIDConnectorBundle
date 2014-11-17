@@ -15,12 +15,14 @@ use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
 use ONGR\ConnectionsBundle\Sync\Trigger\ComposedTrigger;
 
 /**
- * Seo trigger, only inserts item updates, not seo itself
+ * Seo trigger, only inserts item updates, not seo itself.
  */
 class SeoTrigger extends ComposedTrigger
 {
     /**
-     * @inheritDoc
+     * @param null|string $table
+     * @param null|string $type
+     * @param array       $trackFields
      */
     public function __construct($table, $type, $trackFields = [])
     {
@@ -28,7 +30,11 @@ class SeoTrigger extends ComposedTrigger
     }
 
     /**
-     * @inheritDoc
+     * Generates Insert statement.
+     *
+     * @inheritdoc
+     *
+     * @return string
      */
     protected function generateInsertStatement()
     {

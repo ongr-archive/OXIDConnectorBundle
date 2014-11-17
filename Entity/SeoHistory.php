@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxseohistory"
+ * Entity for table "oxseohistory".
  *
  * @ORM\MappedSuperclass
  */
@@ -37,7 +37,7 @@ class SeoHistory
     protected $ident;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSHOPID", type="integer")
      * @ORM\Id
@@ -46,7 +46,7 @@ class SeoHistory
     protected $shopId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXLANG", type="integer")
      * @ORM\Id
@@ -55,14 +55,14 @@ class SeoHistory
     protected $lang;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXHITS", type="bigint")
      */
     protected $hits;
 
     /**
-     * Sets mapped object ID
+     * Sets mapped object ID.
      *
      * @param string $objectId
      *
@@ -76,7 +76,7 @@ class SeoHistory
     }
 
     /**
-     * Returns mapped object ID
+     * Returns mapped object ID.
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class SeoHistory
     }
 
     /**
-     * Sets identifier
+     * Sets identifier.
      *
      * @param string $identifier
      *
@@ -100,7 +100,7 @@ class SeoHistory
     }
 
     /**
-     * Returns identifier
+     * Returns identifier.
      *
      * @return string
      */
@@ -110,9 +110,9 @@ class SeoHistory
     }
 
     /**
-     * Sets shop ID
+     * Sets shop ID.
      *
-     * @param integer $shopId
+     * @param int $shopId
      *
      * @return SeoHistory
      */
@@ -124,9 +124,9 @@ class SeoHistory
     }
 
     /**
-     * Returns shop ID
+     * Returns shop ID.
      *
-     * @return integer
+     * @return int
      */
     public function getShopId()
     {
@@ -134,9 +134,9 @@ class SeoHistory
     }
 
     /**
-     * Sets language ID
+     * Sets language ID.
      *
-     * @param integer $lang
+     * @param int $lang
      *
      * @return SeoHistory
      */
@@ -148,9 +148,9 @@ class SeoHistory
     }
 
     /**
-     * Returns language ID
+     * Returns language ID.
      *
-     * @return integer
+     * @return int
      */
     public function getLang()
     {
@@ -158,7 +158,7 @@ class SeoHistory
     }
 
     /**
-     * Sets hits
+     * Sets hits.
      *
      * @param int $hits
      *
@@ -172,7 +172,7 @@ class SeoHistory
     }
 
     /**
-     * Returns number of hits
+     * Returns number of hits.
      *
      * @return int
      */

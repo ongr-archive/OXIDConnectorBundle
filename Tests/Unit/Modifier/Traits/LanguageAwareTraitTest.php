@@ -11,8 +11,6 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier\Traits;
 
-use Doctrine\ORM\EntityManager;
-use ONGR\OXIDConnectorBundle\Modifier\SeoModifier;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\LanguageAwareTrait;
 
 class LanguageAwareTraitTest extends \PHPUnit_Framework_TestCase
@@ -23,7 +21,7 @@ class LanguageAwareTraitTest extends \PHPUnit_Framework_TestCase
     protected $languageTrait;
 
     /**
-     * Set up LanguageAwareTrait object
+     * Set up LanguageAwareTrait object.
      */
     public function setUp()
     {
@@ -31,7 +29,7 @@ class LanguageAwareTraitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing that trait has empty value
+     * Testing that trait has empty value.
      */
     public function testTraitIsEmpty()
     {
@@ -39,7 +37,7 @@ class LanguageAwareTraitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test LanguageId setter and getter
+     * Test LanguageId setter and getter.
      */
     public function testSetLanguageId()
     {

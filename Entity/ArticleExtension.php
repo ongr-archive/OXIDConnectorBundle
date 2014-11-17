@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxartextends"
+ * Entity for table "oxartextends".
  *
  * @ORM\MappedSuperclass
  */
@@ -44,7 +44,7 @@ abstract class ArticleExtension
     protected $tags;
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -58,7 +58,7 @@ abstract class ArticleExtension
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -68,7 +68,7 @@ abstract class ArticleExtension
     }
 
     /**
-     * Sets long description
+     * Sets long description.
      *
      * @param string $description
      *
@@ -82,7 +82,7 @@ abstract class ArticleExtension
     }
 
     /**
-     * Returns long description
+     * Returns long description.
      *
      * @return string
      */
@@ -92,7 +92,7 @@ abstract class ArticleExtension
     }
 
     /**
-     * Sets tags
+     * Sets tags.
      *
      * @param string $tags
      *
@@ -106,7 +106,7 @@ abstract class ArticleExtension
     }
 
     /**
-     * Returns tags
+     * Returns tags.
      *
      * @return string
      */

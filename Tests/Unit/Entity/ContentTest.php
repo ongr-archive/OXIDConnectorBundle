@@ -16,7 +16,7 @@ use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 class ContentTest extends AbstractEntityTest
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFieldsData()
     {
@@ -34,7 +34,7 @@ class ContentTest extends AbstractEntityTest
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassName()
     {

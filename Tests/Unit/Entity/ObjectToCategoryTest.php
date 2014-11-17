@@ -16,7 +16,7 @@ use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 class ObjectToCategoryTest extends AbstractEntityTest
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFieldsData()
     {
@@ -30,7 +30,7 @@ class ObjectToCategoryTest extends AbstractEntityTest
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassName()
     {

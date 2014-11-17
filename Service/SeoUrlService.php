@@ -1,17 +1,13 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE: 
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
- */
+* This file is part of the ONGR package.
+*
+* (c) NFQ Technologies UAB <info@nfq.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
 
 namespace ONGR\OXIDConnectorBundle\Service;
 
@@ -28,22 +24,22 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\SeoHistory;
 
 /**
- * This class is able to load seo urls for given entity
+ * This class is able to load seo urls for given entity.
  */
 class SeoUrlService
 {
     /**
-     * This modifier uses custom queries so we need to know which Entities we are using
+     * This modifier uses custom queries so we need to know which Entities we are using.
      */
     use EntityAliasAwareTrait;
 
     /**
-     * Language for queries
+     * Language for queries.
      */
     use LanguageAwareTrait;
 
     /**
-     * Shop id for queries
+     * Shop id for queries.
      */
     use ShopAwareTrait;
 
@@ -53,7 +49,7 @@ class SeoUrlService
     protected $entityManager;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param EntityManagerInterface $entityManager
      */
@@ -63,9 +59,10 @@ class SeoUrlService
     }
 
     /**
-     * Get Active urls, if an object is of type Article we must prioritise the first Category's  url
+     * Get Active urls, if an object is of type Article we must prioritise the first Category's  url.
      *
      * @param Article|Category|Content|object $entity
+     *
      * @return array
      */
     public function getActiveUrlList($entity)
@@ -74,7 +71,7 @@ class SeoUrlService
         $result = [];
 
         /** @var ArticleToCategory $topPriority */
-        $topPriority = $entity instanceof Article?$entity->getCategories()->first():null;
+        $topPriority = $entity instanceof Article ? $entity->getCategories()->first() : null;
 
         foreach ($seoList as $seo) {
             if ($topPriority && $topPriority->getCategory()->getId() == $seo->getParams()) {
@@ -84,13 +81,15 @@ class SeoUrlService
                 array_push($result, $this->getSingleActiveUrl($seo));
             }
         }
+
         return $result;
     }
 
     /**
-     * Returns an array with seo properties
+     * Returns an array with seo properties.
      *
      * @param Seo $seo
+     *
      * @return array
      */
     protected function getSingleActiveUrl(Seo $seo)
@@ -99,9 +98,10 @@ class SeoUrlService
     }
 
     /**
-     * Get SEO object from database for entity
+     * Get SEO object from database for entity.
      *
      * @param object $entity
+     *
      * @return Seo[]
      */
     protected function getSeo($entity)
@@ -127,9 +127,10 @@ class SeoUrlService
     }
 
     /**
-     * Get expired SEO links from database for entity
+     * Get expired SEO links from database for entity.
      *
      * @param object $entity
+     *
      * @return array
      */
     public function getSeoHistoryHashes($entity)

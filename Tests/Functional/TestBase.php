@@ -15,11 +15,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\DriverManager;
 
+/**
+ * Class TestBase.
+ *
+ * @package ONGR\OXIDConnectorBundle\Tests\Functional
+ */
 abstract class TestBase extends WebTestCase
 {
     /**
@@ -28,20 +32,20 @@ abstract class TestBase extends WebTestCase
     protected $container;
 
     /**
-     * Sets up required info before each test
+     * Sets up required info before each test.
      */
     public function setUp()
     {
         $vendorDir = $this->getRootDir($this->getServiceContainer()) . '/../../vendor';
         AnnotationRegistry::registerFile(
-            $vendorDir.'/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
+            $vendorDir . '/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
         );
     }
 
     /**
      * Return an array of elements required for testing.
      *
-     * @param array $ids
+     * @param array  $ids
      * @param string $repository
      *
      * @return Object[]
@@ -54,15 +58,15 @@ abstract class TestBase extends WebTestCase
         foreach ($ids as $id) {
             $element = $rep->find($id);
             if ($element !== null) {
-                $items[] =  $element;
+                $items[] = $element;
             }
         }
+
         return $items;
     }
 
-
     /**
-     * Returns service container, creates new if it does not exist
+     * Returns service container, creates new if it does not exist.
      *
      * @return ContainerInterface
      * @throws \Exception
@@ -77,14 +81,14 @@ abstract class TestBase extends WebTestCase
             $this->container = self::createClient()->getContainer();
 
         } catch (\Exception $e) {
-            print $e->getMessage();
+            echo $e->getMessage();
         }
 
         return $this->container;
     }
 
     /**
-     * Gets Entity manager from container
+     * Gets Entity manager from container.
      *
      * @return EntityManager
      */
@@ -92,11 +96,12 @@ abstract class TestBase extends WebTestCase
     {
         /** @var $doctrine RegistryInterface */
         $doctrine = $this->getServiceContainer()->get('doctrine');
+
         return $doctrine->getManager();
     }
 
     /**
-     * Imports mySQL schema and data
+     * Imports mySQL schema and data.
      */
     public static function setUpBeforeClass()
     {
@@ -117,7 +122,7 @@ abstract class TestBase extends WebTestCase
     }
 
     /**
-     * Deletes the database
+     * Deletes the database.
      */
     public static function tearDownAfterClass()
     {
@@ -129,10 +134,10 @@ abstract class TestBase extends WebTestCase
     }
 
     /**
-     * Executes an SQL file
+     * Executes an SQL file.
      *
      * @param Connection $conn
-     * @param String $file
+     * @param string     $file
      */
     protected static function executeSqlFile(Connection $conn, $file)
     {
@@ -142,7 +147,8 @@ abstract class TestBase extends WebTestCase
     }
 
     /**
-     * Return full path to kernel root dir
+     * Return full path to kernel root dir.
+     *
      * @param ContainerInterface $container
      *
      * @return string

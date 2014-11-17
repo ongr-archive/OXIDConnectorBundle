@@ -16,7 +16,7 @@ use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 class SeoHistoryTest extends AbstractEntityTest
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFieldsData()
     {
@@ -25,12 +25,12 @@ class SeoHistoryTest extends AbstractEntityTest
             ['ident'],
             ['shopId'],
             ['lang'],
-            ['hits']
+            ['hits'],
         ];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassName()
     {

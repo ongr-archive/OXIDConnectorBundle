@@ -16,6 +16,9 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
 
 class TriggerConfigTest extends TriggerConfigTestBase
 {
+    /**
+     * Tests Article trigger.
+     */
     public function testArticleTrigger()
     {
         /** @var $triggersManager TriggersManager */
@@ -27,7 +30,7 @@ class TriggerConfigTest extends TriggerConfigTestBase
         $entityManager = $this->getEntityManager();
         $connection = $this->getConnection();
 
-        //insert
+        // Insert.
         $article = new Article();
         $article->setActive(true);
         $article->setShortDesc('test');
@@ -42,16 +45,16 @@ class TriggerConfigTest extends TriggerConfigTestBase
         $entityManager->persist($article);
         $entityManager->flush();
 
-        //update
+        // Update.
         $article->setPrice(0.2);
         $entityManager->persist($article);
         $entityManager->flush();
 
-        //delete
+        // Delete.
         $entityManager->remove($article);
         $entityManager->flush();
 
-        $actualRecords = $connection->fetchAll("SELECT * FROM `ongr_sync_jobs`");
+        $actualRecords = $connection->fetchAll('SELECT * FROM `ongr_sync_jobs`');
         $this->compareRecords(
             [
                 [
@@ -60,7 +63,7 @@ class TriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'C'
+                    'type' => 'C',
                 ],
                 [
                     'id' => 2,
@@ -68,7 +71,7 @@ class TriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 3,
@@ -76,8 +79,8 @@ class TriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'D'
-                ]
+                    'type' => 'D',
+                ],
             ],
             $actualRecords
         );

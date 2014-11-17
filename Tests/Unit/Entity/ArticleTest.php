@@ -16,7 +16,7 @@ use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 class ArticleTest extends AbstractEntityTest
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFieldsData()
     {
@@ -37,12 +37,12 @@ class ArticleTest extends AbstractEntityTest
             ['attributes', 'ONGR\OXIDConnectorBundle\Entity\ArticleToAttribute', 'addAttribute', 'removeAttribute'],
             ['parent', 'ONGR\OXIDConnectorBundle\Entity\Article'],
             ['stock'],
-            ['stockFlag']
+            ['stockFlag'],
         ];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassName()
     {

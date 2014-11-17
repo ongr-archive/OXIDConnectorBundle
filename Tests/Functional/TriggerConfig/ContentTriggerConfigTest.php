@@ -16,6 +16,9 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
 
 class ContentTriggerConfigTest extends TriggerConfigTestBase
 {
+    /**
+     * Tests Content trigger.
+     */
     public function testContentTrigger()
     {
         /** @var $triggersManager TriggersManager */
@@ -27,29 +30,29 @@ class ContentTriggerConfigTest extends TriggerConfigTestBase
         $entityManager = $this->getEntityManager();
         $connection = $this->getConnection();
 
-        //insert
+        // Insert.
         $content = new Content();
-        $content->setTitle("testContentTitle");
-        $content->setContent("testContent");
-        $content->setFolder("testFolder");
-        $content->setLoadId("testLoadId");
+        $content->setTitle('testContentTitle');
+        $content->setContent('testContent');
+        $content->setFolder('testFolder');
+        $content->setLoadId('testLoadId');
         $content->setSnippet(true);
         $content->setType(5);
         $content->setActive(true);
-        $content->setPosition("testPosition");
+        $content->setPosition('testPosition');
         $entityManager->persist($content);
         $entityManager->flush();
 
-        //update
-        $content->setContent("testContent2");
+        // Update.
+        $content->setContent('testContent2');
         $entityManager->persist($content);
         $entityManager->flush();
 
-        //delete
+        // Delete.
         $entityManager->remove($content);
         $entityManager->flush();
 
-        $actualRecords = $connection->fetchAll("SELECT * FROM `ongr_sync_jobs`");
+        $actualRecords = $connection->fetchAll('SELECT * FROM `ongr_sync_jobs`');
         $this->compareRecords(
             [
                 [
@@ -58,7 +61,7 @@ class ContentTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'C'
+                    'type' => 'C',
                 ],
                 [
                     'id' => 2,
@@ -66,7 +69,7 @@ class ContentTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 3,
@@ -74,8 +77,8 @@ class ContentTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'D'
-                ]
+                    'type' => 'D',
+                ],
             ],
             $actualRecords
         );

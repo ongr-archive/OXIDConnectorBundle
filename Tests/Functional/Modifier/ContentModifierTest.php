@@ -16,12 +16,12 @@ use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 /**
- * Tests if category modifier works as expected
+ * Tests if category modifier works as expected.
  */
 class ContentModifierTest extends TestBase
 {
     /**
-     * test modification
+     * Test modification.
      */
     public function testModify()
     {

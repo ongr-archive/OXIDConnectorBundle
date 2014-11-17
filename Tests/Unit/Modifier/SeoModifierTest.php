@@ -21,14 +21,15 @@ use Doctrine\ORM\Query;
 class SeoModifierTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Get entity manager mock
+     * Get entity manager mock.
      *
-     * @param $returnValue
+     * @param ObjectToSeoData $returnValue
+     *
      * @return \PHPUnit_Framework_MockObject_MockObject | EntityManager
      */
     protected function getEntityManagerMock($returnValue)
     {
-        $emMock  = $this->getMock(
+        $emMock = $this->getMock(
             'Doctrine\ORM\EntityManagerInterface'
         );
 
@@ -45,19 +46,19 @@ class SeoModifierTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data for testModify
+     * Data for testModify.
      *
      * @return array
      */
     public function testModifyData()
     {
-        #0 default mapping
+        // Case #0 default mapping.
         $expectedDocument = new Product();
         $expectedDocument->metaKeywords = 'testKeywords';
         $expectedDocument->metaDescription = 'testDescription';
         $out[] = [$expectedDocument];
 
-        #1 custom mapping
+        // Case #1 custom mapping.
         $expectedDocument = new Product();
         $expectedDocument->metaKeywordsTest = 'testKeywords';
         $expectedDocument->metaDescriptionTest = 'testDescription';
@@ -68,12 +69,12 @@ class SeoModifierTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test for testModify
+     * Test for testModify.
+     *
+     * @param Product $expectedDocument
+     * @param array   $customMapping
      *
      * @dataProvider testModifyData
-     *
-     * @param ProductModel $expectedDocument
-     * @param array $customMapping
      */
     public function testModify(Product $expectedDocument, array $customMapping = null)
     {

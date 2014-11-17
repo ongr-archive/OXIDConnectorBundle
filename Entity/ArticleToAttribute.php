@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for articles mapped in table "oxobject2attribute"
+ * Entity for articles mapped in table "oxobject2attribute".
  *
  * @ORM\MappedSuperclass
  */
@@ -31,7 +31,7 @@ abstract class ArticleToAttribute extends ObjectToAttribute
     protected $article;
 
     /**
-     * Sets article object
+     * Sets article object.
      *
      * @param Article $article
      *
@@ -45,7 +45,7 @@ abstract class ArticleToAttribute extends ObjectToAttribute
     }
 
     /**
-     * Returns article object
+     * Returns article object.
      *
      * @return Article
      */

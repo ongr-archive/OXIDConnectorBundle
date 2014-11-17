@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ONGR\OXIDConnectorBundle\Entity\ObjectToSeoData as ParentObjectToSeoData;
 
 /**
- * A class to test ONGR\OXIDConnectorBundle\Entity\ObjectToSeoData abstract class
+ * A class to test ONGR\OXIDConnectorBundle\Entity\ObjectToSeoData abstract class.
  *
  * @ORM\Entity
  * @ORM\Table(name="oxobject2seodata")

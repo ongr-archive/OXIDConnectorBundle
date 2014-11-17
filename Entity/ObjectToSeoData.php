@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxobject2seodata"
+ * Entity for table "oxobject2seodata".
  *
  * @ORM\MappedSuperclass
  */
@@ -30,7 +30,7 @@ abstract class ObjectToSeoData
     protected $objectId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSHOPID", type="integer")
      * @ORM\Id
@@ -39,7 +39,7 @@ abstract class ObjectToSeoData
     protected $shopId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXLANG", type="integer")
      * @ORM\Id
@@ -62,7 +62,7 @@ abstract class ObjectToSeoData
     protected $description;
 
     /**
-     * Sets mapped object ID
+     * Sets mapped object ID.
      *
      * @param string $objectId
      *
@@ -76,7 +76,7 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Returns mapped object ID
+     * Returns mapped object ID.
      *
      * @return string
      */
@@ -86,9 +86,9 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Sets shop ID
+     * Sets shop ID.
      *
-     * @param integer $shopId
+     * @param int $shopId
      *
      * @return ObjectToSeoData
      */
@@ -100,9 +100,9 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Returns shop ID
+     * Returns shop ID.
      *
-     * @return integer
+     * @return int
      */
     public function getShopId()
     {
@@ -110,9 +110,9 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Sets language ID
+     * Sets language ID.
      *
-     * @param integer $lang
+     * @param int $lang
      *
      * @return ObjectToSeoData
      */
@@ -124,9 +124,9 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Returns language ID
+     * Returns language ID.
      *
-     * @return integer
+     * @return int
      */
     public function getLang()
     {
@@ -134,7 +134,7 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Sets keywords
+     * Sets keywords.
      *
      * @param string $keywords
      *
@@ -148,7 +148,7 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Returns keywords
+     * Returns keywords.
      *
      * @return string
      */
@@ -158,7 +158,7 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Sets description
+     * Sets description.
      *
      * @param string $description
      *
@@ -172,7 +172,7 @@ abstract class ObjectToSeoData
     }
 
     /**
-     * Returns description
+     * Returns description.
      *
      * @return string
      */

@@ -16,13 +16,16 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\ObjectToSeoData;
-use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Seo;
 
 class SeoDataTriggerConfigTest extends TriggerConfigTestBase
 {
+    /**
+     * Tests Seo trigger.
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function testSeoTrigger()
     {
-
         /** @var $triggersManager TriggersManager */
         $triggersManager = $this->getServiceContainer()->get('ongr_connections.triggers_manager');
         $entityManager = $this->getEntityManager();
@@ -32,7 +35,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
         $this->importData('TriggerConfigTest/content.sql');
         $this->importData('TriggerConfigTest/seo_data.sql');
 
-        //insert records before trigger creation so  we don't cause the main insert triggers to fire
+        // Insert records before trigger creation so  we don't cause the main insert triggers to fire.
         $article = new Article();
         $article->setActive(true);
         $article->setShortDesc('test');
@@ -58,14 +61,14 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
         $entityManager->persist($category);
 
         $content = new Content();
-        $content->setTitle("testContentTitle");
-        $content->setContent("testContent");
-        $content->setFolder("testFolder");
-        $content->setLoadId("testLoadId");
+        $content->setTitle('testContentTitle');
+        $content->setContent('testContent');
+        $content->setFolder('testFolder');
+        $content->setLoadId('testLoadId');
         $content->setSnippet(true);
         $content->setType(5);
         $content->setActive(true);
-        $content->setPosition("testPosition");
+        $content->setPosition('testPosition');
         $content->setId(3);
         $entityManager->persist($content);
 
@@ -75,7 +78,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
 
         $connection = $this->getConnection();
 
-        //insert
+        // Insert.
         $seo = new ObjectToSeoData();
         $seo->setLang(0);
         $seo->setObjectId('1');
@@ -86,15 +89,15 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
 
         $entityManager->flush();
 
-        //update
+        // Update.
         $seo->setLang(2);
         $entityManager->persist($seo);
         $entityManager->flush();
 
-        //delete
-        $connection->executeQuery('DELETE FROM `oxobject2seodata`');
+        // Delete.
+        $connection->executeQuery("DELETE FROM `oxobject2seodata`");
 
-        $actualRecords = $connection->fetchAll("SELECT * FROM `ongr_sync_jobs`");
+        $actualRecords = $connection->fetchAll('SELECT * FROM `ongr_sync_jobs`');
         $this->compareRecords(
             [
                 [
@@ -103,7 +106,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 2,
@@ -111,7 +114,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 3,
@@ -119,7 +122,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 4,
@@ -127,7 +130,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 5,
@@ -135,7 +138,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 6,
@@ -143,7 +146,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 7,
@@ -151,7 +154,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 8,
@@ -159,7 +162,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 9,
@@ -167,9 +170,8 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
-
             ],
             $actualRecords
         );

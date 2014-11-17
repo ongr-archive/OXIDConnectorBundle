@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxcontents"
+ * Entity for table "oxcontents".
  *
  * @ORM\MappedSuperclass
  */
@@ -37,21 +37,21 @@ abstract class Content
     protected $loadId;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXSNIPPET", type="boolean")
      */
     protected $snippet;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXTYPE", type="smallint")
      */
     protected $type;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXACTIVE", type="boolean")
      */
@@ -86,7 +86,7 @@ abstract class Content
     protected $folder;
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -100,7 +100,7 @@ abstract class Content
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -110,7 +110,7 @@ abstract class Content
     }
 
     /**
-     * Sets load ID
+     * Sets load ID.
      *
      * @param string $loadId
      *
@@ -124,7 +124,7 @@ abstract class Content
     }
 
     /**
-     * Returns load ID
+     * Returns load ID.
      *
      * @return string
      */
@@ -134,9 +134,9 @@ abstract class Content
     }
 
     /**
-     * Sets snippet indication
+     * Sets snippet indication.
      *
-     * @param boolean $snippet
+     * @param bool $snippet
      *
      * @return Content
      */
@@ -148,9 +148,9 @@ abstract class Content
     }
 
     /**
-     * Checks if content is snippet
+     * Checks if content is snippet.
      *
-     * @return boolean
+     * @return bool
      */
     public function isSnippet()
     {
@@ -158,9 +158,9 @@ abstract class Content
     }
 
     /**
-     * Sets type
+     * Sets type.
      *
-     * @param integer $type
+     * @param int $type
      *
      * @return Content
      */
@@ -172,9 +172,9 @@ abstract class Content
     }
 
     /**
-     * Returns type
+     * Returns type.
      *
-     * @return integer
+     * @return int
      */
     public function getType()
     {
@@ -182,9 +182,9 @@ abstract class Content
     }
 
     /**
-     * Sets activity state
+     * Sets activity state.
      *
-     * @param boolean $active
+     * @param bool $active
      *
      * @return Content
      */
@@ -196,9 +196,9 @@ abstract class Content
     }
 
     /**
-     * Checks if article is active
+     * Checks if article is active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -206,7 +206,7 @@ abstract class Content
     }
 
     /**
-     * Sets position
+     * Sets position.
      *
      * @param string $position
      *
@@ -220,7 +220,7 @@ abstract class Content
     }
 
     /**
-     * Returns position
+     * Returns position.
      *
      * @return string
      */
@@ -230,7 +230,7 @@ abstract class Content
     }
 
     /**
-     * Sets title
+     * Sets title.
      *
      * @param string $title
      *
@@ -244,7 +244,7 @@ abstract class Content
     }
 
     /**
-     * Returns title
+     * Returns title.
      *
      * @return string
      */
@@ -254,7 +254,7 @@ abstract class Content
     }
 
     /**
-     * Sets content
+     * Sets content.
      *
      * @param string $content
      *
@@ -268,7 +268,7 @@ abstract class Content
     }
 
     /**
-     * Returns content
+     * Returns content.
      *
      * @return string
      */
@@ -278,7 +278,7 @@ abstract class Content
     }
 
     /**
-     * Sets folder
+     * Sets folder.
      *
      * @param string $folder
      *
@@ -292,7 +292,7 @@ abstract class Content
     }
 
     /**
-     * Returns folder
+     * Returns folder.
      *
      * @return string
      */

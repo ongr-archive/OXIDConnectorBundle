@@ -18,7 +18,7 @@ use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;
 class CategoryModifierTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test for modify()
+     * Test for modify().
      */
     public function testModify()
     {

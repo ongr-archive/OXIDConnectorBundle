@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxseo"
+ * Entity for table "oxseo".
  *
  * @ORM\MappedSuperclass
  */
@@ -37,7 +37,7 @@ class Seo
     protected $ident;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSHOPID", type="integer")
      * @ORM\Id
@@ -46,7 +46,7 @@ class Seo
     protected $shopId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXLANG", type="integer")
      * @ORM\Id
@@ -69,14 +69,14 @@ class Seo
     protected $type;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXFIXED", type="boolean")
      */
     protected $fixed;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXEXPIRED", type="boolean")
      */
@@ -90,7 +90,7 @@ class Seo
     protected $params;
 
     /**
-     * Sets mapped object ID
+     * Sets mapped object ID.
      *
      * @param string $objectId
      *
@@ -104,7 +104,7 @@ class Seo
     }
 
     /**
-     * Returns mapped object ID
+     * Returns mapped object ID.
      *
      * @return string
      */
@@ -114,7 +114,7 @@ class Seo
     }
 
     /**
-     * Sets identifier
+     * Sets identifier.
      *
      * @param string $identifier
      *
@@ -128,7 +128,7 @@ class Seo
     }
 
     /**
-     * Returns identifier
+     * Returns identifier.
      *
      * @return string
      */
@@ -138,9 +138,9 @@ class Seo
     }
 
     /**
-     * Sets shop ID
+     * Sets shop ID.
      *
-     * @param integer $shopId
+     * @param int $shopId
      *
      * @return Seo
      */
@@ -152,9 +152,9 @@ class Seo
     }
 
     /**
-     * Returns shop ID
+     * Returns shop ID.
      *
-     * @return integer
+     * @return int
      */
     public function getShopId()
     {
@@ -162,9 +162,9 @@ class Seo
     }
 
     /**
-     * Sets language ID
+     * Sets language ID.
      *
-     * @param integer $lang
+     * @param int $lang
      *
      * @return Seo
      */
@@ -176,9 +176,9 @@ class Seo
     }
 
     /**
-     * Returns language ID
+     * Returns language ID.
      *
-     * @return integer
+     * @return int
      */
     public function getLang()
     {
@@ -186,7 +186,7 @@ class Seo
     }
 
     /**
-     * Sets SEO URL
+     * Sets SEO URL.
      *
      * @param string $seoUrl
      *
@@ -200,7 +200,7 @@ class Seo
     }
 
     /**
-     * Returns SEO URL
+     * Returns SEO URL.
      *
      * @return string
      */
@@ -210,7 +210,7 @@ class Seo
     }
 
     /**
-     * Sets type
+     * Sets type.
      *
      * @param string $type
      *
@@ -224,7 +224,7 @@ class Seo
     }
 
     /**
-     * Returns type
+     * Returns type.
      *
      * @return string
      */
@@ -234,9 +234,9 @@ class Seo
     }
 
     /**
-     * Sets fixed state
+     * Sets fixed state.
      *
-     * @param boolean $fixed
+     * @param bool $fixed
      *
      * @return Seo
      */
@@ -248,9 +248,9 @@ class Seo
     }
 
     /**
-     * Check if link is fixed
+     * Check if link is fixed.
      *
-     * @return boolean
+     * @return bool
      */
     public function isFixed()
     {
@@ -258,9 +258,9 @@ class Seo
     }
 
     /**
-     * Sets expired state
+     * Sets expired state.
      *
-     * @param boolean $expired
+     * @param bool $expired
      *
      * @return Seo
      */
@@ -272,9 +272,9 @@ class Seo
     }
 
     /**
-     * Check if link is expired
+     * Check if link is expired.
      *
-     * @return boolean
+     * @return bool
      */
     public function isExpired()
     {
@@ -282,7 +282,7 @@ class Seo
     }
 
     /**
-     * Sets parameters
+     * Sets parameters.
      *
      * @param string $parameters
      *
@@ -296,7 +296,7 @@ class Seo
     }
 
     /**
-     * Returns parameters
+     * Returns parameters.
      *
      * @return string
      */

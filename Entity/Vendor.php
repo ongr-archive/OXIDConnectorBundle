@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxvendor"
+ * Entity for table "oxvendor".
  *
  * @ORM\MappedSuperclass
  */
@@ -30,7 +30,7 @@ abstract class Vendor
     protected $id;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXACTIVE", type="boolean")
      */
@@ -51,7 +51,7 @@ abstract class Vendor
     protected $shortDesc;
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -65,7 +65,7 @@ abstract class Vendor
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -75,9 +75,9 @@ abstract class Vendor
     }
 
     /**
-     * Sets activity state
+     * Sets activity state.
      *
-     * @param boolean $active
+     * @param bool $active
      *
      * @return Vendor
      */
@@ -89,9 +89,9 @@ abstract class Vendor
     }
 
     /**
-     * Checks if vendor is active
+     * Checks if vendor is active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -99,7 +99,7 @@ abstract class Vendor
     }
 
     /**
-     * Sets title
+     * Sets title.
      *
      * @param string $title
      *
@@ -113,7 +113,7 @@ abstract class Vendor
     }
 
     /**
-     * Returns title
+     * Returns title.
      *
      * @return string
      */
@@ -123,7 +123,7 @@ abstract class Vendor
     }
 
     /**
-     * Sets short description
+     * Sets short description.
      *
      * @param string $shortDesc
      *
@@ -137,7 +137,7 @@ abstract class Vendor
     }
 
     /**
-     * Returns short description
+     * Returns short description.
      *
      * @return string
      */

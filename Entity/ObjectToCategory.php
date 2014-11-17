@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxobject2category"
+ * Entity for table "oxobject2category".
  *
  * @ORM\MappedSuperclass
  */
@@ -47,21 +47,21 @@ abstract class ObjectToCategory
     protected $category;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXPOS", type="integer")
      */
     protected $pos;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXTIME", type="integer")
      */
     protected $time;
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -75,7 +75,7 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -85,7 +85,7 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Sets mapped object ID
+     * Sets mapped object ID.
      *
      * @param string $objectId
      *
@@ -99,7 +99,7 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Returns mapped object ID
+     * Returns mapped object ID.
      *
      * @return string
      */
@@ -109,7 +109,7 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Sets category object
+     * Sets category object.
      *
      * @param string $category
      *
@@ -123,7 +123,7 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Returns category object
+     * Returns category object.
      *
      * @return Category
      */
@@ -133,9 +133,9 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Sets position
+     * Sets position.
      *
-     * @param integer $position
+     * @param int $position
      *
      * @return ObjectToCategory
      */
@@ -147,9 +147,9 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Returns position
+     * Returns position.
      *
-     * @return integer
+     * @return int
      */
     public function getPos()
     {
@@ -157,9 +157,9 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Sets time
+     * Sets time.
      *
-     * @param integer $time
+     * @param int $time
      *
      * @return ObjectToCategory
      */
@@ -171,9 +171,9 @@ abstract class ObjectToCategory
     }
 
     /**
-     * Returns time
+     * Returns time.
      *
-     * @return integer
+     * @return int
      */
     public function getTime()
     {

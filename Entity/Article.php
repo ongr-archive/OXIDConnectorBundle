@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxarticles"
+ * Entity for table "oxarticles".
  *
  * @ORM\MappedSuperclass
  */
@@ -31,7 +31,7 @@ abstract class Article
     protected $id;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXACTIVE", type="boolean")
      */
@@ -80,7 +80,7 @@ abstract class Article
     protected $tPrice;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSORT", type="integer")
      */
@@ -141,21 +141,21 @@ abstract class Article
     protected $categories;
 
     /**
-     * @var double
+     * @var float
      *
      * @ORM\Column(name="OXSTOCK", type="float")
      */
     protected $stock;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSTOCKFLAG", type="integer")
      */
     protected $stockFlag;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -164,7 +164,7 @@ abstract class Article
     }
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -178,7 +178,7 @@ abstract class Article
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -188,9 +188,9 @@ abstract class Article
     }
 
     /**
-     * Sets activity state
+     * Sets activity state.
      *
-     * @param boolean $active
+     * @param bool $active
      *
      * @return Article
      */
@@ -202,9 +202,9 @@ abstract class Article
     }
 
     /**
-     * Checks if article is active
+     * Checks if article is active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -212,7 +212,7 @@ abstract class Article
     }
 
     /**
-     * Set article number
+     * Set article number.
      *
      * @param string $artNum
      *
@@ -226,7 +226,7 @@ abstract class Article
     }
 
     /**
-     * Returns article number
+     * Returns article number.
      *
      * @return string
      */
@@ -236,7 +236,7 @@ abstract class Article
     }
 
     /**
-     * Sets manufacturer part number (MPN)
+     * Sets manufacturer part number (MPN).
      *
      * @param string $mpn
      *
@@ -250,7 +250,7 @@ abstract class Article
     }
 
     /**
-     * Returns manufacturer part number (MPN)
+     * Returns manufacturer part number (MPN).
      *
      * @return string
      */
@@ -260,7 +260,7 @@ abstract class Article
     }
 
     /**
-     * Sets title
+     * Sets title.
      *
      * @param string $title
      *
@@ -274,7 +274,7 @@ abstract class Article
     }
 
     /**
-     * Returns title
+     * Returns title.
      *
      * @return string
      */
@@ -284,7 +284,7 @@ abstract class Article
     }
 
     /**
-     * Sets short description
+     * Sets short description.
      *
      * @param string $shortDesc
      *
@@ -298,7 +298,7 @@ abstract class Article
     }
 
     /**
-     * Returns short description
+     * Returns short description.
      *
      * @return string
      */
@@ -308,7 +308,7 @@ abstract class Article
     }
 
     /**
-     * Sets price
+     * Sets price.
      *
      * @param float $price
      *
@@ -322,7 +322,7 @@ abstract class Article
     }
 
     /**
-     * Returns price
+     * Returns price.
      *
      * @return float
      */
@@ -332,7 +332,7 @@ abstract class Article
     }
 
     /**
-     * Sets old price
+     * Sets old price.
      *
      * @param float $price
      *
@@ -346,7 +346,7 @@ abstract class Article
     }
 
     /**
-     * Returns old price
+     * Returns old price.
      *
      * @return float
      */
@@ -356,9 +356,9 @@ abstract class Article
     }
 
     /**
-     * Sets sort order
+     * Sets sort order.
      *
-     * @param integer $sort
+     * @param int $sort
      *
      * @return Article
      */
@@ -370,9 +370,9 @@ abstract class Article
     }
 
     /**
-     * Returns sort order
+     * Returns sort order.
      *
-     * @return integer
+     * @return int
      */
     public function getSort()
     {
@@ -380,7 +380,7 @@ abstract class Article
     }
 
     /**
-     * Sets vendor
+     * Sets vendor.
      *
      * @param Vendor $vendor
      *
@@ -394,7 +394,7 @@ abstract class Article
     }
 
     /**
-     * Returns vendor
+     * Returns vendor.
      *
      * @return Vendor
      */
@@ -404,7 +404,7 @@ abstract class Article
     }
 
     /**
-     * Sets manufacturer
+     * Sets manufacturer.
      *
      * @param Manufacturer $manufacturer
      *
@@ -418,7 +418,7 @@ abstract class Article
     }
 
     /**
-     * Returns manufacturer
+     * Returns manufacturer.
      *
      * @return Manufacturer
      */
@@ -428,7 +428,7 @@ abstract class Article
     }
 
     /**
-     * Sets article extension object
+     * Sets article extension object.
      *
      * @param ArticleExtension $extension
      *
@@ -442,7 +442,7 @@ abstract class Article
     }
 
     /**
-     * Returns article extension object
+     * Returns article extension object.
      *
      * @return ArticleExtension
      */
@@ -452,7 +452,7 @@ abstract class Article
     }
 
     /**
-     * Returns categories
+     * Returns categories.
      *
      * @return ArrayCollection
      */
@@ -462,7 +462,7 @@ abstract class Article
     }
 
     /**
-     * Adds category
+     * Adds category.
      *
      * @param ArticleToCategory $category
      *
@@ -476,7 +476,7 @@ abstract class Article
     }
 
     /**
-     * Removes category
+     * Removes category.
      *
      * @param ArticleToCategory $category
      *
@@ -490,7 +490,7 @@ abstract class Article
     }
 
     /**
-     * Returns attributes
+     * Returns attributes.
      *
      * @return ArrayCollection
      */
@@ -500,7 +500,7 @@ abstract class Article
     }
 
     /**
-     * Adds attribute
+     * Adds attribute.
      *
      * @param ArticleToAttribute $attribute
      *
@@ -514,7 +514,7 @@ abstract class Article
     }
 
     /**
-     * Removes attribute
+     * Removes attribute.
      *
      * @param ArticleToAttribute $attribute
      *
@@ -528,7 +528,7 @@ abstract class Article
     }
 
     /**
-     * Sets parent
+     * Sets parent.
      *
      * @param Article $parent
      *
@@ -542,7 +542,7 @@ abstract class Article
     }
 
     /**
-     * Returns parent
+     * Returns parent.
      *
      * @return Article
      */
@@ -552,7 +552,7 @@ abstract class Article
     }
 
     /**
-     * Sets stock
+     * Sets stock.
      *
      * @param float $stock
      *
@@ -574,9 +574,9 @@ abstract class Article
     }
 
     /**
-     * Sets stockFlag
+     * Sets stockFlag.
      *
-     * @param integer $stockFlag
+     * @param int $stockFlag
      *
      * @return Article
      */
@@ -588,7 +588,7 @@ abstract class Article
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getStockFlag()
     {

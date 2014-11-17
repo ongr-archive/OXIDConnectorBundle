@@ -25,14 +25,14 @@ use Symfony\Component\Finder\SplFileInfo;
 class ONGROXIDConnectorBundleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * List of passes, which should not be added to compiler
+     * List of passes, which should not be added to compiler.
      *
      * @var array
      */
     protected $passesBlacklist = [];
 
     /**
-     * Check whether all Passes in DependencyInjection/Compiler/ are added to container
+     * Check whether all Passes in DependencyInjection/Compiler/ are added to container.
      */
     public function testPassesRegistered()
     {
@@ -40,16 +40,16 @@ class ONGROXIDConnectorBundleTest extends \PHPUnit_Framework_TestCase
         $bundle = new ONGROXIDConnectorBundle();
         $bundle->build($container);
 
-        /** @var array $loadedPasses  Array of class names of loaded passes*/
-        $loadedPasses = array();
+        /** @var array $loadedPasses  Array of class names of loaded passes.*/
+        $loadedPasses = [];
         /** @var PassConfig $passConfig */
         $passConfig = $container->getCompiler()->getPassConfig();
         foreach ($passConfig->getPasses() as $pass) {
-            $class = explode("\\", get_class($pass));
+            $class = explode('\\', get_class($pass));
             $loadedPasses[] = end($class);
         }
 
-        $dir = __DIR__ . "/../../DependencyInjection/Compiler/";
+        $dir = __DIR__ . '/../../DependencyInjection/Compiler/';
 
         $fileSystem = new Filesystem();
 
@@ -60,10 +60,10 @@ class ONGROXIDConnectorBundleTest extends \PHPUnit_Framework_TestCase
         $finder = new Finder();
         $finder->files()->in($dir);
 
-        /** @var    $file   SplFileInfo */
+        /** @var $file SplFileInfo */
         foreach ($finder as $file) {
-            $passName = str_replace(".php", "", $file->getFilename());
-            // check whether pass is not blacklisted and not added by bundle
+            $passName = str_replace('.php', '', $file->getFilename());
+            // Check whether pass is not blacklisted and not added by bundle.
             if (!in_array($passName, $this->passesBlacklist)) {
                 $this->assertContains(
                     $passName,

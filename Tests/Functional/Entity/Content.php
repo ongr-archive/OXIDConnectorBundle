@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ONGR\OXIDConnectorBundle\Entity\Content as ParentContent;
 
 /**
- * A class to test ONGR\OXIDConnectorBundle\Entity\Content abstract class
+ * A class to test ONGR\OXIDConnectorBundle\Entity\Content abstract class.
  *
  * @ORM\Entity
  * @ORM\Table(name="oxcontents")

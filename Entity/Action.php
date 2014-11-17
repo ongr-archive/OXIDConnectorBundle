@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxactions"
+ * Entity for table "oxactions".
  *
  * @ORM\MappedSuperclass
  */
@@ -30,7 +30,7 @@ abstract class Action
     protected $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXTYPE", type="smallint")
      */
@@ -51,7 +51,7 @@ abstract class Action
     protected $longDesc;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXACTIVE", type="boolean")
      */
@@ -86,14 +86,14 @@ abstract class Action
     protected $link;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSORT", type="integer")
      */
     protected $sort;
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -107,7 +107,7 @@ abstract class Action
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -117,9 +117,9 @@ abstract class Action
     }
 
     /**
-     * Sets type
+     * Sets type.
      *
-     * @param integer $type
+     * @param int $type
      *
      * @return Action
      */
@@ -131,9 +131,9 @@ abstract class Action
     }
 
     /**
-     * Returns type
+     * Returns type.
      *
-     * @return integer
+     * @return int
      */
     public function getType()
     {
@@ -141,7 +141,7 @@ abstract class Action
     }
 
     /**
-     * Sets title
+     * Sets title.
      *
      * @param string $title
      *
@@ -155,7 +155,7 @@ abstract class Action
     }
 
     /**
-     * Returns title
+     * Returns title.
      *
      * @return string
      */
@@ -165,7 +165,7 @@ abstract class Action
     }
 
     /**
-     * Sets long description
+     * Sets long description.
      *
      * @param string $description
      *
@@ -179,7 +179,7 @@ abstract class Action
     }
 
     /**
-     * Returns long description
+     * Returns long description.
      *
      * @return string
      */
@@ -189,9 +189,9 @@ abstract class Action
     }
 
     /**
-     * Sets activity state
+     * Sets activity state.
      *
-     * @param boolean $active
+     * @param bool $active
      *
      * @return Action
      */
@@ -203,9 +203,9 @@ abstract class Action
     }
 
     /**
-     * Checks if article is active
+     * Checks if article is active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -213,7 +213,7 @@ abstract class Action
     }
 
     /**
-     * Sets the date action is active from
+     * Sets the date action is active from.
      *
      * @param \DateTime $activeFrom
      *
@@ -227,7 +227,7 @@ abstract class Action
     }
 
     /**
-     * Returns the date action is active from
+     * Returns the date action is active from.
      *
      * @return \DateTime
      */
@@ -237,7 +237,7 @@ abstract class Action
     }
 
     /**
-     * Sets the date action is active to
+     * Sets the date action is active to.
      *
      * @param \DateTime $activeTo
      *
@@ -251,7 +251,7 @@ abstract class Action
     }
 
     /**
-     * Returns the date action is active to
+     * Returns the date action is active to.
      *
      * @return \DateTime
      */
@@ -261,7 +261,7 @@ abstract class Action
     }
 
     /**
-     * Sets picture
+     * Sets picture.
      *
      * @param string $picture
      *
@@ -275,7 +275,7 @@ abstract class Action
     }
 
     /**
-     * Returns picture
+     * Returns picture.
      *
      * @return string
      */
@@ -285,7 +285,7 @@ abstract class Action
     }
 
     /**
-     * Sets link
+     * Sets link.
      *
      * @param string $link
      *
@@ -299,7 +299,7 @@ abstract class Action
     }
 
     /**
-     * Returns link
+     * Returns link.
      *
      * @return string
      */
@@ -309,9 +309,9 @@ abstract class Action
     }
 
     /**
-     * Sets sort order
+     * Sets sort order.
      *
-     * @param integer $sort
+     * @param int $sort
      *
      * @return Action
      */
@@ -323,9 +323,9 @@ abstract class Action
     }
 
     /**
-     * Returns sort order
+     * Returns sort order.
      *
-     * @return integer
+     * @return int
      */
     public function getSort()
     {

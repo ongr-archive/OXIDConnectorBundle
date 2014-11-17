@@ -18,7 +18,7 @@ use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
 class ContentModifierTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test for modify()
+     * Test for modify().
      */
     public function testModify()
     {

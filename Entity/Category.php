@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxcategories"
+ * Entity for table "oxcategories".
  *
  * @ORM\MappedSuperclass
  */
@@ -41,14 +41,14 @@ abstract class Category
     protected $parent;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXLEFT", type="integer")
      */
     protected $left;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXRIGHT", type="integer")
      */
@@ -65,21 +65,21 @@ abstract class Category
     protected $root;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSORT", type="integer")
      */
     protected $sort;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXACTIVE", type="boolean")
      */
     protected $active;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="OXHIDDEN", type="boolean")
      */
@@ -122,7 +122,7 @@ abstract class Category
     protected $attributes;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -131,7 +131,7 @@ abstract class Category
     }
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -145,7 +145,7 @@ abstract class Category
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -155,7 +155,7 @@ abstract class Category
     }
 
     /**
-     * Sets parent category
+     * Sets parent category.
      *
      * @param Category $parent
      *
@@ -169,7 +169,7 @@ abstract class Category
     }
 
     /**
-     * Returns parent category
+     * Returns parent category.
      *
      * @return Category
      */
@@ -179,9 +179,9 @@ abstract class Category
     }
 
     /**
-     * Sets left position number
+     * Sets left position number.
      *
-     * @param integer $left
+     * @param int $left
      *
      * @return Category
      */
@@ -193,9 +193,9 @@ abstract class Category
     }
 
     /**
-     * Returns left position number
+     * Returns left position number.
      *
-     * @return integer
+     * @return int
      */
     public function getLeft()
     {
@@ -203,9 +203,9 @@ abstract class Category
     }
 
     /**
-     * Sets right position number
+     * Sets right position number.
      *
-     * @param integer $right
+     * @param int $right
      *
      * @return Category
      */
@@ -217,9 +217,9 @@ abstract class Category
     }
 
     /**
-     * Returns right position number
+     * Returns right position number.
      *
-     * @return integer
+     * @return int
      */
     public function getRight()
     {
@@ -227,7 +227,7 @@ abstract class Category
     }
 
     /**
-     * Returns attributes
+     * Returns attributes.
      *
      * @return ArrayCollection
      */
@@ -237,7 +237,7 @@ abstract class Category
     }
 
     /**
-     * Adds attribute
+     * Adds attribute.
      *
      * @param CategoryToAttribute $attribute
      *
@@ -251,7 +251,7 @@ abstract class Category
     }
 
     /**
-     * Removes attribute
+     * Removes attribute.
      *
      * @param CategoryToAttribute $attribute
      *
@@ -265,7 +265,7 @@ abstract class Category
     }
 
     /**
-     * Sets root category
+     * Sets root category.
      *
      * @param Category $root
      *
@@ -279,7 +279,7 @@ abstract class Category
     }
 
     /**
-     * Returns root category
+     * Returns root category.
      *
      * @return Category
      */
@@ -289,9 +289,9 @@ abstract class Category
     }
 
     /**
-     * Sets sort order
+     * Sets sort order.
      *
-     * @param integer $sort
+     * @param int $sort
      *
      * @return Category
      */
@@ -303,9 +303,9 @@ abstract class Category
     }
 
     /**
-     * Returns sort order
+     * Returns sort order.
      *
-     * @return integer
+     * @return int
      */
     public function getSort()
     {
@@ -313,9 +313,9 @@ abstract class Category
     }
 
     /**
-     * Sets activity state
+     * Sets activity state.
      *
-     * @param boolean $active
+     * @param bool $active
      *
      * @return Category
      */
@@ -327,9 +327,9 @@ abstract class Category
     }
 
     /**
-     * Checks if category is active
+     * Checks if category is active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -337,9 +337,9 @@ abstract class Category
     }
 
     /**
-     * Sets visibility state
+     * Sets visibility state.
      *
-     * @param boolean $hidden
+     * @param bool $hidden
      *
      * @return Category
      */
@@ -351,9 +351,9 @@ abstract class Category
     }
 
     /**
-     * Checks if category is hidden
+     * Checks if category is hidden.
      *
-     * @return boolean
+     * @return bool
      */
     public function isHidden()
     {
@@ -361,7 +361,7 @@ abstract class Category
     }
 
     /**
-     * Sets title
+     * Sets title.
      *
      * @param string $title
      *
@@ -375,7 +375,7 @@ abstract class Category
     }
 
     /**
-     * Returns title
+     * Returns title.
      *
      * @return string
      */
@@ -385,7 +385,7 @@ abstract class Category
     }
 
     /**
-     * Sets description
+     * Sets description.
      *
      * @param string $description
      *
@@ -399,7 +399,7 @@ abstract class Category
     }
 
     /**
-     * Returns description
+     * Returns description.
      *
      * @return string
      */
@@ -409,7 +409,7 @@ abstract class Category
     }
 
     /**
-     * Sets long description
+     * Sets long description.
      *
      * @param string $description
      *
@@ -423,7 +423,7 @@ abstract class Category
     }
 
     /**
-     * Returns long description
+     * Returns long description.
      *
      * @return string
      */
@@ -433,7 +433,7 @@ abstract class Category
     }
 
     /**
-     * Returns children categories
+     * Returns children categories.
      *
      * @return ArrayCollection
      */
@@ -443,7 +443,7 @@ abstract class Category
     }
 
     /**
-     * Adds child category
+     * Adds child category.
      *
      * @param Category $category
      *
@@ -457,7 +457,7 @@ abstract class Category
     }
 
     /**
-     * Removes child category
+     * Removes child category.
      *
      * @param Category $category
      *

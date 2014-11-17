@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Tests\Unit\Entity;
 class ArticleToAttributeTest extends ObjectToAttributeTest
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFieldsData()
     {
@@ -25,7 +25,7 @@ class ArticleToAttributeTest extends ObjectToAttributeTest
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassName()
     {

@@ -12,20 +12,21 @@
 namespace ONGR\OXIDConnectorBundle\Modifier\Traits;
 
 /**
- * Trait used for modifiers which require custom queries
+ * Trait used for modifiers which require custom queries.
+ *
  * It's used to find out which entity is currently active
  */
 trait EntityAliasAwareTrait
 {
     /**
-     * Specifies the current working entity
+     * Specifies the current working entity.
      *
      * @var string $entityAlias
      */
     private $entityAlias;
 
     /**
-     * Sets entity alias
+     * Sets entity alias.
      *
      * @param string $entityAlias
      */
@@ -35,7 +36,7 @@ trait EntityAliasAwareTrait
     }
 
     /**
-     * Return entity alias
+     * Return entity alias.
      *
      * @return string
      */

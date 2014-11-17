@@ -16,13 +16,12 @@ use ONGR\OXIDConnectorBundle\Modifier\SeoUrlModifier;
 use ONGR\TestingBundle\Document\Product;
 
 /**
- * This class holds unit tests for seo modifier
+ * This class holds unit tests for seo modifier.
  */
 class SeoUrlModifierTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * Test if modify method works as expected
+     * Test if modify method works as expected.
      */
     public function testModify()
     {

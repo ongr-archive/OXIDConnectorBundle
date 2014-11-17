@@ -12,11 +12,11 @@
         bootstrap="vendor/autoload.php">
 
     <testsuites>
+        <testsuite name="Unit">
+            <directory>./Tests/Unit/</directory>
+        </testsuite>
         <testsuite name="Functional">
             <directory>./Tests/Functional/</directory>
-        </testsuite>
-        <testsuite name="Integration">
-            <directory>./Tests/Integration/</directory>
         </testsuite>
         <testsuite name="All">
             <directory>./Tests/</directory>

@@ -17,7 +17,7 @@ use ONGR\OXIDConnectorBundle\Modifier\SeoModifier;
 class ShopAwareTraitTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test ShopId setter and getter
+     * Test ShopId setter and getter.
      */
     public function testSetShopId()
     {

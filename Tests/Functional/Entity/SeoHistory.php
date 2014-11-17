@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ONGR\OXIDConnectorBundle\Entity\SeoHistory as ParentSeoHistory;
 
 /**
- * A class to test ONGR\OXIDConnectorBundle\Entity\SeoHistory abstract class
+ * A class to test ONGR\OXIDConnectorBundle\Entity\SeoHistory abstract class.
  *
  * @ORM\Entity
  * @ORM\Table(name="oxseohistory")

@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxcategory2attribute"
+ * Entity for table "oxcategory2attribute".
  *
  * @ORM\MappedSuperclass
  */
@@ -50,14 +50,14 @@ class CategoryToAttribute
     protected $attribute;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXSORT", type="integer")
      */
     protected $sort;
 
     /**
-     * Sets CategoryToAttribute ID
+     * Sets CategoryToAttribute ID.
      *
      * @param string $id
      *
@@ -71,7 +71,7 @@ class CategoryToAttribute
     }
 
     /**
-     * Returns CategoryToAttribute ID
+     * Returns CategoryToAttribute ID.
      *
      * @return string
      */
@@ -81,9 +81,9 @@ class CategoryToAttribute
     }
 
     /**
-     * Sets Category
+     * Sets Category.
      *
-     * @param mixed $category
+     * @param Category $category
      *
      * @return CategoryToAttribute
      */
@@ -95,7 +95,7 @@ class CategoryToAttribute
     }
 
     /**
-     * Returns Category
+     * Returns Category.
      *
      * @return Category
      */
@@ -105,7 +105,7 @@ class CategoryToAttribute
     }
 
     /**
-     * Sets attribute
+     * Sets attribute.
      *
      * @param Attribute $attribute
      *
@@ -119,7 +119,7 @@ class CategoryToAttribute
     }
 
     /**
-     * Returns attribute
+     * Returns attribute.
      *
      * @return Attribute
      */
@@ -129,9 +129,9 @@ class CategoryToAttribute
     }
 
     /**
-     * Sets sort order
+     * Sets sort order.
      *
-     * @param integer $sort
+     * @param int $sort
      *
      * @return CategoryToAttribute
      */
@@ -143,9 +143,9 @@ class CategoryToAttribute
     }
 
     /**
-     * Returns sort order
+     * Returns sort order.
      *
-     * @return integer
+     * @return int
      */
     public function getSort()
     {

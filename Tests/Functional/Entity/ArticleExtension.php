@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ONGR\OXIDConnectorBundle\Entity\ArticleExtension as ParentArticleExtension;
 
 /**
- * A class to test ONGR\OXIDConnectorBundle\Entity\ArticleExtension abstract class
+ * A class to test ONGR\OXIDConnectorBundle\Entity\ArticleExtension abstract class.
  *
  * @ORM\Entity
  * @ORM\Table(name="oxartextends")

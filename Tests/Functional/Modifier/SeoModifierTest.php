@@ -16,13 +16,18 @@ use ONGR\OXIDConnectorBundle\Modifier\SeoModifier;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 /**
- * Tests if category modifier works as expected
+ * Tests if category modifier works as expected.
  */
 class SeoModifierTest extends TestBase
 {
+    /**
+     * Data provider for testModify.
+     *
+     * @return array
+     */
     public function testModifyData()
     {
-        #0 test with no shop id and language set
+        // Case #0 test with no shop id and language set.
         $expectedEntity1 = new Product();
         $expectedEntity1->metaKeywords = 'testKeywords For Product 1 in language 1';
         $expectedEntity1->metaDescription = 'testDescription For Product 1 in language 1';
@@ -33,7 +38,7 @@ class SeoModifierTest extends TestBase
 
         $out[] = [[$expectedEntity1, $expectedEntity2]];
 
-        #1 test with shop id set
+        // Case #1 test with shop id set.
         $expectedEntity1 = new Product();
         $expectedEntity1->metaKeywords = 'testKeywords For Product 1 in language 0';
         $expectedEntity1->metaDescription = 'testDescription For Product 1 in language 0';
@@ -44,7 +49,7 @@ class SeoModifierTest extends TestBase
 
         $out[] = [[$expectedEntity1, $expectedEntity2], 1];
 
-        #2 test with language id set
+        // Case #2 test with language id set.
         $expectedEntity1 = new Product();
         $expectedEntity1->metaKeywords = 'testKeywords For Product 1 in language 1';
         $expectedEntity1->metaDescription = 'testDescription For Product 1 in language 1';
@@ -55,7 +60,7 @@ class SeoModifierTest extends TestBase
 
         $out[] = [[$expectedEntity1, $expectedEntity2], null, 1];
 
-        // #3 test with language id and shop id set
+        // Case #3 test with language id and shop id set.
         $expectedEntity1 = new Product();
         $expectedEntity1->metaKeywords = null;
         $expectedEntity1->metaDescription = null;
@@ -65,18 +70,18 @@ class SeoModifierTest extends TestBase
         $expectedEntity2->metaDescription = null;
 
         $out[] = [[$expectedEntity1, $expectedEntity2], 1, 1];
-        return $out;
 
+        return $out;
     }
 
     /**
-     * test modification
+     * Test modification.
+     *
+     * @param array $expectedEntities
+     * @param int   $shopId
+     * @param int   $languageId
      *
      * @dataProvider testModifyData()
-     *
-     * @param $expectedEntities array
-     * @param $shopId
-     * @param $languageId
      */
     public function testModify(array $expectedEntities, $shopId = null, $languageId = null)
     {

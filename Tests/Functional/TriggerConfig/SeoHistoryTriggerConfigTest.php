@@ -19,9 +19,13 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\SeoHistory;
 
 class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
 {
-    public function testSeoTrigger()
+    /**
+     * Tests Seo history trigger.
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function testSeoHistoryTrigger()
     {
-
         /** @var $triggersManager TriggersManager */
         $triggersManager = $this->getServiceContainer()->get('ongr_connections.triggers_manager');
         $entityManager = $this->getEntityManager();
@@ -31,7 +35,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
         $this->importData('TriggerConfigTest/content.sql');
         $this->importData('TriggerConfigTest/seo_history.sql');
 
-        //insert records before trigger creation so  we don't cause the main insert triggers to fire
+        // Insert records before trigger creation so  we don't cause the main insert triggers to fire.
         $article = new Article();
         $article->setActive(true);
         $article->setShortDesc('test');
@@ -57,14 +61,14 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
         $entityManager->persist($category);
 
         $content = new Content();
-        $content->setTitle("testContentTitle");
-        $content->setContent("testContent");
-        $content->setFolder("testFolder");
-        $content->setLoadId("testLoadId");
+        $content->setTitle('testContentTitle');
+        $content->setContent('testContent');
+        $content->setFolder('testFolder');
+        $content->setLoadId('testLoadId');
         $content->setSnippet(true);
         $content->setType(5);
         $content->setActive(true);
-        $content->setPosition("testPosition");
+        $content->setPosition('testPosition');
         $content->setId(3);
         $entityManager->persist($content);
 
@@ -74,7 +78,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
 
         $connection = $this->getConnection();
 
-        //insert
+        // Insert.
         $seo = new SeoHistory();
         $seo->setIdent('testIdentifier');
         $seo->setLang(0);
@@ -86,15 +90,15 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
 
         $entityManager->flush();
 
-        //update
+        // Update.
         $seo->setLang(2);
         $entityManager->persist($seo);
         $entityManager->flush();
 
-        //delete
+        // Delete.
         $connection->executeQuery('DELETE FROM `oxseohistory`');
 
-        $actualRecords = $connection->fetchAll("SELECT * FROM `ongr_sync_jobs`");
+        $actualRecords = $connection->fetchAll('SELECT * FROM `ongr_sync_jobs`');
         $this->compareRecords(
             [
                 [
@@ -103,7 +107,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 2,
@@ -111,7 +115,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 3,
@@ -119,7 +123,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 4,
@@ -127,7 +131,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 5,
@@ -135,7 +139,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 6,
@@ -143,7 +147,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 7,
@@ -151,7 +155,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 8,
@@ -159,7 +163,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 9,
@@ -167,7 +171,7 @@ class SeoHistoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
             ],
             $actualRecords

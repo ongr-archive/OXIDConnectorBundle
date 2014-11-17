@@ -18,9 +18,11 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
 
 class CategoryTriggerConfigTest extends TriggerConfigTestBase
 {
+    /**
+     * Tests Category trigger.
+     */
     public function testCategoryTrigger()
     {
-
         /** @var $triggersManager TriggersManager */
         $triggersManager = $this->getServiceContainer()->get('ongr_connections.triggers_manager');
         $entityManager = $this->getEntityManager();
@@ -28,7 +30,7 @@ class CategoryTriggerConfigTest extends TriggerConfigTestBase
         $this->importData('TriggerConfigTest/category.sql');
         $this->importData('TriggerConfigTest/articles.sql');
 
-        //insert article before triggers creation so  we don't cause the main articles insert trigger to fire
+        // Insert article before triggers creation so  we don't cause the main articles insert trigger to fire.
         $article = new Article();
         $article->setActive(true);
         $article->setShortDesc('test');
@@ -46,10 +48,9 @@ class CategoryTriggerConfigTest extends TriggerConfigTestBase
 
         $triggersManager->createTriggers($this->getProgressHelper(), $this->getConsoleOutput());
 
-
         $connection = $this->getConnection();
 
-        //insert
+        // Insert.
         $category = new Category();
         $category->setActive(true);
         $category->setHidden(true);
@@ -70,16 +71,16 @@ class CategoryTriggerConfigTest extends TriggerConfigTestBase
 
         $entityManager->flush();
 
-        //update
+        // Update.
         $category->setSort(5);
         $entityManager->persist($category);
         $entityManager->flush();
 
-        //delete
+        // Delete.
         $entityManager->remove($category);
         $entityManager->flush();
 
-        $actualRecords = $connection->fetchAll("SELECT * FROM `ongr_sync_jobs`");
+        $actualRecords = $connection->fetchAll('SELECT * FROM `ongr_sync_jobs`');
 
         $this->compareRecords(
             [
@@ -89,7 +90,7 @@ class CategoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'C'
+                    'type' => 'C',
                 ],
                 [
                     'id' => 2,
@@ -97,7 +98,7 @@ class CategoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 3,
@@ -105,7 +106,7 @@ class CategoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'U'
+                    'type' => 'U',
                 ],
                 [
                     'id' => 4,
@@ -113,8 +114,8 @@ class CategoryTriggerConfigTest extends TriggerConfigTestBase
                     'document_id' => '1',
                     'status_test' => '0',
                     'update_type' => '1',
-                    'type' => 'D'
-                ]
+                    'type' => 'D',
+                ],
             ],
             $actualRecords
         );

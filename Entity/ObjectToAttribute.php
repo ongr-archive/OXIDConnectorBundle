@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxobject2attribute"
+ * Entity for table "oxobject2attribute".
  *
  * @ORM\MappedSuperclass
  */
@@ -54,14 +54,14 @@ abstract class ObjectToAttribute
     protected $value;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXPOS", type="integer")
      */
     protected $pos;
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -75,7 +75,7 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -85,7 +85,7 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Sets mapped object ID
+     * Sets mapped object ID.
      *
      * @param string $objectId
      *
@@ -99,7 +99,7 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Returns mapped object ID
+     * Returns mapped object ID.
      *
      * @return string
      */
@@ -109,7 +109,7 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Sets attribute
+     * Sets attribute.
      *
      * @param Attribute $attribute
      *
@@ -123,7 +123,7 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Returns attribute
+     * Returns attribute.
      *
      * @return Attribute
      */
@@ -133,7 +133,7 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Sets attribute value
+     * Sets attribute value.
      *
      * @param string $value
      *
@@ -147,7 +147,7 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Returns attribute value
+     * Returns attribute value.
      *
      * @return string
      */
@@ -157,9 +157,9 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Sets position
+     * Sets position.
      *
-     * @param integer $position
+     * @param int $position
      *
      * @return ObjectToAttribute
      */
@@ -171,9 +171,9 @@ abstract class ObjectToAttribute
     }
 
     /**
-     * Returns position
+     * Returns position.
      *
-     * @return integer
+     * @return int
      */
     public function getPos()
     {

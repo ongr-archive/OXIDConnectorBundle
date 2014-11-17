@@ -19,7 +19,7 @@ use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 class CategoryToAttributeTest extends AbstractEntityTest
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFieldsData()
     {
@@ -27,12 +27,12 @@ class CategoryToAttributeTest extends AbstractEntityTest
             ['id'],
             ['category', 'ONGR\OXIDConnectorBundle\Entity\Category'],
             ['attribute', 'ONGR\OXIDConnectorBundle\Entity\Attribute'],
-            ['sort']
+            ['sort'],
         ];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassName()
     {

@@ -1,17 +1,13 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE: 
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
- */
+* This file is part of the ONGR package.
+*
+* (c) NFQ Technologies UAB <info@nfq.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\DependencyInjection;
 
@@ -21,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Returns sample configuration
+     * Returns sample configuration.
      *
      * @return array
      */
@@ -47,41 +43,41 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
                         'lang_id' => 0,
                     ],
                 ],
-                'entity_namespace' => 'AcmeDemoBundle'
+                'entity_namespace' => 'AcmeDemoBundle',
             ],
         ];
     }
 
     /**
-     * Data provider for triggerLoadingData()
+     * Data provider for triggerLoadingData().
      *
      * @return array
      */
     public function triggerLoadingData()
     {
-        // #0 setting non-existent, default true should be loaded
+        // Case #0 setting non-existent, default true should be loaded.
         $config = $this->getDefaultConfig();
-        $out [] = [$config, true];
+        $out[] = [$config, true];
 
-        // #1 setting enabled, should be loaded
+        // Case #1 setting enabled, should be loaded.
         $config = $this->getDefaultConfig();
         $config['ongr_oxid']['use_default_triggers'] = true;
-        $out [] = [$config, true];
+        $out[] = [$config, true];
 
-        // #2 set to false, shouldn't be loaded
+        // Case #2 set to false, shouldn't be loaded.
         $config = $this->getDefaultConfig();
         $config['ongr_oxid']['use_default_triggers'] = false;
-        $out [] = [$config, false];
+        $out[] = [$config, false];
 
         return $out;
     }
 
-
     /**
-     * Test if triggers are loaded when needed
+     * Test if triggers are loaded when needed.
      *
      * @param array $config
-     * @param boolean $shouldExist
+     * @param bool  $shouldExist
+     *
      * @dataProvider triggerLoadingData()
      */
     public function testTriggerLoading($config, $shouldExist)
@@ -95,36 +91,36 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($shouldExist, $container->hasDefinition('ongr_oxid.triggers.oxarticles_insert'));
     }
 
-
     /**
-     * Data provider for testSeoTriggerLoading()
+     * Data provider for testSeoTriggerLoading().
      *
      * @return array
      */
     public function seoTriggerLoadingData()
     {
-        // #0 setting non-existent, default true should be loaded
+        // Case #0 setting non-existent, default true should be loaded.
         $config = $this->getDefaultConfig();
-        $out [] = [$config, true];
+        $out[] = [$config, true];
 
-        // #1 setting enabled, should be loaded
+        // Case #1 setting enabled, should be loaded.
         $config = $this->getDefaultConfig();
         $config['ongr_oxid']['use_seo_triggers'] = true;
-        $out [] = [$config, true];
+        $out[] = [$config, true];
 
-        // #2 set to false, shouldn't be loaded
+        // Case #2 set to false, shouldn't be loaded.
         $config = $this->getDefaultConfig();
         $config['ongr_oxid']['use_seo_triggers'] = false;
-        $out [] = [$config, false];
+        $out[] = [$config, false];
 
         return $out;
     }
 
     /**
-     * Test if seo triggers are loaded when needed
+     * Test if seo triggers are loaded when needed.
      *
      * @param array $config
-     * @param boolean $shouldExist
+     * @param bool  $shouldExist
+     *
      * @dataProvider seoTriggerLoadingData()
      */
     public function testSeoTriggerLoading($config, $shouldExist)
@@ -141,11 +137,11 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Checks if expected definitions are loaded
+     * Checks if expected definitions are loaded.
      *
-     * @param ContainerBuilder $container Initial container
-     * @param array  $config   Configuration to load
-     * @param string $expected Expected definition to load
+     * @param ContainerBuilder $container Initial container.
+     * @param array            $config    Configuration to load.
+     * @param string           $expected  Expected definition to load.
      *
      * @dataProvider getTestServiceDefinitionData()
      */
@@ -157,7 +153,7 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for testServiceDefinition()
+     * Data provider for testServiceDefinition().
      *
      * @return array[]
      */
@@ -166,12 +162,12 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
         $out = [];
         $defaultConfig = $this->getDefaultConfig();
 
-        // Case #0: default config, DB mapping listener
+        // Case #0: default config, DB mapping listener.
         $container = new ContainerBuilder();
         $container->setParameter('ongr_connections.active_shop', 'alpha');
         $out[] = [$container, $defaultConfig, 'ongr_oxid.mapping_listener'];
 
-        // Case #1: default config, product document modifier
+        // Case #1: default config, product document modifier.
         $container = new ContainerBuilder();
         $container->setParameter('ongr_connections.active_shop', 'alpha');
         $out[] = [$container, $defaultConfig, 'ongr_oxid.modifier.product'];
@@ -180,7 +176,7 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test if 'ongr_oxid.mapping_listener' is defined and has correct replacements
+     * Test if 'ongr_oxid.mapping_listener' is defined and has correct replacements.
      */
     public function testMappingListenerDefinition()
     {
@@ -196,7 +192,7 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test if 'ongr_oxid.modifier.product' is not defined when other names are set in configuration
+     * Test if 'ongr_oxid.modifier.product' is not defined when other names are set in configuration.
      */
     public function testSkippedProductModifierDefinition()
     {
@@ -211,7 +207,7 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test if exception is thrown when user's configuration is incorrect
+     * Test if exception is thrown when user's configuration is incorrect.
      *
      * @expectedException \LogicException
      * @expectedExceptionMessage Database mapping is defined but active shop ID is not set
@@ -227,7 +223,7 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test if exception is thrown when user's configuration is incorrect
+     * Test if exception is thrown when user's configuration is incorrect.
      *
      * @expectedException \LogicException
      * @expectedExceptionMessage Active shop is set to 'gama' but no DB mapping is defined for it
@@ -243,17 +239,20 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests if it is possible to disable loading of modifiers
+     * Tests if it is possible to disable loading of modifiers.
      *
-     * @param ContainerBuilder  $container      Initial container
-     * @param array             $config         Configuration to load
-     * @param integer           $expectedCalls  Expected number of calls for 'loadModifiers' method
+     * @param ContainerBuilder $container     Initial container.
+     * @param array            $config        Configuration to load.
+     * @param int              $expectedCalls Expected number of calls for 'loadModifiers' method.
      *
      * @dataProvider getModifierLoadingData
      */
     public function testModifierLoading($container, $config, $expectedCalls)
     {
-        $mock = $this->getMock('ONGR\OXIDConnectorBundle\DependencyInjection\ONGROXIDConnectorExtension', ['loadModifiers']);
+        $mock = $this->getMock(
+            'ONGR\OXIDConnectorBundle\DependencyInjection\ONGROXIDConnectorExtension',
+            ['loadModifiers']
+        );
 
         $mock->expects($this->exactly($expectedCalls))
              ->method('loadModifiers');
@@ -262,7 +261,7 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for testModifierLoading()
+     * Data provider for testModifierLoading().
      *
      * @return array
      */
@@ -275,14 +274,14 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
 
         $config = $this->getDefaultConfig();
 
-        // Case #0: with default config
+        // Case #0: with default config.
         $out[] = [$container, $config, 1];
 
-        // Case #1: with default config and 'use_modifiers' set to true
+        // Case #1: with default config and 'use_modifiers' set to true.
         $config['ongr_oxid']['use_modifiers'] = true;
         $out[] = [$container, $config, 1];
 
-        // Case #2: with default config and 'use_modifiers' set to false
+        // Case #2: with default config and 'use_modifiers' set to false.
         $config['ongr_oxid']['use_modifiers'] = false;
         $out[] = [$container, $config, 0];
 

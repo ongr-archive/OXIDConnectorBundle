@@ -89,9 +89,9 @@ class ONGROXIDConnectorExtension extends Extension
     }
 
     /**
-     * Loads required modifiers and triggers
+     * Loads required modifiers and triggers.
      *
-     * @param $config
+     * @param array           $config
      * @param LoaderInterface $loader
      */
     protected function loadModifiers($config, LoaderInterface $loader)
@@ -101,7 +101,7 @@ class ONGROXIDConnectorExtension extends Extension
         foreach ($toLoad as $modifier) {
             if ($config['modifiers'] === [] || in_array($modifier, $config['modifiers'])) {
                 $loader->load("modifiers/{$modifier}.yml");
-                //load the trigger as well if they're enabled
+                // Load the trigger as well if they're enabled.
                 if ($config['use_default_triggers']) {
                     $loader->load("triggers/{$modifier}.yml");
                 }
@@ -109,6 +109,11 @@ class ONGROXIDConnectorExtension extends Extension
         }
     }
 
+    /**
+     * Returns correct dependency injection alias.
+     *
+     * @return string
+     */
     public function getAlias()
     {
         return 'ongr_oxid';

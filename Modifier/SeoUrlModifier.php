@@ -17,7 +17,7 @@ use ONGR\OXIDConnectorBundle\Service\SeoUrlService;
 use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 
 /**
- * Gets URLs for new entities from OXID
+ * Gets URLs for new entities from OXID.
  */
 class SeoUrlModifier implements ModifierInterface
 {
@@ -27,7 +27,7 @@ class SeoUrlModifier implements ModifierInterface
     protected $seoUrlService;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param SeoUrlService $seoUrlService
      */
@@ -37,7 +37,7 @@ class SeoUrlModifier implements ModifierInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
     {

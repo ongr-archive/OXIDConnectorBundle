@@ -22,22 +22,22 @@ use ONGR\OXIDConnectorBundle\Modifier\Traits\LanguageAwareTrait;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\ShopAwareTrait;
 
 /**
- * Gets necessary SEO data for new entity from OXID
+ * Gets necessary SEO data for new entity from OXID.
  */
 class SeoModifier implements ModifierInterface
 {
     /**
-     * This modifier uses custom queries so we need to know which Entities we are using
+     * This modifier uses custom queries so we need to know which Entities we are using.
      */
     use EntityAliasAwareTrait;
 
     /**
-     * Language for queries
+     * Language for queries.
      */
     use LanguageAwareTrait;
 
     /**
-     * Shop id for queries
+     * Shop id for queries.
      */
     use ShopAwareTrait;
 
@@ -52,7 +52,7 @@ class SeoModifier implements ModifierInterface
     protected $mapping = ['getKeywords' => 'metaKeywords', 'getDescription' => 'metaDescription'];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param EntityManagerInterface $entityManager
      * @param array                  $mapping
@@ -67,7 +67,7 @@ class SeoModifier implements ModifierInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
     {
@@ -82,7 +82,7 @@ class SeoModifier implements ModifierInterface
     }
 
     /**
-     * Returns SeoData of the entity
+     * Returns SeoData of the entity.
      *
      * @param object $entity
      *

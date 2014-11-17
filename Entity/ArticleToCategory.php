@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for articles mapped in table "oxobject2category"
+ * Entity for articles mapped in table "oxobject2category".
  *
  * @ORM\MappedSuperclass
  */
@@ -31,7 +31,7 @@ abstract class ArticleToCategory extends ObjectToCategory
     protected $article;
 
     /**
-     * Sets article object
+     * Sets article object.
      *
      * @param Article $article
      *
@@ -45,7 +45,7 @@ abstract class ArticleToCategory extends ObjectToCategory
     }
 
     /**
-     * Returns article object
+     * Returns article object.
      *
      * @return Article
      */

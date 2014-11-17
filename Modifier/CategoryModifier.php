@@ -17,12 +17,12 @@ use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\OXIDConnectorBundle\Entity\Category;
 
 /**
- * Converts OXID category to ONGR category document
+ * Converts OXID category to ONGR category document.
  */
 class CategoryModifier implements ModifierInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
     {

@@ -12,20 +12,21 @@
 namespace ONGR\OXIDConnectorBundle\Modifier\Traits;
 
 /**
- * Trait used for modifiers which require language id in queries
+ * Trait used for modifiers which require language id in queries.
+ *
  * It's used to select data by the specified language
  */
 trait LanguageAwareTrait
 {
     /**
-     * Specifies the language used in queries
+     * Specifies the language used in queries.
      *
      * @var int $languageId
      */
     private $languageId;
 
     /**
-     * Sets the current language
+     * Sets the current language.
      *
      * @param int $languageId
      */
@@ -35,7 +36,7 @@ trait LanguageAwareTrait
     }
 
     /**
-     * Return language
+     * Return language.
      *
      * @return int
      */

@@ -1,17 +1,13 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE: 
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
- */
+* This file is part of the ONGR package.
+*
+* (c) NFQ Technologies UAB <info@nfq.com>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\Service;
 
@@ -24,20 +20,21 @@ use ONGR\OXIDConnectorBundle\Entity\SeoHistory;
 use ONGR\OXIDConnectorBundle\Service\SeoUrlService;
 
 /**
- * This class holds unit tests for seo url service
+ * This class holds unit tests for seo url service.
  */
 class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Get entity manager mock
+     * Get entity manager mock.
      *
-     * @param $returnValueActive
-     * @param $returnValueHistory
+     * @param array $returnValueActive
+     * @param array $returnValueHistory
+     *
      * @return \PHPUnit_Framework_MockObject_MockObject | EntityManager
      */
     protected function getEntityManagerMock($returnValueActive, $returnValueHistory)
     {
-        $emMock  = $this->getMock(
+        $emMock = $this->getMock(
             'Doctrine\ORM\EntityManagerInterface'
         );
 
@@ -55,7 +52,7 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
             $this->returnValueMap(
                 [
                     ['SELECT h FROM ONGROXIDConnectorBundle:SeoHistory h WHERE h.objectId = :id', $queryMockExpired],
-                    ['SELECT s FROM ONGROXIDConnectorBundle:Seo s WHERE s.objectId = :id', $queryMockActive]
+                    ['SELECT s FROM ONGROXIDConnectorBundle:Seo s WHERE s.objectId = :id', $queryMockActive],
                 ]
             )
         );
@@ -74,13 +71,13 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data for testModify
+     * Data for testModify.
      *
      * @return array
      */
     public function testModifyData()
     {
-        #0 one prioritized url and a few expired urls
+        // Case #0 one prioritized url and a few expired urls.
 
         /** @var Category $mainCategory */
         $mainCategory = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Category');
@@ -118,12 +115,12 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
         $expectedUrls = [
             ['url' => '/test/seo/Active/2/prioritized', 'key' => 'prioritizedKey'],
             ['url' => '/test/seo/Active/0', 'key' => 'testKey0'],
-            ['url' => '/test/seo/Active/1', 'key' => 'testKey1']
+            ['url' => '/test/seo/Active/1', 'key' => 'testKey1'],
         ];
         $expectedExpiredUrls = ['1f7c2ad5fb974d30234a08b41769b4bf', '1aa5a628fcfb26e7586fa314eb84995a'];
         $out[] = [$activeSeos, $expiredSeos, [$objToCatPrio], $expectedUrls, $expectedExpiredUrls];
 
-        #1 no prioritized URLs
+        // Case #1 no prioritized URLs.
         /** @var Seo $seoActive */
         $seoActive = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Seo');
         $seoActive->setSeoUrl('/test/seo/Active/0');
@@ -143,7 +140,7 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
         $expectedUrls = [
             [ 'url' => '/test/seo/Active/0', 'key' => 'testKey0'],
             [ 'url' => '/test/seo/Active/2', 'key' => 'testKey2'],
-            [ 'url' => '/test/seo/Active/1', 'key' => 'testKey1']
+            [ 'url' => '/test/seo/Active/1', 'key' => 'testKey1'],
         ];
         $expectedExpiredUrls = [];
         $out[] = [$activeSeos, [], [], $expectedUrls, $expectedExpiredUrls];
@@ -152,15 +149,15 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test for testModify
+     * Test for testModify.
+     *
+     * @param array               $activeSeos
+     * @param array               $expiredSeos
+     * @param ArticleToCategory[] $categories
+     * @param array               $expectedUrls
+     * @param array               $expectedExpired
      *
      * @dataProvider testModifyData
-     *
-     * @param array $activeSeos
-     * @param array $expiredSeos
-     * @param ArticleToCategory[] $categories
-     * @param array $expectedUrls
-     * @param array $expectedExpired
      */
     public function testModify(
         array $activeSeos,

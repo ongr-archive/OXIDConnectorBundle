@@ -12,20 +12,21 @@
 namespace ONGR\OXIDConnectorBundle\Modifier\Traits;
 
 /**
- * Trait used for modifiers which require shop id in queries
+ * Trait used for modifiers which require shop id in queries.
+ *
  * It's used to select data by the specified shop
  */
 trait ShopAwareTrait
 {
     /**
-     * Specifies the shop used in queries
+     * Specifies the shop used in queries.
      *
      * @var int $shopId
      */
     private $shopId;
 
     /**
-     * Sets the current shop
+     * Sets the current shop.
      *
      * @param int $shopId
      */
@@ -35,7 +36,7 @@ trait ShopAwareTrait
     }
 
     /**
-     * Return shop
+     * Return shop.
      *
      * @return int
      */

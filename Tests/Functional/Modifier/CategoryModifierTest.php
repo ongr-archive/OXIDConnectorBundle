@@ -19,12 +19,12 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Attribute;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 /**
- * Tests if category modifier works as expected
+ * Tests if category modifier works as expected.
  */
 class CategoryModifierTest extends TestBase
 {
     /**
-     * test modification
+     * Test modification.
      */
     public function testModify()
     {
@@ -61,7 +61,7 @@ class CategoryModifierTest extends TestBase
         );
         $this->assertCount(2, $categoryItems);
 
-        //test if we have the correct attribute
+        // Test if we have the correct attribute.
         /** @var CategoryToAttribute[] $categoryToAttribute */
         $categoryToAttribute = $categoryItems[0]->getAttributes();
         $this->assertEquals($expectedEntity1Attribute->getTitle(), $categoryToAttribute[0]->getAttribute()->getTitle());

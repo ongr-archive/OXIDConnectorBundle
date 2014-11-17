@@ -16,46 +16,46 @@ use ONGR\TestingBundle\Document\Product;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 /**
- * Tests if category modifier works as expected
+ * Tests if category modifier works as expected.
  */
 class SeoUrlServiceTest extends TestBase
 {
     /**
-     * Test data fpr testModify()
+     * Test data fpr testModify().
      *
      * @return array
      */
     public function testModifyData()
     {
-        #0 test with no shop id and language set
+        // Case #0 test with no shop id and language set.
         $expectedEntity1 = new Product();
         $expectedEntity1->url = [
             ['url' => 'test/url/for/product1/number/one', 'key' => 'product1Key'],
-            ['url' => 'test/url/for/product1/number/two', 'key' => 'product2Key']
+            ['url' => 'test/url/for/product1/number/two', 'key' => 'product2Key'],
         ];
         $expectedEntity1->expired_url = ['b0b4d221756c80afdad8904c0b91b877', '8b831f739c5d16cf4571b14a76006528'];
 
         $out[] = [[$expectedEntity1]];
 
-        #1 test with shop id set
+        // Case #1 test with shop id set.
         $expectedEntity1 = new Product();
         $expectedEntity1->url = [
-            ['url' => 'test/url/for/product1/number/one', 'key' => 'product1Key']
+            ['url' => 'test/url/for/product1/number/one', 'key' => 'product1Key'],
         ];
         $expectedEntity1->expired_url = ['8b831f739c5d16cf4571b14a76006528'];
 
         $out[] = [[$expectedEntity1], 1];
 
-        #2 test with language id set
+        // Case #2 test with language id set.
         $expectedEntity1 = new Product();
         $expectedEntity1->url = [
-            ['url' => 'test/url/for/product1/number/two', 'key' => 'product2Key']
+            ['url' => 'test/url/for/product1/number/two', 'key' => 'product2Key'],
         ];
         $expectedEntity1->expired_url = ['b0b4d221756c80afdad8904c0b91b877'];
 
         $out[] = [[$expectedEntity1], null, 1];
 
-        #3 test with language id and shop id set
+        // Case #3 test with language id and shop id set.
         $expectedEntity1 = new Product();
         $expectedEntity1->url = [];
         $expectedEntity1->expired_url = [];
@@ -63,17 +63,16 @@ class SeoUrlServiceTest extends TestBase
         $out[] = [[$expectedEntity1], 1, 1];
 
         return $out;
-
     }
 
     /**
-     * test modification
+     * Test modification.
+     *
+     * @param array $expectedEntities
+     * @param int   $shopId
+     * @param int   $languageId
      *
      * @dataProvider testModifyData()
-     *
-     * @param $expectedEntities array
-     * @param $shopId
-     * @param $languageId
      */
     public function testModify(array $expectedEntities, $shopId = null, $languageId = null)
     {

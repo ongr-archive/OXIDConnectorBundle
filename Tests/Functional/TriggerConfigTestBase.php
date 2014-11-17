@@ -21,29 +21,32 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 
-//TODO
-abstract class TriggerConfigTestBase // extends WebTestCase
+/**
+ * Class TriggerConfigTestBase.
+ *
+ * @package ONGR\OXIDConnectorBundle\Tests\Functional
+ */
+abstract class TriggerConfigTestBase extends WebTestCase
 {
-
     /**
      * @var ContainerInterface
      */
     protected $container;
 
     /**
-     * Return a progress helper for testing
+     * Return a progress helper for testing.
      *
      * @return ProgressHelper
      */
     protected function getProgressHelper()
     {
         $helper = new ProgressHelper();
+
         return $helper;
     }
 
-
     /**
-     * Gets mock for output interface, used in testing
+     * Gets mock for output interface, used in testing.
      *
      * @return \PHPUnit_Framework_MockObject_MockObject|OutputInterface
      */
@@ -56,14 +59,14 @@ abstract class TriggerConfigTestBase // extends WebTestCase
     }
 
     /**
-     * Compares two sets of records
+     * Compares two sets of records.
      *
-     * @param $expectedRecord
-     * @param $actualRecords
+     * @param array $expectedRecord
+     * @param array $actualRecords
      */
-    public function compareRecords($expectedRecord, $actualRecords)
+    public function compareRecords(array $expectedRecord, array $actualRecords)
     {
-        // unset the timestamp, after asserting it exists, we don't need to compare it.
+        // Unset the timestamp, after asserting it exists, we don't need to compare it.
         foreach ($actualRecords as &$actualRecord) {
             $this->assertArrayHasKey('timestamp', $actualRecord);
             unset($actualRecord['timestamp']);
@@ -73,7 +76,7 @@ abstract class TriggerConfigTestBase // extends WebTestCase
     }
 
     /**
-     * Sets up required info before each test
+     * Sets up required info before each test.
      */
     public function setUp()
     {
@@ -93,21 +96,21 @@ abstract class TriggerConfigTestBase // extends WebTestCase
     }
 
     /**
-     * Deletes  all data after each test
+     * Deletes  all data after each test.
      */
     public function tearDown()
     {
-        $container = $this->getServiceContainer();
         /** @var EntityManager $entityManager */
         $entityManager = $this->getEntityManager();
         $connection = $entityManager->getConnection();
-        $name =  $connection->getParams()['dbname'];
+        $name = $connection->getParams()['dbname'];
         $name = $connection->getSchemaManager()->getDatabasePlatform()->quoteSingleIdentifier($name);
         $connection->getSchemaManager()->dropDatabase($name);
     }
 
     /**
-     * Gets entity manager
+     * Gets entity manager.
+     *
      * @return EntityManager
      */
     public function getEntityManager()
@@ -116,17 +119,17 @@ abstract class TriggerConfigTestBase // extends WebTestCase
     }
 
     /**
-     * Imports sql file for testing
+     * Imports sql file for testing.
      *
      * @param string $file
      */
     public function importData($file)
     {
-        $this->executeSqlFile($this->getConnection(), getcwd() . '/Tests/Integration/Fixtures/' . $file);
+        $this->executeSqlFile($this->getConnection(), getcwd() . '/Tests/Functional/Fixtures/' . $file);
     }
 
     /**
-     * Returns service container, creates new if it does not exist
+     * Returns service container, creates new if it does not exist.
      *
      * @return ContainerInterface
      * @throws \Exception
@@ -141,14 +144,14 @@ abstract class TriggerConfigTestBase // extends WebTestCase
             $this->container = self::createClient()->getContainer();
 
         } catch (\Exception $e) {
-            print $e->getMessage();
+            echo $e->getMessage();
         }
 
         return $this->container;
     }
 
     /**
-     * Gets Connection from container
+     * Gets Connection from container.
      *
      * @return Connection
      */
@@ -156,14 +159,15 @@ abstract class TriggerConfigTestBase // extends WebTestCase
     {
         /** @var $doctrine RegistryInterface */
         $doctrine = $this->getServiceContainer()->get('doctrine');
+
         return $doctrine->getConnection();
     }
 
     /**
-     * Executes an SQL file
+     * Executes an SQL file.
      *
      * @param Connection $conn
-     * @param String $file
+     * @param string     $file
      */
     protected function executeSqlFile(Connection $conn, $file)
     {

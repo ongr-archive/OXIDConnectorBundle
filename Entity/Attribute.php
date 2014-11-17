@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for table "oxattribute"
+ * Entity for table "oxattribute".
  *
  * @ORM\MappedSuperclass
  */
@@ -37,14 +37,14 @@ abstract class Attribute
     protected $title;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="OXPOS", type="integer")
      */
     protected $pos;
 
     /**
-     * Sets object ID
+     * Sets object ID.
      *
      * @param string $id
      *
@@ -58,7 +58,7 @@ abstract class Attribute
     }
 
     /**
-     * Returns object ID
+     * Returns object ID.
      *
      * @return string
      */
@@ -68,7 +68,7 @@ abstract class Attribute
     }
 
     /**
-     * Sets title
+     * Sets title.
      *
      * @param string $title
      *
@@ -82,7 +82,7 @@ abstract class Attribute
     }
 
     /**
-     * Returns title
+     * Returns title.
      *
      * @return string
      */
@@ -92,9 +92,9 @@ abstract class Attribute
     }
 
     /**
-     * Sets position
+     * Sets position.
      *
-     * @param integer $position
+     * @param int $position
      *
      * @return Attribute
      */
@@ -106,9 +106,9 @@ abstract class Attribute
     }
 
     /**
-     * Returns position
+     * Returns position.
      *
-     * @return integer
+     * @return int
      */
     public function getPos()
     {
