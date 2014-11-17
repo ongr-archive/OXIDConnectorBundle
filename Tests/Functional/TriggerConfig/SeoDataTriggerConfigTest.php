@@ -95,7 +95,7 @@ class SeoDataTriggerConfigTest extends TriggerConfigTestBase
         $entityManager->flush();
 
         // Delete.
-        $connection->executeQuery("DELETE FROM `oxobject2seodata`");
+        $connection->executeQuery('DELETE FROM `oxobject2seodata`');
 
         $actualRecords = $connection->fetchAll('SELECT * FROM `ongr_sync_jobs`');
         $this->compareRecords(

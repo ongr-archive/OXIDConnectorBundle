@@ -162,7 +162,7 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
     public function testModify(
         array $activeSeos,
         array $expiredSeos,
-        array $categories,
+        $categories,
         array $expectedUrls,
         array $expectedExpired
     ) {
