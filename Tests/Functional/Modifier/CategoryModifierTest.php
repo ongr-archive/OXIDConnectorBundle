@@ -11,7 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Modifier;
 
-use ONGR\TestingBundle\Document\Category as CategoryDocument;
+use ONGR\OXIDConnectorBundle\Document\Category as CategoryDocument;
 use ONGR\OXIDConnectorBundle\Entity\Category;
 use ONGR\OXIDConnectorBundle\Entity\CategoryToAttribute;
 use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;

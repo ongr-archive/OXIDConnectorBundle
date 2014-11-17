@@ -11,7 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Modifier;
 
-use ONGR\TestingBundle\Document\Product;
+use ONGR\OXIDConnectorBundle\Document\Product;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 

@@ -17,7 +17,7 @@ use ONGR\OXIDConnectorBundle\Entity\ArticleToCategory;
 use ONGR\OXIDConnectorBundle\Entity\Category;
 use ONGR\OXIDConnectorBundle\Entity\Manufacturer;
 use ONGR\OXIDConnectorBundle\Entity\Vendor;
-use ONGR\TestingBundle\Document\Product;
+use ONGR\OXIDConnectorBundle\Document\Product;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
