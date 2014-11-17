@@ -1,0 +1,36 @@
+parameters:
+    ongr_oxid.triggers.category.track_fields:
+      - OXPARENTID
+      - OXLEFT
+      - OXRIGHT
+      - OXROOTID
+      - OXSORT
+      - OXACTIVE
+      - OXHIDDEN
+      - OXTITLE
+
+services:
+    # Category triggers
+    ongr_oxid.triggers.oxcategories_insert:
+        class: %ongr_oxid.triggers.simple_trigger.class%
+        arguments: [oxcategories, C, 1, category, NEW.OXID]
+        tags:
+            - { name: ongr_connections.trigger, trigger: oxcategory_insert }
+
+    ongr_oxid.triggers.oxcategories_update:
+        class: %ongr_oxid.triggers.composed_trigger.class%
+        arguments: [oxcategories, U, 1, category, NEW.OXID, %ongr_oxid.triggers.category.track_fields%]
+        tags:
+          - { name: ongr_connections.trigger, trigger: oxcategory_oxarticles_update }
+        calls:
+          - [addStatement, [@ongr_oxid.triggers.oxcategories_update.articles]]
+
+    ongr_oxid.triggers.oxcategories_update.articles:
+        class: %ongr_oxid.triggers.related_table.class%
+        arguments: [oxobject2category, oxobject2category.OXOBJECTID, oxobject2category.OXCATNID=NEW.OXID, product, U, 1]
+
+    ongr_oxid.triggers.oxcategory_delete:
+        class: %ongr_oxid.triggers.simple_trigger.class%
+        arguments: [oxcategories, D, 1, category, OLD.OXID]
+        tags:
+            - { name: ongr_connections.trigger, trigger: "oxcategory_delete" }

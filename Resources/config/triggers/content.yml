@@ -1,0 +1,26 @@
+parameters:
+    ongr_oxid.triggers.content.track_fields:
+      - OXTITLE
+      - OXCONTENT
+      - OXFOLDER
+      - OXLOADID
+
+services:
+    # Content triggers
+    ongr_oxid.triggers.oxcontent_insert:
+        class: %ongr_oxid.triggers.simple_trigger.class%
+        arguments: [oxcontents, C, 1, content, NEW.OXID]
+        tags:
+          - { name: ongr_connections.trigger, trigger: oxcontent_insert }
+
+    ongr_oxid.triggers.oxcontent_update:
+        class: %ongr_oxid.triggers.simple_trigger.class%
+        arguments: [oxcontents, U, 1, content, NEW.OXID, %ongr_oxid.triggers.content.track_fields%]
+        tags:
+          - { name: ongr_connections.trigger, trigger: oxcontent_update }
+
+    ongr_oxid.triggers.oxcontent_delete:
+        class: %ongr_oxid.triggers.simple_trigger.class%
+        arguments: [oxcontents, D, 1, content, OLD.OXID]
+        tags:
+          - { name: ongr_connections.trigger, trigger: oxcontent_delete }

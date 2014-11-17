@@ -1,0 +1,3 @@
+ongr_oxid:
+    resource: "@ONGROXIDConnectorBundle/Resources/config/routing.yml"
+    prefix:   /

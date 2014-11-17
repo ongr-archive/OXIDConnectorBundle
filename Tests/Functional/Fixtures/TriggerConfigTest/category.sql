@@ -1,0 +1,25 @@
+CREATE TABLE `oxcategories` (
+  `OXID` INT NOT NULL AUTO_INCREMENT,
+  `OXLEFT` int(11) NOT NULL,
+  `OXRIGHT` int(11) NOT NULL,
+  `OXSORT` int(11) NOT NULL,
+  `OXACTIVE` tinyint(1) NOT NULL,
+  `OXHIDDEN` tinyint(1) NOT NULL,
+  `OXTITLE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `OXDESC` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `OXLONGDESC` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `OXPARENTID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `OXROOTID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`OXID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `oxobject2category` (
+  `OXID` INT NOT NULL AUTO_INCREMENT,
+  `OXOBJECTID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `OXPOS` int(11) NOT NULL,
+  `OXTIME` int(11) NOT NULL,
+  `OXCATNID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`OXID`),
+  KEY `IDX_7A98288DEA569D6D` (`OXOBJECTID`),
+  KEY `IDX_7A98288D79BE839` (`OXCATNID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -1,0 +1,95 @@
+imports:
+    - { resource: parameters_test.yml }
+
+# Framework Configuration
+framework:
+    esi:             ~
+    fragments:       { path: /_proxy }
+    translator:      { fallback: "%locale%" }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: 201204261
+        assets_base_urls:
+            http: [%cdn_url%]
+            ssl: [%cdn_url_ssl%]
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    test: ~
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+        mapping_types:
+            enum: string
+            set: string
+            varbinary: string
+            tinyblob: text
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: false
+        mappings:
+            Bundle:
+                type: annotation
+                dir: %kernel.root_dir%/../../Entity
+                alias: ONGROXIDConnectorBundle
+                prefix: ONGR\OXIDConnectorBundle\Entity
+                is_bundle: false
+            Test:
+                type: annotation
+                dir: %kernel.root_dir%/../Functional/Entity
+                alias: ONGROXIDConnectorBundleTest
+                prefix: ONGR\OXIDConnectorBundle\Tests\Functional\Entity
+                is_bundle: false
+
+ongr_oxid:
+    database_mapping:
+        test:
+            tags:
+                @shop_tag: '_1'
+                @lang_tag: '_1_en'
+            shop_id: 1
+            lang_id: 0
+    entity_namespace: ONGROXIDConnectorBundle
+
+ongr_connections:
+    active_shop: test
+    shops:
+        test: ~
+
+ongr_elasticsearch:
+    connections:
+        default:
+            hosts:
+                - { host: 127.0.0.1:9200 }
+            index_name: ongr-content-bundle-test
+            settings:
+                refresh_interval: -1
+                number_of_replicas: 0
+    managers:
+        default:
+            connection: default
+            mappings:
+                - AcmeTestBundle
+
+ongr_content:
+    es:
+        repositories:
+            product: es.manager.default.product
+            content: es.manager.default.content
+            category: es.manager.default.category
