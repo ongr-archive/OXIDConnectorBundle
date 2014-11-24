@@ -17,7 +17,7 @@ use ONGR\OXIDConnectorBundle\Entity\ArticleToCategory;
 use ONGR\OXIDConnectorBundle\Entity\Category;
 use ONGR\OXIDConnectorBundle\Entity\Manufacturer;
 use ONGR\OXIDConnectorBundle\Entity\Vendor;
-use ONGR\OXIDConnectorBundle\Document\Product;
+use ONGR\OXIDConnectorBundle\Tests\Helpers\ProductDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
@@ -82,7 +82,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             ->setVendor($vendor)
             ->setManufacturer($manufacturer);
 
-        $expectedDocument = new Product();
+        $expectedDocument = new ProductDocument();
         $expectedDocument->id = 'id123';
         $expectedDocument->active = true;
         $expectedDocument->sku = 'abc123';
@@ -97,7 +97,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->vendor = 'Vendor A';
         $expectedDocument->manufacturer = 'Manufacturer A';
 
-        $document = new Product();
+        $document = new ProductDocument();
         $modifier->modify($document, $entity);
 
         $this->assertEquals($expectedDocument, $document);
