@@ -18,7 +18,7 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 /**
  * Tests if product modifier works as expected.
  */
-class ProductModifierTest extends TestBase
+class ProductModifierTest
 {
     /**
      * Test modification.
