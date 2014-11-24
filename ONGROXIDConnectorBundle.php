@@ -14,8 +14,16 @@ namespace ONGR\OXIDConnectorBundle;
 use ONGR\OXIDConnectorBundle\DependencyInjection\ONGROXIDConnectorExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * Class ONGROXIDConnectorBundle.
+ *
+ * @package ONGR\OXIDConnectorBundle
+ */
 class ONGROXIDConnectorBundle extends Bundle
 {
+    /**
+     * @return null|ONGROXIDConnectorExtension|\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+     */
     public function getContainerExtension()
     {
         return new ONGROXIDConnectorExtension();

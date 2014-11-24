@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Tests\Unit\Entity;
 use ONGR\ConnectionsBundle\Tests\Unit\Entity\AbstractEntityTest;
 
 /**
- * Contains tests for CategoryToAttribute setters and getters
+ * Contains tests for CategoryToAttribute setters and getters.
  */
 class CategoryToAttributeTest extends AbstractEntityTest
 {
