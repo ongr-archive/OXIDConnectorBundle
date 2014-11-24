@@ -16,12 +16,12 @@ use Doctrine\ORM\Query;
 use ONGR\OXIDConnectorBundle\Entity\Article;
 use ONGR\OXIDConnectorBundle\Entity\ArticleToCategory;
 use ONGR\OXIDConnectorBundle\Entity\Seo;
+use ONGR\OXIDConnectorBundle\Entity\Category;
+use ONGR\OXIDConnectorBundle\Entity\Content;
+use ONGR\OXIDConnectorBundle\Entity\SeoHistory;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\EntityAliasAwareTrait;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\LanguageAwareTrait;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\ShopAwareTrait;
-use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
-use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
-use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\SeoHistory;
 
 /**
  * This class is able to load seo urls for given entity.

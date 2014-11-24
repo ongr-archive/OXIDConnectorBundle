@@ -17,7 +17,7 @@
         },
         {
             "type": "vcs",
-            "url": "git@github.com:gimikus/TestingBundle.git"
+            "url": "git@github.com:ongr-io/TestingBundle.git"
         }
     ],
     "require": {

@@ -23,8 +23,6 @@ use Doctrine\DBAL\DriverManager;
 
 /**
  * Class TriggerConfigTestBase.
- *
- * @package ONGR\OXIDConnectorBundle\Tests\Functional
  */
 abstract class TriggerConfigTestBase extends WebTestCase
 {
