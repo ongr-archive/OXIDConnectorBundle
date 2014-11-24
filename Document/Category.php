@@ -23,9 +23,4 @@ use ONGR\ElasticsearchBundle\Document\DocumentTrait;
 class Category implements DocumentInterface
 {
     use DocumentTrait;
-
-    /**
-     * @var
-     */
-    public $hiddenField;
 }
