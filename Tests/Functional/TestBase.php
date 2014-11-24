@@ -21,8 +21,6 @@ use Doctrine\DBAL\DriverManager;
 
 /**
  * Class TestBase.
- *
- * @package ONGR\OXIDConnectorBundle\Tests\Functional
  */
 abstract class TestBase extends WebTestCase
 {
