@@ -11,14 +11,14 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Modifier;
 
-use ONGR\TestingBundle\Document\Product;
+use ONGR\OXIDConnectorBundle\Tests\Helpers\ProductDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 /**
  * Tests if product modifier works as expected.
  */
-class ProductModifierTest
+class ProductModifierTest extends TestBase
 {
     /**
      * Test modification.
@@ -26,7 +26,7 @@ class ProductModifierTest
     public function testModify()
     {
         // Non-existant category in db.
-        $expectedEntity1 = new Product();
+        $expectedEntity1 = new ProductDocument();
         $expectedEntity1->id = '6b698c33118caee4ca0882c33f513d2f';
         $expectedEntity1->active = true;
         $expectedEntity1->sku = '85-8573-846-1-4-3';
@@ -41,7 +41,7 @@ class ProductModifierTest
         $expectedEntity1->stock = 5;
         $expectedEntity1->categories = null;
 
-        $expectedEntity2 = new Product();
+        $expectedEntity2 = new ProductDocument();
         $expectedEntity2->id = '6b6a6aedca3e438e98d51f0a5d586c0b';
         $expectedEntity2->active = false;
         $expectedEntity2->sku = '0702-85-853-9-2';
@@ -67,7 +67,7 @@ class ProductModifierTest
         $modifier = new ProductModifier();
 
         foreach ($expectedEntities as $key => $expectedEntity) {
-            $createdProduct = new Product();
+            $createdProduct = new ProductDocument();
             $modifier->modify($createdProduct, $productItems[$key]);
             $this->assertEquals($createdProduct, $expectedEntity);
         }
