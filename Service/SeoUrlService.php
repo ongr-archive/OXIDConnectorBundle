@@ -28,19 +28,8 @@ use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\SeoHistory;
  */
 class SeoUrlService
 {
-    /**
-     * This modifier uses custom queries so we need to know which Entities we are using.
-     */
     use EntityAliasAwareTrait;
-
-    /**
-     * Language for queries.
-     */
     use LanguageAwareTrait;
-
-    /**
-     * Shop id for queries.
-     */
     use ShopAwareTrait;
 
     /**
@@ -76,7 +65,6 @@ class SeoUrlService
         foreach ($seoList as $seo) {
             if ($topPriority && $topPriority->getCategory()->getId() == $seo->getParams()) {
                 array_unshift($result, $this->getSingleActiveUrl($seo));
-
             } else {
                 array_push($result, $this->getSingleActiveUrl($seo));
             }

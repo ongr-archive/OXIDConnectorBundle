@@ -26,19 +26,8 @@ use ONGR\OXIDConnectorBundle\Modifier\Traits\ShopAwareTrait;
  */
 class SeoModifier implements ModifierInterface
 {
-    /**
-     * This modifier uses custom queries so we need to know which Entities we are using.
-     */
     use EntityAliasAwareTrait;
-
-    /**
-     * Language for queries.
-     */
     use LanguageAwareTrait;
-
-    /**
-     * Shop id for queries.
-     */
     use ShopAwareTrait;
 
     /**
