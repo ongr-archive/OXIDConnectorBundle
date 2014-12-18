@@ -19,7 +19,7 @@ use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 /**
  * Gets URLs for new entities from OXID.
  */
-class SeoUrlModifier implements ModifierInterface
+class SeoUrlModifier
 {
     /**
      * @var SeoUrlService
@@ -39,7 +39,7 @@ class SeoUrlModifier implements ModifierInterface
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    public function modify(DocumentInterface $document, $entity)
     {
         $document->url = $this->seoUrlService->getActiveUrlList($entity);
         $document->expired_url = $this->seoUrlService->getSeoHistoryHashes($entity);

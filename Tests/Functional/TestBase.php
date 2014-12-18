@@ -30,17 +30,6 @@ abstract class TestBase extends WebTestCase
     protected $container;
 
     /**
-     * Sets up required info before each test.
-     */
-    public function setUp()
-    {
-        $vendorDir = $this->getRootDir($this->getServiceContainer()) . '/../../vendor';
-        AnnotationRegistry::registerFile(
-            $vendorDir . '/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
-        );
-    }
-
-    /**
      * Return an array of elements required for testing.
      *
      * @param array  $ids
@@ -67,56 +56,52 @@ abstract class TestBase extends WebTestCase
      * Returns service container, creates new if it does not exist.
      *
      * @return ContainerInterface
-     * @throws \Exception
      */
     protected function getServiceContainer()
     {
-        if ($this->container) {
-            return $this->container;
-        }
-
-        try {
+        if ($this->container === null) {
             $this->container = self::createClient()->getContainer();
-
-        } catch (\Exception $e) {
-            echo $e->getMessage();
         }
 
         return $this->container;
     }
 
     /**
-     * Gets Entity manager from container.
+     * Gets entity manager.
      *
      * @return EntityManager
      */
-    protected function getEntityManager()
+    public function getEntityManager()
     {
-        /** @var $doctrine RegistryInterface */
-        $doctrine = $this->getServiceContainer()->get('doctrine');
-
-        return $doctrine->getManager();
+        return $this->getServiceContainer()->get('doctrine')->getManager();
     }
 
     /**
-     * Imports mySQL schema and data.
+     * Prepares DB for tests.
      */
     public static function setUpBeforeClass()
     {
+        AnnotationRegistry::registerFile(
+            'vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
+        );
         $container = self::createClient()->getContainer();
-        /** @var EntityManager $entityManager */
-        $entityManager = $container->get('doctrine')->getManager();
-        $connection = $entityManager->getConnection();
-        $params = $connection->getParams();
-        $name = $connection->getDatabasePlatform()->quoteSingleIdentifier($connection->getParams()['dbname']);
-        unset($params['dbname']);
-        $tmpConnection = DriverManager::getConnection($params);
-        $tmpConnection->getSchemaManager()->createDatabase($name);
-        $tmpConnection->close();
-        $schema = self::getRootDir($container) . '/data/database.sql';
-        $data = self::getRootDir($container) . '/data/dummyData.sql';
-        self::executeSqlFile($connection, $schema);
-        self::executeSqlFile($connection, $data);
+
+        $connection = DriverManager::getConnection(
+            [
+                'driver' => $container->getParameter('database_driver'),
+                'host' => $container->getParameter('database_host'),
+                'port' => $container->getParameter('database_port'),
+                'user' => $container->getParameter('database_user'),
+                'password' => $container->getParameter('database_password'),
+                'charset' => 'UTF8',
+            ]
+        );
+        $connection->getSchemaManager()->dropAndCreateDatabase($container->getParameter('database_name'));
+
+        self::executeSqlFile($connection, self::getRootDir($container) . '/data/database.sql');
+        self::executeSqlFile($connection, self::getRootDir($container) . '/data/dummyData.sql');
+
+        $connection->close();
     }
 
     /**
@@ -129,6 +114,16 @@ abstract class TestBase extends WebTestCase
         $entityManager = $container->get('doctrine')->getManager();
         $connection = $entityManager->getConnection();
         $connection->getSchemaManager()->dropDatabase($connection->getParams()['dbname']);
+    }
+
+    /**
+     * Imports sql file for testing.
+     *
+     * @param string $file
+     */
+    public function importData($file)
+    {
+        $this->executeSqlFile($this->getEntityManager()->getConnection(), 'Tests/Functional/Fixtures/' . $file);
     }
 
     /**
@@ -151,7 +146,7 @@ abstract class TestBase extends WebTestCase
      *
      * @return string
      */
-    private static function getRootDir($container)
+    public static function getRootDir($container)
     {
         return $container->get('kernel')->getRootDir();
     }

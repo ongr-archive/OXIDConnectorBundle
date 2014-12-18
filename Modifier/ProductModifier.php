@@ -12,50 +12,70 @@
 namespace ONGR\OXIDConnectorBundle\Modifier;
 
 use Doctrine\ORM\EntityNotFoundException;
-use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
+use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Entity\Article;
 use ONGR\OXIDConnectorBundle\Entity\ObjectToCategory;
+use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 
 /**
  * Converts OXID article to ONGR product document.
  */
-class ProductModifier implements ModifierInterface
+class ProductModifier extends AbstractImportModifyEventListener
 {
+    /**
+     * @var AttributesToDocumentsService
+     */
+    private $attrToDocService;
+
+    /**
+     * Dependency injection.
+     *
+     * @param AttributesToDocumentsService $attrToDocService
+     */
+    public function __construct(AttributesToDocumentsService $attrToDocService)
+    {
+        $this->attrToDocService = $attrToDocService;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    public function modify(AbstractImportItem $eventItem)
     {
-        /** @var Article $entity */
+        /** @var Article $article */
+        $article = $eventItem->getEntity();
+        /** @var ProductDocument $document */
+        $document = $eventItem->getDocument();
 
-        $document->id = $entity->getId();
-        $document->active = $entity->isActive();
-        $document->sku = $entity->getArtNum();
-        $document->title = $entity->getTitle();
-        $document->description = $entity->getShortDesc();
-        $document->price = $entity->getPrice();
-        $document->oldPrice = $entity->getTPrice();
-        $document->parentId = $entity->getParent()->getId();
-        $document->stock = $entity->getStock();
+        $document->setId($article->getId());
+        $document->setActive($article->isActive());
+        $document->setSku($article->getArtNum());
+        $document->setTitle($article->getTitle());
+        $document->setDescription($article->getShortDesc());
+        $document->setPrice($article->getPrice());
+        $document->setOldPrice($article->getTPrice());
+        $document->setParent($article->getParent()->getId());
+        $document->setStock($article->getStock());
+        $document->setAttributes($this->attrToDocService->transform($article->getAttributes()));
 
-        $this->getExtensionData($entity, $document);
-        $this->getVendor($entity, $document);
-        $this->getManufacturer($entity, $document);
-        $this->getCategories($entity, $document);
+        $this->extractExtensionData($article, $document);
+        $this->extractVendor($article, $document);
+        $this->extractManufacturer($article, $document);
+        $this->extractCategories($article, $document);
     }
 
     /**
      * Retrieves article extension data.
      *
-     * @param Article           $entity
-     * @param DocumentInterface $document
+     * @param Article         $entity
+     * @param ProductDocument $document
      */
-    protected function getExtensionData(Article $entity, DocumentInterface $document)
+    protected function extractExtensionData(Article $entity, ProductDocument $document)
     {
         try {
-            $document->longDescription = $entity->getExtension()->getLongDesc();
+            $document->setLongDescription($entity->getExtension()->getLongDesc());
         } catch (EntityNotFoundException $exception) {
             // No extension. Just ignore.
         }
@@ -64,13 +84,13 @@ class ProductModifier implements ModifierInterface
     /**
      * Retrieves vendor title.
      *
-     * @param Article           $entity
-     * @param DocumentInterface $document
+     * @param Article         $entity
+     * @param ProductDocument $document
      */
-    protected function getVendor(Article $entity, DocumentInterface $document)
+    protected function extractVendor(Article $entity, ProductDocument $document)
     {
         try {
-            $document->vendor = $entity->getVendor()->getTitle();
+            $document->setVendor($entity->getVendor()->getTitle());
         } catch (EntityNotFoundException $exception) {
             // No vendor. Just ignore.
         }
@@ -79,13 +99,13 @@ class ProductModifier implements ModifierInterface
     /**
      * Retrieves manufacturer title.
      *
-     * @param Article           $entity
-     * @param DocumentInterface $document
+     * @param Article         $entity
+     * @param ProductDocument $document
      */
-    protected function getManufacturer(Article $entity, DocumentInterface $document)
+    protected function extractManufacturer(Article $entity, ProductDocument $document)
     {
         try {
-            $document->manufacturer = $entity->getManufacturer()->getTitle();
+            $document->setManufacturer($entity->getManufacturer()->getTitle());
         } catch (EntityNotFoundException $exception) {
             // No manufacturer. Just ignore.
         }
@@ -94,18 +114,22 @@ class ProductModifier implements ModifierInterface
     /**
      * Converts Article categories to ProductModel categories.
      *
-     * @param Article           $entity
-     * @param DocumentInterface $document
+     * @param Article         $entity
+     * @param ProductDocument $document
      */
-    protected function getCategories(Article $entity, DocumentInterface $document)
+    protected function extractCategories(Article $entity, ProductDocument $document)
     {
         try {
+            $categories = [];
+
             /** @var ObjectToCategory $relation */
             foreach ($entity->getCategories() as $relation) {
                 if ($relation->getCategory()->isActive()) {
-                    $document->categories[] = $relation->getCategory()->getId();
+                    $categories[] = $relation->getCategory()->getId();
                 }
             }
+
+            $document->setCategories($categories);
         } catch (EntityNotFoundException $exception) {
             // No categories. Just ignore.
         }

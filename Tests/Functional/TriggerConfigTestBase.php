@@ -81,16 +81,24 @@ abstract class TriggerConfigTestBase extends WebTestCase
         AnnotationRegistry::registerFile(
             getcwd() . '/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
         );
-        /** @var EntityManager $entityManager */
-        $entityManager = $this->getEntityManager();
-        $connection = $entityManager->getConnection();
-        $params = $connection->getParams();
-        $name = $connection->getParams()['dbname'];
-        unset($params['dbname']);
-        $tmpConnection = DriverManager::getConnection($params);
-        $name = $tmpConnection->getDatabasePlatform()->quoteSingleIdentifier($name);
-        $tmpConnection->getSchemaManager()->createDatabase($name);
-        $tmpConnection->close();
+        $container = self::createClient()->getContainer();
+
+        $connection = DriverManager::getConnection(
+            [
+                'driver' => $container->getParameter('database_driver'),
+                'host' => $container->getParameter('database_host'),
+                'port' => $container->getParameter('database_port'),
+                'user' => $container->getParameter('database_user'),
+                'password' => $container->getParameter('database_password'),
+                'charset' => 'UTF8',
+            ]
+        );
+        $connection->getSchemaManager()->dropAndCreateDatabase($container->getParameter('database_name'));
+
+        self::executeSqlFile($connection, self::getRootDir($container) . '/data/database.sql');
+        self::executeSqlFile($connection, self::getRootDir($container) . '/data/dummyData.sql');
+
+        $connection->close();
     }
 
     /**
@@ -172,5 +180,17 @@ abstract class TriggerConfigTestBase extends WebTestCase
         $sql = file_get_contents($file);
         $stmt = $conn->prepare($sql);
         $stmt->execute();
+    }
+
+    /**
+     * Return full path to kernel root dir.
+     *
+     * @param ContainerInterface $container
+     *
+     * @return string
+     */
+    public static function getRootDir($container)
+    {
+        return $container->get('kernel')->getRootDir();
     }
 }

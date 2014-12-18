@@ -25,9 +25,9 @@ use Symfony\Component\Finder\SplFileInfo;
 class ONGROXIDConnectorBundleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * List of passes, which should not be added to compiler.
-     *
      * @var array
+     *
+     * List of passes, which should not be added to compiler.
      */
     protected $passesBlacklist = [];
 
@@ -75,5 +75,17 @@ class ONGROXIDConnectorBundleTest extends \PHPUnit_Framework_TestCase
                 );
             }
         }
+    }
+
+    /**
+     * Test get container extension.
+     */
+    public function testContainerExtension()
+    {
+        $bundle = new ONGROXIDConnectorBundle();
+        $this->assertInstanceOf(
+            'ONGR\OXIDConnectorBundle\DependencyInjection\ONGROXIDConnectorExtension',
+            $bundle->getContainerExtension()
+        );
     }
 }

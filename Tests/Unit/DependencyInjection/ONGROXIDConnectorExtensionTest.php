@@ -287,4 +287,13 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
 
         return $out;
     }
+
+    /**
+     * Test extension alias.
+     */
+    public function testExtensionAlias()
+    {
+        $extension = new ONGROXIDConnectorExtension();
+        $this->assertEquals('ongr_oxid', $extension->getAlias());
+    }
 }

@@ -4,8 +4,9 @@ parameters:
 services:
     ongr_oxid.modifier.product:
         class: %ongr_oxid.modifier.product.class%
+        arguments: [ "@ongr_oxid.attr_to_doc_service" ]
         tags:
-            - { name: 'ongr_connections.doctrine.modifier', type: 'product' }
+            - { name: 'kernel.event_listener', event: ongr.pipeline.import.default.modify, method: onModify }
 
     ongr_oxid.modifier.product_seo:
         parent: ongr_oxid.modifier.seo

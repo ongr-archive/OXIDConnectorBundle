@@ -11,9 +11,12 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 
-use ONGR\TestingBundle\Document\Content as ContentDocument;
-use ONGR\OXIDConnectorBundle\Entity\Content;
+use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
+use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
+use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
 
 class ContentModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,20 +31,30 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $content = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Content');
         $content
             ->setId('testId')
+            ->setActive(true)
+            ->setPosition(4)
             ->setContent('testContent')
             ->setTitle('testTitle')
             ->setFolder('testFolder')
-            ->setLoadId('testSlug');
+            ->setLoadId('testSlug')
+            ->setSnippet(false)
+            ->setType(5)
+            ->setFolder('testFolder');
 
         $expectedDocument = new ContentDocument();
-        $expectedDocument->id = 'testId';
-        $expectedDocument->content = 'testContent';
-        $expectedDocument->title = 'testTitle';
-        $expectedDocument->folder = 'testFolder';
-        $expectedDocument->slug = 'testSlug';
+        $expectedDocument->setId('testId');
+        $expectedDocument->setActive(true);
+        $expectedDocument->setPosition(4);
+        $expectedDocument->setContent('testContent');
+        $expectedDocument->setTitle('testTitle');
+        $expectedDocument->setFolder('testFolder');
+        $expectedDocument->setSlug('testSlug');
+        $expectedDocument->setSnippet(false);
+        $expectedDocument->setType(5);
+        $expectedDocument->setFolder('testFolder');
 
         $document = new ContentDocument();
-        $modifier->modify($document, $content);
+        $modifier->modify(new ImportItem($content, $document));
 
         $this->assertEquals($expectedDocument, $document);
     }

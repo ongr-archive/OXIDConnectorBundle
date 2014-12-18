@@ -97,7 +97,7 @@ abstract class Article
     protected $vendor;
 
     /**
-     * @var ArrayCollection
+     * @var ArticleToAttribute[]
      *
      * @ORM\OneToMany(targetEntity="ArticleToAttribute", mappedBy="article")
      * @ORM\OrderBy({"pos"="ASC"})
@@ -133,7 +133,7 @@ abstract class Article
     protected $extension;
 
     /**
-     * @var ArrayCollection
+     * @var ArticleToCategory[]
      *
      * @ORM\OneToMany(targetEntity="ArticleToCategory", mappedBy="article")
      * @ORM\OrderBy({"time"="ASC"})
@@ -454,11 +454,21 @@ abstract class Article
     /**
      * Returns categories.
      *
-     * @return ArrayCollection
+     * @return ArticleToCategory[]
      */
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Sets categories.
+     *
+     * @param ArticleToCategory[] $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
     }
 
     /**
@@ -492,11 +502,21 @@ abstract class Article
     /**
      * Returns attributes.
      *
-     * @return ArrayCollection
+     * @return ArticleToAttribute[]
      */
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * Sets attributes.
+     *
+     * @param ArticleToAttribute[] $attributes
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
     }
 
     /**

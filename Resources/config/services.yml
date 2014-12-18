@@ -4,3 +4,8 @@ parameters:
     ongr_oxid.triggers.composed_trigger.class: ONGR\ConnectionsBundle\Sync\Trigger\ComposedTrigger
     ongr_oxid.triggers.seo_trigger.class: ONGR\OXIDConnectorBundle\Trigger\SeoTrigger
     ongr_oxid.triggers.related_table.class: ONGR\ConnectionsBundle\Sync\Trigger\JobInsertStatement\RelatedTable
+    ongr_oxid.attributes_to_documents_service.class: ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService
+
+services:
+    ongr_oxid.attr_to_doc_service:
+        class: %ongr_oxid.attributes_to_documents_service.class%

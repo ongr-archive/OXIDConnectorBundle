@@ -13,3 +13,5 @@ parameters:
     base_url: ~
     cdn_url: whatever
     cdn_url_ssl: whatever
+    # Dummy override for connections bundle to work
+    ongr_connections.import.modifier.class: ONGR\OXIDConnectorBundle\Modifier\ProductModifier

@@ -11,24 +11,47 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 
-use ONGR\OXIDConnectorBundle\Entity\Article;
+use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
+use ONGR\OXIDConnectorBundle\Document\AttributeObject;
+use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
+use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Entity\ArticleExtension;
 use ONGR\OXIDConnectorBundle\Entity\ArticleToCategory;
-use ONGR\OXIDConnectorBundle\Entity\Category;
 use ONGR\OXIDConnectorBundle\Entity\Manufacturer;
 use ONGR\OXIDConnectorBundle\Entity\Vendor;
-use ONGR\OXIDConnectorBundle\Tests\Helpers\ProductDocument;
+use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\ArticleToAttribute;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Attribute;
+use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
 
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var AttributesToDocumentsService
+     */
+    private $attrToDocService;
+
+    /**
+     * @var ProductModifier
+     */
+    private $modifier;
+
+    /**
+     * Set up services for tests.
+     */
+    protected function setUp()
+    {
+        $this->attrToDocService = new AttributesToDocumentsService();
+        $this->modifier = new ProductModifier($this->attrToDocService);
+    }
+
     /**
      * Test for modify().
      */
     public function testModify()
     {
-        $modifier = new ProductModifier();
-
         /** @var Article $parent */
         $parent = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Article');
         $parent->setId('parentId');
@@ -65,6 +88,18 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
 
         /** @var Article $entity */
         $entity = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Article');
+
+        // Attribute to be added to Category.
+        $attribute = new Attribute();
+        $attribute->setId(123);
+        $attribute->setPos(1);
+        $attribute->setTitle('testAttributeTitle');
+        $artToAttr = new ArticleToAttribute();
+        $artToAttr->setId(321);
+        $artToAttr->setPos(1);
+        $artToAttr->setArticle($entity);
+        $artToAttr->setAttribute($attribute);
+
         $entity
             ->setId('id123')
             ->setActive(true)
@@ -80,25 +115,30 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             ->setStock(5)
             ->setStockFlag(1)
             ->setVendor($vendor)
-            ->setManufacturer($manufacturer);
+            ->setManufacturer($manufacturer)
+            ->addAttribute($artToAttr);
 
         $expectedDocument = new ProductDocument();
-        $expectedDocument->id = 'id123';
-        $expectedDocument->active = true;
-        $expectedDocument->sku = 'abc123';
-        $expectedDocument->title = 'Any title';
-        $expectedDocument->description = 'Short description';
-        $expectedDocument->price = 12.34;
-        $expectedDocument->oldPrice = 43.21;
-        $expectedDocument->longDescription = 'Long description';
-        $expectedDocument->categories = ['activeCategoryId'];
-        $expectedDocument->parentId = 'parentId';
-        $expectedDocument->stock = 5;
-        $expectedDocument->vendor = 'Vendor A';
-        $expectedDocument->manufacturer = 'Manufacturer A';
+        $expectedDocument->setId('id123');
+        $expectedDocument->setActive(true);
+        $expectedDocument->setSku('abc123');
+        $expectedDocument->setTitle('Any title');
+        $expectedDocument->setDescription('Short description');
+        $expectedDocument->setPrice(12.34);
+        $expectedDocument->setOldPrice(43.21);
+        $expectedDocument->setLongDescription('Long description');
+        $expectedDocument->setCategories(['activeCategoryId']);
+        $expectedDocument->setParent('parentId');
+        $expectedDocument->setStock(5);
+        $expectedDocument->setVendor('Vendor A');
+        $expectedDocument->setManufacturer('Manufacturer A');
+        $attObj = new AttributeObject();
+        $attObj->setPos(1);
+        $attObj->setTitle('testAttributeTitle');
+        $expectedDocument->setAttributes([$attObj]);
 
         $document = new ProductDocument();
-        $modifier->modify($document, $entity);
+        $this->modifier->modify(new ImportItem($entity, $document));
 
         $this->assertEquals($expectedDocument, $document);
     }

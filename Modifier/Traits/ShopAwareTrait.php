@@ -19,9 +19,7 @@ namespace ONGR\OXIDConnectorBundle\Modifier\Traits;
 trait ShopAwareTrait
 {
     /**
-     * Specifies the shop used in queries.
-     *
-     * @var int $shopId
+     * @var int Specifies the shop used in queries.
      */
     private $shopId;
 

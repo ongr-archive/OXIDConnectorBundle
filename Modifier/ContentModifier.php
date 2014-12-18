@@ -11,27 +11,45 @@
 
 namespace ONGR\OXIDConnectorBundle\Modifier;
 
-use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
+use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Entity\Content;
 
 /**
  * Converts OXID content to ONGR content document.
  */
-class ContentModifier implements ModifierInterface
+class ContentModifier extends AbstractImportModifyEventListener
 {
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    public function modify(AbstractImportItem $eventItem)
     {
-        /** @var Content $entity */
+        /** @var Content $content */
+        $content = $eventItem->getEntity();
+        /** @var ContentDocument $document */
+        $document = $eventItem->getDocument();
 
-        $document->id = $entity->getId();
-        $document->title = $entity->getTitle();
-        $document->content = $entity->getContent();
-        $document->folder = $entity->getFolder();
-        $document->slug = $entity->getLoadId();
+        static::transformContentToDocument($content, $document);
+    }
+
+    /**
+     * Transforms Content entity into ES document.
+     *
+     * @param Content         $content
+     * @param ContentDocument $document
+     */
+    public static function transformContentToDocument(Content $content, ContentDocument $document)
+    {
+        $document->setId($content->getId());
+        $document->setTitle($content->getTitle());
+        $document->setContent($content->getContent());
+        $document->setFolder($content->getFolder());
+        $document->setSlug($content->getLoadId());
+        $document->setSnippet($content->isSnippet());
+        $document->setType($content->getType());
+        $document->setActive($content->isActive());
+        $document->setPosition($content->getPosition());
     }
 }

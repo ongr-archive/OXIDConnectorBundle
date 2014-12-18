@@ -13,8 +13,6 @@ namespace ONGR\OXIDConnectorBundle\Modifier;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityManagerInterface;
-use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
 use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 use ONGR\OXIDConnectorBundle\Entity\ObjectToSeoData;
 use ONGR\OXIDConnectorBundle\Modifier\Traits\EntityAliasAwareTrait;
@@ -24,7 +22,7 @@ use ONGR\OXIDConnectorBundle\Modifier\Traits\ShopAwareTrait;
 /**
  * Gets necessary SEO data for new entity from OXID.
  */
-class SeoModifier implements ModifierInterface
+class SeoModifier
 {
     use EntityAliasAwareTrait;
     use LanguageAwareTrait;
@@ -58,7 +56,7 @@ class SeoModifier implements ModifierInterface
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    public function modify(DocumentInterface $document, $entity)
     {
         $seoData = $this->getSeoData($entity);
         if (!$seoData) {
