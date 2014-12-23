@@ -22,6 +22,7 @@ class ArticleTest extends AbstractEntityTest
     {
         return [
             ['id'],
+            ['shopId'],
             ['active', 'boolean'],
             ['artNum'],
             ['mpn'],

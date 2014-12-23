@@ -22,6 +22,7 @@ class ContentTest extends AbstractEntityTest
     {
         return [
             ['id'],
+            ['shopId'],
             ['loadId'],
             ['snippet', 'boolean'],
             ['type'],

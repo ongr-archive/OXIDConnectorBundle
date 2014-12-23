@@ -31,6 +31,13 @@ abstract class Category
     protected $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="OXSHOPID", type="integer")
+     */
+    protected $shopId;
+
+    /**
      * @var Category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
@@ -152,6 +159,26 @@ abstract class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $shopId
+     *
+     * @return $this
+     */
+    public function setShopId($shopId)
+    {
+        $this->shopId = $shopId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
     }
 
     /**
