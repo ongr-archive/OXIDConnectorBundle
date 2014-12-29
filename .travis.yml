@@ -3,7 +3,7 @@ php:
   - 5.4
   - 5.5
 env:
-  - SYMFONY="2.3.*" # LTS version
+  - SYMFONY="~2.6"
 install:
   - composer require symfony/symfony:${SYMFONY}
 before_script:

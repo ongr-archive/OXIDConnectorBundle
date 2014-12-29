@@ -13,5 +13,8 @@ parameters:
     base_url: ~
     cdn_url: whatever
     cdn_url_ssl: whatever
+    # This must be defined in order for test to work when database is not set up (eg. on travis), otherwise Doctrine
+    # will try to access the database and generate error. See : https://github.com/symfony/symfony-standard/issues/748
+    database_server_version: "5.6"
     # Dummy override for connections bundle to work
     ongr_connections.import.modifier.class: ONGR\OXIDConnectorBundle\Modifier\ProductModifier
