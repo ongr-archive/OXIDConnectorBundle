@@ -31,7 +31,7 @@ class ContentModifier extends AbstractImportModifyEventListener
         /** @var ContentDocument $document */
         $document = $eventItem->getDocument();
 
-        static::transformContentToDocument($content, $document);
+        $this->transformContentToDocument($content, $document);
     }
 
     /**
@@ -40,7 +40,7 @@ class ContentModifier extends AbstractImportModifyEventListener
      * @param Content         $content
      * @param ContentDocument $document
      */
-    public static function transformContentToDocument(Content $content, ContentDocument $document)
+    public function transformContentToDocument(Content $content, ContentDocument $document)
     {
         $document->setId($content->getId());
         $document->setTitle($content->getTitle());
