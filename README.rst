@@ -8,7 +8,7 @@ Introduction
 ONGR OXIDConnector Bundle is responsible for transforming data taken from OXID database into Elasticsearch format.
     
 .. image:: https://travis-ci.org/ongr-io/OXIDConnectorBundle.svg?branch=master
-:target: https://travis-ci.org/ongr-io/OXIDConnectorBundle
+    :target: https://travis-ci.org/ongr-io/OXIDConnectorBundle
     
 .. image:: https://scrutinizer-ci.com/g/ongr-io/OXIDConnectorBundle/badges/quality-score.png?b=master
     :target: https://scrutinizer-ci.com/g/ongr-io/OXIDConnectorBundle/?branch=master
