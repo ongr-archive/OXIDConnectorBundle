@@ -2,10 +2,11 @@ language: php
 php:
   - 5.4
   - 5.5
+  - 5.6
 env:
   - SYMFONY="~2.6"
 install:
-  - composer require symfony/symfony:${SYMFONY}
+  - composer require symfony/symfony:${SYMFONY}
 before_script:
   - composer self-update
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
@@ -16,3 +17,7 @@ script:
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+cache:
+  directories:
+    - vendor/
+    - $HOME/.composer/cache
