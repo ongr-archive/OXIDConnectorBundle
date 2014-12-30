@@ -30,6 +30,13 @@ abstract class Content
     protected $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="OXSHOPID", type="integer")
+     */
+    protected $shopId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="OXLOADID", type="string")
@@ -107,6 +114,26 @@ abstract class Content
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $shopId
+     *
+     * @return $this
+     */
+    public function setShopId($shopId)
+    {
+        $this->shopId = $shopId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
     }
 
     /**

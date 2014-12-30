@@ -7,7 +7,7 @@ services:
     ongr_oxid.seo_url_service:
         class: %ongr_oxid.seo_url_service.class%
         arguments:
-            - @doctrine.orm.entity_manager
+            - @doctrine.orm.default_entity_manager
         calls:
             - [setEntityAlias, [%ongr_oxid.entity_namespace%]]
             - [setShopId, [%ongr_oxid.shop_id%]]
@@ -17,7 +17,7 @@ services:
         class: %ongr_oxid.modifier.seo.class%
         abstract: true
         arguments:
-            - @doctrine.orm.entity_manager
+            - @doctrine.orm.default_entity_manager
         calls:
             - [setEntityAlias, [%ongr_oxid.entity_namespace%]]
             - [setShopId, [%ongr_oxid.shop_id%]]

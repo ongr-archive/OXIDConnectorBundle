@@ -22,6 +22,7 @@ class CategoryTest extends AbstractEntityTest
     {
         return [
             ['id'],
+            ['shopId'],
             ['parent', 'ONGR\OXIDConnectorBundle\Entity\Category'],
             ['left'],
             ['right'],

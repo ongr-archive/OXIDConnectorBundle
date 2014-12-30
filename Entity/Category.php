@@ -31,6 +31,13 @@ abstract class Category
     protected $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="OXSHOPID", type="integer")
+     */
+    protected $shopId;
+
+    /**
      * @var Category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
@@ -107,14 +114,14 @@ abstract class Category
     protected $longDesc;
 
     /**
-     * @var ArrayCollection
+     * @var Category[]
      *
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
     protected $children;
 
     /**
-     * @var ArrayCollection
+     * @var CategoryToAttribute[]
      *
      * @ORM\OneToMany(targetEntity="CategoryToAttribute", mappedBy="category")
      * @ORM\OrderBy({"sort"="ASC"})
@@ -152,6 +159,26 @@ abstract class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $shopId
+     *
+     * @return $this
+     */
+    public function setShopId($shopId)
+    {
+        $this->shopId = $shopId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
     }
 
     /**
@@ -229,11 +256,21 @@ abstract class Category
     /**
      * Returns attributes.
      *
-     * @return ArrayCollection
+     * @return CategoryToAttribute[]
      */
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * Sets attributes.
+     *
+     * @param CategoryToAttribute[] $attributes
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
     }
 
     /**
@@ -435,11 +472,21 @@ abstract class Category
     /**
      * Returns children categories.
      *
-     * @return ArrayCollection
+     * @return Category[]
      */
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Sets children categories.
+     *
+     * @param Category[] $children
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
     }
 
     /**

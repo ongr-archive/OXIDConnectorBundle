@@ -11,7 +11,8 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Modifier;
 
-use ONGR\TestingBundle\Document\Content as ContentDocument;
+use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
+use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
@@ -25,21 +26,29 @@ class ContentModifierTest extends TestBase
      */
     public function testModify()
     {
-        $expectedEntity1 = new ContentDocument();
-        $expectedEntity1->id = '8709e45f31a86909e9f999222e80b1d0';
-        $expectedEntity1->content = 'CONTENT ONE';
-        $expectedEntity1->title = 'TITLE OF CONTENT ONE';
-        $expectedEntity1->folder = 'CMSFOLDER_STANDARD';
-        $expectedEntity1->slug = 'oxstdfooter';
+        $expected1 = new ContentDocument();
+        $expected1->setId('8709e45f31a86909e9f999222e80b1d0');
+        $expected1->setContent('CONTENT ONE');
+        $expected1->setTitle('TITLE OF CONTENT ONE');
+        $expected1->setFolder('CMSFOLDER_STANDARD');
+        $expected1->setSlug('oxstdfooter');
+        $expected1->setSnippet(true);
+        $expected1->setType(2);
+        $expected1->setActive(false);
+        $expected1->setPosition('position1');
 
-        $expectedEntity2 = new ContentDocument();
-        $expectedEntity2->id = 'ad542e49bff479009.64538090';
-        $expectedEntity2->content = '<div>Content two</div>';
-        $expectedEntity2->title = 'Title of content two';
-        $expectedEntity2->folder = 'CMSFOLDER_EMAILS';
-        $expectedEntity2->slug = 'oxadminorderemail';
+        $expected2 = new ContentDocument();
+        $expected2->setId('ad542e49bff479009.64538090');
+        $expected2->setContent('<div>Content two</div>');
+        $expected2->setTitle('Title of content two');
+        $expected2->setFolder('CMSFOLDER_EMAILS');
+        $expected2->setSlug('oxadminorderemail');
+        $expected2->setSnippet(false);
+        $expected2->setType(1);
+        $expected2->setActive(true);
+        $expected2->setPosition('position2');
 
-        $expectedEntities = [$expectedEntity1, $expectedEntity2];
+        $expectedEntities = [$expected1, $expected2];
 
         $contentItems = $this->getTestElements(
             ['8709e45f31a86909e9f999222e80b1d0', 'ad542e49bff479009.64538090'],
@@ -48,10 +57,10 @@ class ContentModifierTest extends TestBase
         $this->assertCount(2, $contentItems);
 
         $modifier = new ContentModifier();
-        $createdContent = new ContentDocument();
-        foreach ($expectedEntities as $key => $expectedEntity) {
-            $modifier->modify($createdContent, $contentItems[$key]);
-            $this->assertEquals($createdContent, $expectedEntity);
+        foreach ($expectedEntities as $key => $expectedContent) {
+            $actualContent = new ContentDocument();
+            $modifier->modify(new ImportItem($contentItems[$key], $actualContent));
+            $this->assertEquals($expectedContent, $actualContent);
         }
     }
 }

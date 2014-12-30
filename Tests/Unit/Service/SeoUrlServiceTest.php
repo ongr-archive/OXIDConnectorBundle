@@ -48,22 +48,59 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
             ['getResult', 'setParameter']
         );
 
+        $queryMockWithShopId = $this->getMock(
+            '\stdClass',
+            ['getResult', 'setParameter']
+        );
+
+        $queryMockExpiredWithShopId = $this->getMock(
+            '\StdClass',
+            ['getResult', 'setParameter']
+        );
+
         $emMock->expects($this->any())->method('createQuery')->will(
             $this->returnValueMap(
                 [
                     ['SELECT h FROM ONGROXIDConnectorBundle:SeoHistory h WHERE h.objectId = :id', $queryMockExpired],
                     ['SELECT s FROM ONGROXIDConnectorBundle:Seo s WHERE s.objectId = :id', $queryMockActive],
+                    [
+                        'SELECT s FROM ONGROXIDConnectorBundle:Seo s WHERE s.objectId = :id AND s.shopId = :shopId',
+                        $queryMockWithShopId,
+                    ],
+                    [
+                        'SELECT h FROM ONGROXIDConnectorBundle:SeoHistory h'
+                        . ' WHERE h.objectId = :id AND h.shopId = :shopId',
+                        $queryMockExpiredWithShopId,
+                    ],
                 ]
             )
         );
 
-        $queryMockExpired->expects($this->any())->method('setParameter')->will($this->returnSelf());
+        $queryMockExpired->expects($this->any())
+            ->method('setParameter')
+            ->will($this->returnSelf());
         $queryMockExpired->expects($this->any())
             ->method('getResult')
             ->will($this->returnValue($returnValueHistory));
 
-        $queryMockActive->expects($this->any())->method('setParameter')->will($this->returnSelf());
         $queryMockActive->expects($this->any())
+            ->method('setParameter')
+            ->will($this->returnSelf());
+        $queryMockActive->expects($this->any())
+            ->method('getResult')
+            ->will($this->returnValue($returnValueActive));
+
+        $queryMockExpiredWithShopId->expects($this->any())
+            ->method('setParameter')
+            ->will($this->returnSelf());
+        $queryMockExpiredWithShopId->expects($this->any())
+            ->method('getResult')
+            ->will($this->returnValue($returnValueHistory));
+
+        $queryMockWithShopId->expects($this->any())
+            ->method('setParameter')
+            ->will($this->returnSelf());
+        $queryMockWithShopId->expects($this->any())
             ->method('getResult')
             ->will($this->returnValue($returnValueActive));
 
@@ -166,8 +203,11 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
         array $expectedUrls,
         array $expectedExpired
     ) {
+        $shopId = 123;
+
         $service = new SeoUrlService($this->getEntityManagerMock($activeSeos, $expiredSeos));
         $service->setEntityAlias('ONGROXIDConnectorBundle');
+        $service->setShopId($shopId);
 
         /** @var Article $entity */
         $entity = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Article');
@@ -177,5 +217,6 @@ class SeoUrlServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedUrls, $service->getActiveUrlList($entity));
         $this->assertEquals($expectedExpired, $service->getSeoHistoryHashes($entity));
+        $this->assertEquals($shopId, $service->getShopId());
     }
 }

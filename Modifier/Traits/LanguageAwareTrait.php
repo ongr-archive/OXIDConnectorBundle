@@ -19,9 +19,7 @@ namespace ONGR\OXIDConnectorBundle\Modifier\Traits;
 trait LanguageAwareTrait
 {
     /**
-     * Specifies the language used in queries.
-     *
-     * @var int $languageId
+     * @var int Specifies the language used in queries.
      */
     private $languageId;
 

@@ -19,9 +19,7 @@ namespace ONGR\OXIDConnectorBundle\Modifier\Traits;
 trait EntityAliasAwareTrait
 {
     /**
-     * Specifies the current working entity.
-     *
-     * @var string $entityAlias
+     * @var string Specifies the current working entity.
      */
     private $entityAlias;
 

@@ -31,6 +31,13 @@ abstract class Article
     protected $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="OXSHOPID", type="integer")
+     */
+    protected $shopId;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="OXACTIVE", type="boolean")
@@ -97,7 +104,7 @@ abstract class Article
     protected $vendor;
 
     /**
-     * @var ArrayCollection
+     * @var ArticleToAttribute[]
      *
      * @ORM\OneToMany(targetEntity="ArticleToAttribute", mappedBy="article")
      * @ORM\OrderBy({"pos"="ASC"})
@@ -133,7 +140,7 @@ abstract class Article
     protected $extension;
 
     /**
-     * @var ArrayCollection
+     * @var ArticleToCategory[]
      *
      * @ORM\OneToMany(targetEntity="ArticleToCategory", mappedBy="article")
      * @ORM\OrderBy({"time"="ASC"})
@@ -185,6 +192,26 @@ abstract class Article
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $shopId
+     *
+     * @return $this
+     */
+    public function setShopId($shopId)
+    {
+        $this->shopId = $shopId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
     }
 
     /**
@@ -454,11 +481,21 @@ abstract class Article
     /**
      * Returns categories.
      *
-     * @return ArrayCollection
+     * @return ArticleToCategory[]
      */
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Sets categories.
+     *
+     * @param ArticleToCategory[] $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
     }
 
     /**
@@ -492,11 +529,21 @@ abstract class Article
     /**
      * Returns attributes.
      *
-     * @return ArrayCollection
+     * @return ArticleToAttribute[]
      */
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * Sets attributes.
+     *
+     * @param ArticleToAttribute[] $attributes
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
     }
 
     /**

@@ -37,7 +37,7 @@ class Configuration implements ConfigurationInterface
                                 'tags' => ['@shop_tag' => '_1', '@lang_tag' => '_1_en', '{@view_tag}' => 'oxv_'],
                                 'shop_id' => 1,
                                 'lang_id' => 0,
-                            ]
+                            ],
                         ]
                     )
                     ->prototype('array')
