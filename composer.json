@@ -27,6 +27,5 @@
         "psr-4": {
             "ONGR\\OXIDConnectorBundle\\": ""
         }
-    },
-    "target-dir": "ONGR/OXIDConnectorBundle"
+    }
 }
