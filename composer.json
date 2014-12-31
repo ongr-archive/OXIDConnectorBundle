@@ -34,8 +34,7 @@
         "squizlabs/php_codesniffer": "~1.5"
     },
     "suggest": {
-        "ongr/content-bundle": "Allows to transfer CMS data from OXID to ONGR",
-        "ongr/router-bundle": "Adds SEO friendly URLs"
+        "ongr/content-bundle": "Allows to transfer CMS data from OXID to ONGR"
     },
     "autoload": {
         "psr-4": {

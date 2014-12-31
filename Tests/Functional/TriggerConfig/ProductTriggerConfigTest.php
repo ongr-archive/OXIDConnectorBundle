@@ -14,7 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Tests\Functional;
 use ONGR\ConnectionsBundle\Sync\Trigger\TriggersManager;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
 
-class TriggerConfigTest extends TriggerConfigTestBase
+class ProductTriggerConfigTest extends TriggerConfigTestBase
 {
     /**
      * Tests Article trigger.
