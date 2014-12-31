@@ -16,6 +16,9 @@ ONGR OXIDConnector Bundle is responsible for transforming data taken from OXID d
 .. image:: https://scrutinizer-ci.com/g/ongr-io/OXIDConnectorBundle/badges/coverage.png?b=master
     :target: https://scrutinizer-ci.com/g/ongr-io/OXIDConnectorBundle/?branch=master
 
+.. image:: https://insight.sensiolabs.com/projects/441670d4-20c2-4adc-b502-346b5143e973/mini.png
+    :target: https://insight.sensiolabs.com/projects/441670d4-20c2-4adc-b502-346b5143e973
+
 .. image:: https://poser.pugx.org/ongr/oxid-connector-bundle/downloads.svg
     :target: https://packagist.org/packages/ongr/oxid-connector-bundle
 

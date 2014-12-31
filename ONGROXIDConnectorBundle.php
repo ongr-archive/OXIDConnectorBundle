@@ -15,14 +15,12 @@ use ONGR\OXIDConnectorBundle\DependencyInjection\ONGROXIDConnectorExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class ONGROXIDConnectorBundle.
- *
- * @package ONGR\OXIDConnectorBundle
+ * OXID Connector Bundle.
  */
 class ONGROXIDConnectorBundle extends Bundle
 {
     /**
-     * @return null|ONGROXIDConnectorExtension|\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+     * {@inheritdoc}
      */
     public function getContainerExtension()
     {
