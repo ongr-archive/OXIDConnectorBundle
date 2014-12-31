@@ -6,7 +6,7 @@ php:
 env:
   - SYMFONY="~2.6"
 install:
-  - composer require symfony/symfony:${SYMFONY}
+  - composer require --no-update symfony/symfony:${SYMFONY}
 before_script:
   - composer self-update
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
