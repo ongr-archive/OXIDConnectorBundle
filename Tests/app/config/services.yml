@@ -1,0 +1,61 @@
+parameters:
+    test.sync.execute.chunk_size: 1
+    test.sync.execute.shop_id: 1
+    test.sync.execute.sync_storage_document_type: product
+    test.sync.execute.elastic_document_type: AcmeTestBundle:Product
+
+services:
+    # Data provider setup
+    test.sync.data_sync.source:
+        class: %ongr_connections.sync.data_sync.source.class%
+        arguments:
+            - @ongr_connections.sync.diff_provider.binlog_diff_provider
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.data_sync.data_provide_test.source, method: onSource }
+
+    test.sync.data_sync.consume:
+        class: %ongr_connections.sync.data_sync.consume.class%
+        arguments:
+            - @ongr_connections.sync.extractor.doctrine_extractor
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.data_sync.data_provide_test.consume, method: onConsume }
+
+    # Data import setup
+    test.sync.execute.source:
+        class: %ongr_connections.sync.execute.source.class%
+        parent: ongr_connections.import.source
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - "Test:TestProduct"
+            - @es.manager
+            - "AcmeTestBundle:Product"
+            - @ongr_connections.sync.sync_storage
+        calls:
+            - [ setChunkSize, [ %test.sync.execute.chunk_size% ] ]
+            - [ setShopId, [ %test.sync.execute.shop_id% ] ]
+            - [ setDocumentType, [ %test.sync.execute.sync_storage_document_type% ] ]
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.source, method: onSource }
+
+    test.sync.execute.modifier:
+        class: %ongr_oxid.modifier.product.class%
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.modify, method: onModify }
+
+    test.sync.execute.consumer:
+        class: %ongr_connections.sync.execute.consumer.class%
+        parent: ongr_connections.sync.execute.consumer
+        arguments:
+            - @es.manager
+            - %test.sync.execute.elastic_document_type%
+            - @ongr_connections.sync.sync_storage
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.consume, method: onConsume }
+
+    test.sync.execute.finish:
+        class: %ongr_connections.import.finish.class%
+        parent: ongr_connections.import.finish
+        arguments:
+            - @es.manager
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.finish, method: onFinish }
