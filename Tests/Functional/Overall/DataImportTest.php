@@ -16,10 +16,9 @@ use ONGR\ConnectionsBundle\Command\SyncProvideCommand;
 use ONGR\ConnectionsBundle\Command\SyncStorageCreateCommand;
 use ONGR\ConnectionsBundle\Sync\SyncStorage\SyncStorage;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 class DataImportTest extends TestBase
 {
@@ -29,17 +28,13 @@ class DataImportTest extends TestBase
     private $application;
 
     /**
-     * @var Client
-     */
-    private $client;
-
-    /**
      * Prepare services for tests.
      */
     protected function setUp()
     {
-        $this->client = self::createClient();
-        $this->application = new Application($this->client->getKernel());
+        parent::setUp();
+
+        $this->application = new Application($this->getClient()->getKernel());
     }
 
     /**
@@ -57,6 +52,8 @@ class DataImportTest extends TestBase
 
         // Then update some data.
         $this->importData('DataImportTest/updateProducts.sql');
+
+        $this->rebootKernel();
 
         // And start data provider pipeline.
         $result = $this->executeCommand(
@@ -80,22 +77,28 @@ class DataImportTest extends TestBase
     /**
      * Executes specified command.
      *
-     * @param ContainerAwareInterface $commandInstance
-     * @param string                  $commandNamespace
-     * @param array                   $parameters
+     * @param ContainerAwareCommand $commandInstance
+     * @param string                $commandNamespace
+     * @param array                 $parameters
      *
      * @return CommandTester
      */
     private function executeCommand(
-        ContainerAwareInterface $commandInstance,
+        ContainerAwareCommand $commandInstance,
         $commandNamespace,
         array $parameters = []
     ) {
-        $commandInstance->setContainer($this->client->getContainer());
-        $this->application->add($commandInstance);
-        $command = $this->application->find($commandNamespace);
+        $application = new Application($this->getClient()->getKernel());
+        $commandInstance->setContainer($this->getServiceContainer());
+        $application->add($commandInstance);
+        $command = $application->find($commandNamespace);
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array_merge_recursive(['command' => $command->getName()], $parameters));
+        $commandTester->execute(
+            array_merge_recursive(
+                ['command' => $command->getName()],
+                $parameters
+            )
+        );
 
         return $commandTester;
     }
