@@ -53,8 +53,6 @@ class DataImportTest extends TestBase
         // Then update some data.
         $this->importData('DataImportTest/updateProducts.sql');
 
-        $this->rebootKernel();
-
         // And start data provider pipeline.
         $result = $this->executeCommand(
             new SyncProvideCommand(),
