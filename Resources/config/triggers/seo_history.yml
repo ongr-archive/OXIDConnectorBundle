@@ -11,28 +11,28 @@ parameters:
 services:
     # INSERT and UPDATE
     ongr_oxid.triggers.oxseo_history_update.articles:
-        class: %ongr_oxid.triggers.related_table.class%
+        class: %ongr_connections.sql_relations.table_relation.class%
         arguments: [oxarticles, oxarticles.OXID, oxarticles.OXID=NEW.OXOBJECTID, product, U, 1]
 
     ongr_oxid.triggers.oxseo_history_update.category:
-        class: %ongr_oxid.triggers.related_table.class%
+        class: %ongr_connections.sql_relations.table_relation.class%
         arguments: [oxcategories, oxcategories.OXID, oxcategories.OXID=NEW.OXOBJECTID, category, U, 1]
 
     ongr_oxid.triggers.oxseo_history_update.content:
-        class: %ongr_oxid.triggers.related_table.class%
+        class: %ongr_connections.sql_relations.table_relation.class%
         arguments: [oxcontents, oxcontents.OXID, oxcontents.OXID=NEW.OXOBJECTID, content, U, 1]
 
     # DELETE
     ongr_oxid.triggers.oxseo_history_delete.articles:
-        class: %ongr_oxid.triggers.related_table.class%
+        class: %ongr_connections.sql_relations.table_relation.class%
         arguments: [oxarticles, oxarticles.OXID, oxarticles.OXID=OLD.OXOBJECTID, product, U, 1]
 
     ongr_oxid.triggers.oxseo_history_delete.category:
-        class: %ongr_oxid.triggers.related_table.class%
+        class: %ongr_connections.sql_relations.table_relation.class%
         arguments: [oxcategories, oxcategories.OXID, oxcategories.OXID=OLD.OXOBJECTID, category, U, 1]
 
     ongr_oxid.triggers.oxseo_history_delete.content:
-        class: %ongr_oxid.triggers.related_table.class%
+        class: %ongr_connections.sql_relations.table_relation.class%
         arguments: [oxcontents, oxcontents.OXID, oxcontents.OXID=Old.OXOBJECTID, content, U, 1]
 
     # Seo history (`oxseohistory`) triggers
