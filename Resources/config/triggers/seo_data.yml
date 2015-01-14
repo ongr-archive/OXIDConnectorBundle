@@ -64,4 +64,3 @@ services:
           - [addStatement, [@ongr_oxid.triggers.oxseo_data_delete.articles]]
           - [addStatement, [@ongr_oxid.triggers.oxseo_data_delete.category]]
           - [addStatement, [@ongr_oxid.triggers.oxseo_data_delete.content]]
-
