@@ -14,19 +14,19 @@ parameters:
 services:
     # Articles triggers
     ongr_oxid.triggers.oxarticles_insert:
-        class: %ongr_oxid.triggers.simple_trigger.class%
+        class: %ongr_connections.sql_relations.simple_relation.class%
         arguments: [oxarticles, C, 1, product, NEW.OXID]
         tags:
           - { name: ongr_connections.trigger, trigger: oxarticles_insert }
 
     ongr_oxid.triggers.oxarticles_update:
-        class: %ongr_oxid.triggers.simple_trigger.class%
+        class: %ongr_connections.sql_relations.simple_relation.class%
         arguments: [oxarticles, U, 1, product, NEW.OXID, %ongr_oxid.triggers.articles.track_fields%]
         tags:
           - { name: ongr_connections.trigger, trigger: oxarticles_update }
 
     ongr_oxid.triggers.oxarticles_delete:
-        class: %ongr_oxid.triggers.simple_trigger.class%
+        class: %ongr_connections.sql_relations.simple_relation.class%
         arguments: [oxarticles, D, 1, product, OLD.OXID]
         tags:
           - { name: ongr_connections.trigger, trigger: oxarticles_delete }

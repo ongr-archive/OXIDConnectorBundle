@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.4",
         "symfony/symfony": "~2.6",
-        "ongr/connections-bundle": "~0.1",
+        "ongr/connections-bundle": "~0.2",
         "ongr/content-bundle": "~0.1",
         "ongr/router-bundle": "~0.1"
     },
