@@ -7,13 +7,3 @@ services:
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
         tags:
             - { name: 'kernel.event_listener', event: ongr.pipeline.import.default.modify, method: onModify }
-
-    ongr_oxid.modifier.category_seo:
-        parent: ongr_oxid.modifier.seo
-        tags:
-            - { name: 'ongr_connections.doctrine.modifier', type: 'category' }
-
-    ongr_oxid.modifier.category_seo_url:
-        parent: ongr_oxid.modifier.seo_url
-        tags:
-            - { name: 'ongr_connections.doctrine.modifier', type: 'category' }
