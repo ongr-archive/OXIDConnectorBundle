@@ -50,8 +50,6 @@ class ONGROXIDConnectorExtension extends Extension
         $container->setParameter('ongr_oxid.shop_id', $shopId);
         $container->setParameter('ongr_oxid.language_id', $languageId);
 
-        $loader->load('modifiers/seo.yml');
-
         if ($config['use_modifiers']) {
             $this->loadModifiers($config, $loader);
         }
