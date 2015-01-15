@@ -92,51 +92,6 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for testSeoTriggerLoading().
-     *
-     * @return array
-     */
-    public function seoTriggerLoadingData()
-    {
-        // Case #0 setting non-existent, default true should be loaded.
-        $config = $this->getDefaultConfig();
-        $out[] = [$config, true];
-
-        // Case #1 setting enabled, should be loaded.
-        $config = $this->getDefaultConfig();
-        $config['ongr_oxid']['use_seo_triggers'] = true;
-        $out[] = [$config, true];
-
-        // Case #2 set to false, shouldn't be loaded.
-        $config = $this->getDefaultConfig();
-        $config['ongr_oxid']['use_seo_triggers'] = false;
-        $out[] = [$config, false];
-
-        return $out;
-    }
-
-    /**
-     * Test if seo triggers are loaded when needed.
-     *
-     * @param array $config
-     * @param bool  $shouldExist
-     *
-     * @dataProvider seoTriggerLoadingData()
-     */
-    public function testSeoTriggerLoading($config, $shouldExist)
-    {
-        $container = new ContainerBuilder();
-        $container->setParameter('ongr_connections.active_shop', 'alpha');
-
-        $extension = new ONGROXIDConnectorExtension();
-        $extension->load($config, $container);
-
-        $this->assertEquals($shouldExist, $container->hasDefinition('ongr_oxid.triggers.oxseo_insert'));
-        $this->assertEquals($shouldExist, $container->hasDefinition('ongr_oxid.triggers.oxseo_data_insert'));
-        $this->assertEquals($shouldExist, $container->hasDefinition('ongr_oxid.triggers.oxseo_history_insert'));
-    }
-
-    /**
      * Checks if expected definitions are loaded.
      *
      * @param ContainerBuilder $container Initial container.
