@@ -52,12 +52,6 @@ class ONGROXIDConnectorExtension extends Extension
 
         $loader->load('modifiers/seo.yml');
 
-        if ($config['use_seo_triggers']) {
-            $loader->load('triggers/seo.yml');
-            $loader->load('triggers/seo_data.yml');
-            $loader->load('triggers/seo_history.yml');
-        }
-
         if ($config['use_modifiers']) {
             $this->loadModifiers($config, $loader);
         }
