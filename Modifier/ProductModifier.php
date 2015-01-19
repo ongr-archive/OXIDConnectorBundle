@@ -56,7 +56,10 @@ class ProductModifier extends AbstractImportModifyEventListener
         $document->setDescription($article->getShortDesc());
         $document->setPrice($article->getPrice());
         $document->setOldPrice($article->getTPrice());
-        $document->setParent($article->getParent()->getId());
+        $parent_id = $article->getParent()->getId();
+        if (empty($parent_id) === true) {
+            $document->setParent($parent_id);
+        }
         $document->setStock($article->getStock());
         $document->setAttributes($this->attrToDocService->transform($article->getAttributes()));
 

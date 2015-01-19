@@ -11,6 +11,8 @@
 
 namespace ONGR\OXIDConnectorBundle\Document;
 
+use ONGR\ElasticsearchBundle\Annotation as ES;
+
 /**
  * Attribute document.
  *

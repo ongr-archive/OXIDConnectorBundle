@@ -11,20 +11,16 @@
 
 namespace ONGR\OXIDConnectorBundle\Document;
 
-use ONGR\ContentBundle\Document\Traits\ContentTrait;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\ContentBundle\Document\AbstractContentDocument;
+use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
  * Content document.
  *
  * @ES\Document(type="content")
  */
-class ContentDocument implements DocumentInterface
+class ContentDocument extends AbstractContentDocument
 {
-    use DocumentTrait;
-    use ContentTrait;
-
     /**
      * @var bool
      *
@@ -35,7 +31,7 @@ class ContentDocument implements DocumentInterface
     /**
      * @var int
      *
-     * @ES\Property(name="type", type="smallint")
+     * @ES\Property(name="type", type="integer")
      */
     private $type;
 
@@ -98,6 +94,14 @@ class ContentDocument implements DocumentInterface
         $this->type = $type;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->active;
     }
 
     /**

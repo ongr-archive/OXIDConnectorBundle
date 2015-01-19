@@ -11,20 +11,16 @@
 
 namespace ONGR\OXIDConnectorBundle\Document;
 
-use ONGR\ContentBundle\Document\Traits\ProductTrait;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\ContentBundle\Document\AbstractProductDocument;
+use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
  * Product document.
  *
- * @ES\Document(type="product")
+ * @ES\Document(type="product", parent="ONGROXIDConnectorBundle:ProductDocument")
  */
-class ProductDocument implements DocumentInterface
+class ProductDocument extends AbstractProductDocument
 {
-    use DocumentTrait;
-    use ProductTrait;
-
     /**
      * @var bool
      *
@@ -61,9 +57,9 @@ class ProductDocument implements DocumentInterface
     private $manufacturer;
 
     /**
-     * @var int[]|\Iterator
+     * @var string[]
      *
-     * @ES\Property(name="categories", type="array", multiple=true)
+     * @ES\Property(name="categories", type="string")
      */
     private $categories;
 
@@ -83,6 +79,14 @@ class ProductDocument implements DocumentInterface
      * @return bool
      */
     public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getActive()
     {
         return $this->active;
     }

@@ -11,14 +11,13 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Overall;
 
-use ONGR\ConnectionsBundle\Command\SyncExecuteCommand;
-use ONGR\ConnectionsBundle\Command\SyncProvideCommand;
-use ONGR\ConnectionsBundle\Command\SyncStorageCreateCommand;
-use ONGR\ConnectionsBundle\Sync\SyncStorage\SyncStorage;
+use ONGR\ConnectionsBundle\Command\ImportFullCommand;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use ONGR\ElasticsearchBundle\ORM\Manager;
+use ONGR\ElasticsearchBundle\DSL\Query\MatchAllQuery;
 
 class DataImportTest extends TestBase
 {
@@ -35,6 +34,12 @@ class DataImportTest extends TestBase
         parent::setUp();
 
         $this->application = new Application($this->getClient()->getKernel());
+
+        $this
+            ->getServiceContainer()
+            ->get('es.manager')
+            ->getConnection()
+            ->dropAndCreateIndex();
     }
 
     /**
@@ -42,34 +47,74 @@ class DataImportTest extends TestBase
      */
     public function testDataImportFromDBToES()
     {
-        // Let's create storage space.
-        $result = $this->executeCommand(
-            new SyncStorageCreateCommand(),
-            'ongr:sync:storage:create',
-            ['storage' => SyncStorage::STORAGE_MYSQL]
-        );
-        $this->assertContains('Storage successfully created', $result->getDisplay());
-
-        // Then update some data.
+        // Update some data.
         $this->importData('DataImportTest/updateProducts.sql');
 
-        // And start data provider pipeline.
+
+        // Then start data import pipeline for category.
         $result = $this->executeCommand(
-            new SyncProvideCommand(),
-            'ongr:sync:provide',
-            ['target' => 'data_provide_test']
+            new ImportFullCommand(),
+            'ongr:import:full',
+            ['target' => 'category_import_test']
         );
         $this->assertContains('Job finished', $result->getDisplay());
 
-        // Then start data import pipeline.
+        // Then start data import pipeline for content.
         $result = $this->executeCommand(
-            new SyncExecuteCommand(),
-            'ongr:sync:execute',
-            ['target' => 'data_sync_test']
+            new ImportFullCommand(),
+            'ongr:import:full',
+            ['target' => 'content_import_test']
         );
         $this->assertContains('Job finished', $result->getDisplay());
 
-        // And only then we check ElasticSearch for imported records.
+        // Then start data import pipeline for product.
+        $result = $this->executeCommand(
+            new ImportFullCommand(),
+            'ongr:import:full',
+            ['target' => 'product_import_test']
+        );
+        $this->assertContains('Job finished', $result->getDisplay());
+
+
+        // Check ElasticSearch for imported records.
+        /** @var Manager $manager */
+        $manager = $this
+            ->getServiceContainer()
+            ->get('es.manager');
+
+
+        // Test if all Categories were inserted.
+        $repository = $manager->getRepository('AcmeTestBundle:Category');
+        $search = $repository
+            ->createSearch()
+            ->addQuery(new MatchAllQuery());
+        $documents = $repository->execute($search);
+        $this->assertEquals(2, $documents->count());
+        $this->assertEquals('fada9485f003c731b7fad08b873214e0', $documents->current()->getId());
+        $documents->next();
+        $this->assertEquals('0f41a4463b227c437f6e6bf57b1697c4', $documents->current()->getId());
+
+        // Test if all Contents were inserted.
+        $repository = $manager->getRepository('AcmeTestBundle:Content');
+        $search = $repository
+            ->createSearch()
+            ->addQuery(new MatchAllQuery());
+        $documents = $repository->execute($search);
+        $this->assertEquals(2, $documents->count());
+        $this->assertEquals('ad542e49bff479009.64538090', $documents->current()->getId());
+        $documents->next();
+        $this->assertEquals('8709e45f31a86909e9f999222e80b1d0', $documents->current()->getId());
+
+        // Test if all Products were inserted.
+        $repository = $manager->getRepository('AcmeTestBundle:Product');
+        $search = $repository
+            ->createSearch()
+            ->addQuery(new MatchAllQuery());
+        $documents = $repository->execute($search);
+        $this->assertEquals(2, $documents->count());
+        $this->assertEquals('6b698c33118caee4ca0882c33f513d2f', $documents->current()->getId());
+        $documents->next();
+        $this->assertEquals('6b6a6aedca3e438e98d51f0a5d586c0b', $documents->current()->getId());
     }
 
     /**

@@ -63,7 +63,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
         $document->setHidden($category->isHidden());
         $document->setLeft($category->getLeft());
         $document->setRight($category->getRight());
-        $document->setParentId($category->getParent()->getId());
+        $document->setParent($category->getParent()->getId());
         $document->setRootId($category->getRoot()->getId());
         $document->setSort($category->getSort());
         $document->setTitle($category->getTitle());

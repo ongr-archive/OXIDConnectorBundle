@@ -11,20 +11,16 @@
 
 namespace ONGR\OXIDConnectorBundle\Document;
 
-use ONGR\ContentBundle\Document\Traits\CategoryTrait;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\ContentBundle\Document\AbstractCategoryDocument;
+use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
  * Category document.
  *
- * @ES\Document(type="category")
+ * @ES\Document(type="category", parent="ONGROXIDConnectorBundle:CategoryDocument")
  */
-class CategoryDocument implements DocumentInterface
+class CategoryDocument extends AbstractCategoryDocument
 {
-    use DocumentTrait;
-    use CategoryTrait;
-
     /**
      * @var string
      *
@@ -131,7 +127,7 @@ class CategoryDocument implements DocumentInterface
      *
      * @return $this
      */
-    public function setAttributes(array $attributes = null)
+    public function setAttributes($attributes = null)
     {
         $this->attributes = $attributes;
 

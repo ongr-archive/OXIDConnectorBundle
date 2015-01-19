@@ -20,7 +20,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.data_sync.data_provide_test.consume, method: onConsume }
 
-    # Data import setup
+    # Data sync execute setup
     test.sync.execute.source:
         class: %ongr_connections.sync.execute.source.class%
         parent: ongr_connections.import.source
@@ -59,3 +59,78 @@ services:
             - @es.manager
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.finish, method: onFinish }
+
+    # Data import
+    test.import.source.category:
+           class: %ongr_connections.import.source.class%
+           parent: ongr_connections.import.source
+           arguments:
+               - @doctrine.orm.default_entity_manager
+               - ONGROXIDConnectorBundleTest:Category
+               - @es.manager
+               - ONGROXIDConnectorBundle:CategoryDocument
+           tags:
+               - { name: kernel.event_listener, event: ongr.pipeline.import.category_import_test.source, method: onSource }
+
+    test.import.modifier.category:
+        class: %ongr_oxid.modifier.category.class%
+        arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.import.category_import_test.modify, method: onModify }
+
+
+    test.import.source.content:
+           class: %ongr_connections.import.source.class%
+           parent: ongr_connections.import.source
+           arguments:
+               - @doctrine.orm.default_entity_manager
+               - ONGROXIDConnectorBundleTest:Content
+               - @es.manager
+               - ONGROXIDConnectorBundle:ContentDocument
+           tags:
+               - { name: kernel.event_listener, event: ongr.pipeline.import.content_import_test.source, method: onSource }
+
+    test.import.modifier.content:
+        class: %ongr_oxid.modifier.content.class%
+        arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.import.content_import_test.modify, method: onModify }
+
+
+    test.import.source.product:
+           class: %ongr_connections.import.source.class%
+           parent: ongr_connections.import.source
+           arguments:
+               - @doctrine.orm.default_entity_manager
+               - ONGROXIDConnectorBundleTest:Article
+               - @es.manager
+               - ONGROXIDConnectorBundle:ProductDocument
+           tags:
+               - { name: kernel.event_listener, event: ongr.pipeline.import.product_import_test.source, method: onSource }
+
+    test.import.modifier.product:
+        class: %ongr_oxid.modifier.product.class%
+        arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.import.product_import_test.modify, method: onModify }
+
+
+    test.import.consumer:
+        class: %ongr_connections.import.consumer.class%
+        parent: ongr_connections.import.consumer
+        arguments:
+            - @es.manager
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.import.category_import_test.consume, method: onConsume }
+            - { name: kernel.event_listener, event: ongr.pipeline.import.content_import_test.consume, method: onConsume }
+            - { name: kernel.event_listener, event: ongr.pipeline.import.product_import_test.consume, method: onConsume }
+
+    test.import.finish:
+        class: %ongr_connections.import.finish.class%
+        parent: ongr_connections.import.finish
+        arguments:
+            - @es.manager
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.import.category_import_test.finish, method: onFinish }
+            - { name: kernel.event_listener, event: ongr.pipeline.import.content_import_test.finish, method: onFinish }
+            - { name: kernel.event_listener, event: ongr.pipeline.import.product_import_test.finish, method: onFinish }
