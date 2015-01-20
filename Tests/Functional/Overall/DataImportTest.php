@@ -35,46 +35,65 @@ class DataImportTest extends TestBase
 
         $this->application = new Application($this->getClient()->getKernel());
 
-        $this
-            ->getServiceContainer()
-            ->get('es.manager')
-            ->getConnection()
-            ->dropAndCreateIndex();
+        // Update some data.
+        $this->importData('DataImportTest/updateProducts.sql');
+    }
+
+    /**
+     * Test cases to test Data Import.
+     *
+     * @return array.
+     */
+    public function getDataForDataImport()
+    {
+        $cases = [];
+
+        // Case No 1. Test Category import.
+        $cases[] = [
+            'target' => 'category_import_test',
+            'repository' => 'AcmeTestBundle:Category',
+            'resultCount' => 2,
+            'firstValue' => '0f41a4463b227c437f6e6bf57b1697c4',
+        ];
+
+        // Case No 1. Test Content import.
+        $cases[] = [
+            'target' => 'content_import_test',
+            'repository' => 'AcmeTestBundle:Content',
+            'resultCount' => 2,
+            'firstValue' => 'ad542e49bff479009.64538090',
+        ];
+
+        // Case No 1. Test Product import.
+        $cases[] = [
+            'target' => 'product_import_test',
+            'repository' => 'AcmeTestBundle:Product',
+            'resultCount' => 2,
+            'firstValue' => '6b698c33118caee4ca0882c33f513d2f',
+        ];
+
+        return $cases;
     }
 
     /**
      * Test data import from database to Elastic Search.
+     *
+     * @param string $target
+     * @param string $repository
+     * @param int    $resultCount
+     * @param string $firstValue
+     *
+     * @dataProvider getDataForDataImport
      */
-    public function testDataImportFromDBToES()
+    public function testDataImportFromDBToES($target, $repository, $resultCount, $firstValue)
     {
-        // Update some data.
-        $this->importData('DataImportTest/updateProducts.sql');
-
-
-        // Then start data import pipeline for category.
+        // Then start data import pipeline $target.
         $result = $this->executeCommand(
             new ImportFullCommand(),
             'ongr:import:full',
-            ['target' => 'category_import_test']
+            ['target' => $target]
         );
         $this->assertContains('Job finished', $result->getDisplay());
-
-        // Then start data import pipeline for content.
-        $result = $this->executeCommand(
-            new ImportFullCommand(),
-            'ongr:import:full',
-            ['target' => 'content_import_test']
-        );
-        $this->assertContains('Job finished', $result->getDisplay());
-
-        // Then start data import pipeline for product.
-        $result = $this->executeCommand(
-            new ImportFullCommand(),
-            'ongr:import:full',
-            ['target' => 'product_import_test']
-        );
-        $this->assertContains('Job finished', $result->getDisplay());
-
 
         // Check ElasticSearch for imported records.
         /** @var Manager $manager */
@@ -82,39 +101,17 @@ class DataImportTest extends TestBase
             ->getServiceContainer()
             ->get('es.manager');
 
-
         // Test if all Categories were inserted.
-        $repository = $manager->getRepository('AcmeTestBundle:Category');
+        $repository = $manager->getRepository($repository);
         $search = $repository
             ->createSearch()
             ->addQuery(new MatchAllQuery());
         $documents = $repository->execute($search);
-        $this->assertEquals(2, $documents->count());
-        $this->assertEquals('fada9485f003c731b7fad08b873214e0', $documents->current()->getId());
-        $documents->next();
-        $this->assertEquals('0f41a4463b227c437f6e6bf57b1697c4', $documents->current()->getId());
+        $this->assertEquals($resultCount, $documents->count());
 
-        // Test if all Contents were inserted.
-        $repository = $manager->getRepository('AcmeTestBundle:Content');
-        $search = $repository
-            ->createSearch()
-            ->addQuery(new MatchAllQuery());
-        $documents = $repository->execute($search);
-        $this->assertEquals(2, $documents->count());
-        $this->assertEquals('ad542e49bff479009.64538090', $documents->current()->getId());
-        $documents->next();
-        $this->assertEquals('8709e45f31a86909e9f999222e80b1d0', $documents->current()->getId());
-
-        // Test if all Products were inserted.
-        $repository = $manager->getRepository('AcmeTestBundle:Product');
-        $search = $repository
-            ->createSearch()
-            ->addQuery(new MatchAllQuery());
-        $documents = $repository->execute($search);
-        $this->assertEquals(2, $documents->count());
-        $this->assertEquals('6b698c33118caee4ca0882c33f513d2f', $documents->current()->getId());
-        $documents->next();
-        $this->assertEquals('6b6a6aedca3e438e98d51f0a5d586c0b', $documents->current()->getId());
+        $documents = iterator_to_array($documents);
+        sort($documents);
+        $this->assertEquals($firstValue, $documents[0]->getId());
     }
 
     /**

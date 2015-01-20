@@ -111,6 +111,10 @@ abstract class TestBase extends WebTestCase
         self::createClient();
         $container = self::$kernel->getContainer();
 
+        $container->get('es.manager')
+            ->getConnection()
+            ->dropAndCreateIndex();
+
         $connection = DriverManager::getConnection(
             [
                 'driver' => $container->getParameter('database_driver'),
