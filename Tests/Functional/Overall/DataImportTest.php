@@ -35,11 +35,6 @@ class DataImportTest extends TestBase
 
         $this->application = new Application($this->getClient()->getKernel());
 
-//        $this->getServiceContainer()
-//            ->get('es.manager')
-//            ->getConnection()
-//            ->dropAndCreateIndex();
-
         // Update some data.
         $this->importData('DataImportTest/updateProducts.sql');
     }
