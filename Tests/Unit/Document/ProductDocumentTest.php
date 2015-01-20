@@ -62,7 +62,7 @@ class ProductDocumentTest extends \PHPUnit_Framework_TestCase
         $this->document
             ->setAttributes(null)
             ->setCategories(null);
-        $this->assertEquals([], $this->document->getAttributes());
-        $this->assertEquals([], $this->document->getCategories());
+        $this->assertEquals(null, $this->document->getAttributes());
+        $this->assertEquals(null, $this->document->getCategories());
     }
 }

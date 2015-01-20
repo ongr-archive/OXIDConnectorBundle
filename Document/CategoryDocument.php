@@ -43,7 +43,7 @@ class CategoryDocument extends AbstractCategoryDocument
     private $longDescription;
 
     /**
-     * @var AttributeObject[]\Iterator
+     * @var AttributeObject[]
      *
      * @ES\Property(
      *     name="attributes",

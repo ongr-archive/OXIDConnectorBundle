@@ -64,7 +64,7 @@ class ProductDocument extends AbstractProductDocument
     private $categories;
 
     /**
-     * @var AttributeObject[]|\Iterator
+     * @var AttributeObject[]
      *
      * @ES\Property(
      *     name="attributes",
@@ -184,23 +184,19 @@ class ProductDocument extends AbstractProductDocument
     }
 
     /**
-     * @return int[]|\Iterator
+     * @return int[]
      */
     public function getCategories()
     {
-        if (empty($this->categories)) {
-            return [];
-        }
-
         return $this->categories;
     }
 
     /**
-     * @param int[]|\Iterator $categories
+     * @param int[] $categories
      *
      * @return $this
      */
-    public function setCategories(array $categories = null)
+    public function setCategories($categories = null)
     {
         $this->categories = $categories;
 
@@ -208,23 +204,19 @@ class ProductDocument extends AbstractProductDocument
     }
 
     /**
-     * @return AttributeObject[]|\Iterator
+     * @return AttributeObject[]
      */
     public function getAttributes()
     {
-        if (empty($this->attributes)) {
-            return [];
-        }
-
         return $this->attributes;
     }
 
     /**
-     * @param AttributeObject[]|\Iterator $attributes
+     * @param AttributeObject[] $attributes
      *
      * @return $this
      */
-    public function setAttributes(array $attributes = null)
+    public function setAttributes($attributes = null)
     {
         $this->attributes = $attributes;
 
