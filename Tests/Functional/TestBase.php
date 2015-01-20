@@ -126,8 +126,6 @@ abstract class TestBase extends WebTestCase
         self::executeSqlFile($connection, self::getRootDir($container) . '/data/database.sql');
         self::executeSqlFile($connection, self::getRootDir($container) . '/data/dummyData.sql');
 
-        $connection->executeQuery('RESET MASTER');
-
         $connection->close();
     }
 
