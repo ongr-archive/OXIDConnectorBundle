@@ -94,7 +94,7 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setLongDescription('testLongDescription');
         $expectedDocument->setSort(3);
         $expectedDocument->setRootId('testIdRoot');
-        $expectedDocument->setParentId('testIdParent');
+        $expectedDocument->setParent('testIdParent');
         $expectedDocument->setLeft(102);
         $expectedDocument->setRight(501);
         $attrObj = new AttributeObject();

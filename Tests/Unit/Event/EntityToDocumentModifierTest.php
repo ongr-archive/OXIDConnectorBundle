@@ -111,8 +111,8 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
         $category->expects($this->exactly(2))
             ->method('getId')
             ->willReturnOnConsecutiveCalls(
-                $this->returnValue(234),
-                $this->returnValue(432)
+                $this->returnValue(432),
+                $this->returnValue(234)
             );
 
         $this->mockExpectsMethods(
@@ -123,13 +123,13 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
                 ['isHidden', 1, false],
                 ['getLeft', 1, 12],
                 ['getRight', 1, 17],
-                ['getParent', 1, $category],
                 ['getRoot', 1, $category],
                 ['getSort', 1, 12],
                 ['getTitle', 1, 'testTitle'],
                 ['getDesc', 1, 'testDescription'],
                 ['getLongDesc', 1, 'testLongDescription'],
                 ['getAttributes', 1, [1, 2, 3]],
+                ['getParent', 1, $category],
             ]
         );
         $this->mockExpectsMethods(
@@ -140,13 +140,13 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
                 ['setHidden', 1, null, false],
                 ['setLeft', 1, null, 12],
                 ['setRight', 1, null, 17],
-                ['setParentId', 1, null, 234],
                 ['setRootId', 1, null, 432],
                 ['setSort', 1, null, 12],
                 ['setTitle', 1, null, 'testTitle'],
                 ['setDescription', 1, null, 'testDescription'],
                 ['setLongDescription', 1, null, 'testLongDescription'],
                 ['setAttributes', 1, null, [11, 22, 33]],
+                ['setParent', 1, null, 234],
             ]
         );
 
