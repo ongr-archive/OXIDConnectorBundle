@@ -101,7 +101,7 @@ class DataImportTest extends TestBase
             ->getServiceContainer()
             ->get('es.manager');
 
-        // Test if all Categories were inserted.
+        // Test if all data was inserted.
         $repository = $manager->getRepository($repository);
         $search = $repository
             ->createSearch()
