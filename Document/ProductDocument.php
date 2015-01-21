@@ -11,20 +11,16 @@
 
 namespace ONGR\OXIDConnectorBundle\Document;
 
-use ONGR\ContentBundle\Document\Traits\ProductTrait;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentTrait;
+use ONGR\ContentBundle\Document\AbstractProductDocument;
+use ONGR\ElasticsearchBundle\Annotation as ES;
 
 /**
  * Product document.
  *
- * @ES\Document(type="product")
+ * @ES\Document(type="product", parent="ONGROXIDConnectorBundle:ProductDocument")
  */
-class ProductDocument implements DocumentInterface
+class ProductDocument extends AbstractProductDocument
 {
-    use DocumentTrait;
-    use ProductTrait;
-
     /**
      * @var bool
      *
@@ -61,14 +57,14 @@ class ProductDocument implements DocumentInterface
     private $manufacturer;
 
     /**
-     * @var int[]|\Iterator
+     * @var string[]
      *
-     * @ES\Property(name="categories", type="array", multiple=true)
+     * @ES\Property(name="categories", type="string")
      */
     private $categories;
 
     /**
-     * @var AttributeObject[]|\Iterator
+     * @var AttributeObject[]
      *
      * @ES\Property(
      *     name="attributes",
@@ -83,6 +79,14 @@ class ProductDocument implements DocumentInterface
      * @return bool
      */
     public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getActive()
     {
         return $this->active;
     }
@@ -180,23 +184,19 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
-     * @return int[]|\Iterator
+     * @return int[]
      */
     public function getCategories()
     {
-        if (empty($this->categories)) {
-            return [];
-        }
-
         return $this->categories;
     }
 
     /**
-     * @param int[]|\Iterator $categories
+     * @param int[] $categories
      *
      * @return $this
      */
-    public function setCategories(array $categories = null)
+    public function setCategories($categories = null)
     {
         $this->categories = $categories;
 
@@ -204,23 +204,19 @@ class ProductDocument implements DocumentInterface
     }
 
     /**
-     * @return AttributeObject[]|\Iterator
+     * @return AttributeObject[]
      */
     public function getAttributes()
     {
-        if (empty($this->attributes)) {
-            return [];
-        }
-
         return $this->attributes;
     }
 
     /**
-     * @param AttributeObject[]|\Iterator $attributes
+     * @param AttributeObject[] $attributes
      *
      * @return $this
      */
-    public function setAttributes(array $attributes = null)
+    public function setAttributes($attributes = null)
     {
         $this->attributes = $attributes;
 

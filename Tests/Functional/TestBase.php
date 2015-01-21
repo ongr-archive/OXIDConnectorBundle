@@ -13,6 +13,7 @@ namespace ONGR\OXIDConnectorBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\DBAL\Driver\Connection;
@@ -24,9 +25,9 @@ use Doctrine\DBAL\DriverManager;
 abstract class TestBase extends WebTestCase
 {
     /**
-     * @var ContainerInterface
+     * @var Client
      */
-    protected $container;
+    private $client;
 
     /**
      * Return an array of elements required for testing.
@@ -52,17 +53,41 @@ abstract class TestBase extends WebTestCase
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        $this->client = self::createClient();
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Reboots kernel re-caching resources.
+     */
+    public function rebootKernel()
+    {
+        $this->client = self::createClient();
+    }
+
+    /**
      * Returns service container, creates new if it does not exist.
      *
      * @return ContainerInterface
      */
     protected function getServiceContainer()
     {
-        if ($this->container === null) {
-            $this->container = self::createClient()->getContainer();
+        if ($this->client === null) {
+            $this->client = self::createClient();
         }
 
-        return $this->container;
+        return $this->client->getContainer();
     }
 
     /**
@@ -83,7 +108,13 @@ abstract class TestBase extends WebTestCase
         AnnotationRegistry::registerFile(
             'vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
         );
-        $container = self::createClient()->getContainer();
+        self::createClient();
+        $container = self::$kernel->getContainer();
+
+        $container
+            ->get('es.manager')
+            ->getConnection()
+            ->dropAndCreateIndex();
 
         $connection = DriverManager::getConnection(
             [
@@ -108,7 +139,8 @@ abstract class TestBase extends WebTestCase
      */
     public static function tearDownAfterClass()
     {
-        $container = self::createClient()->getContainer();
+        self::createClient();
+        $container = self::$kernel->getContainer();
         /** @var EntityManager $entityManager */
         $entityManager = $container->get('doctrine')->getManager();
         $connection = $entityManager->getConnection();

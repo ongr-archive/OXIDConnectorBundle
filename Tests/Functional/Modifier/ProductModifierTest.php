@@ -39,7 +39,7 @@ class ProductModifierTest extends TestBase
         $expected1->setManufacturer(null);
         $expected1->setLongDescription(null);
         $expected1->setVendor(null);
-        $expected1->setParent('no-parent');
+        $expected1->setParent('oxrootid');
         $expected1->setStock(5.0);
         $expected1->setAttributes([]);
 

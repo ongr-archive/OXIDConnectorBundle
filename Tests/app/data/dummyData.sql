@@ -51,7 +51,7 @@ INSERT INTO `oxobject2category` (`OXID`, `OXOBJECTID`, `OXCATNID`) VALUES
 # Data for table `oxarticles`
 #
 INSERT INTO `oxarticles` (`OXID`, `OXACTIVE`, `OXARTNUM`, `OXMPN`, `OXTITLE`, `OXSHORTDESC`, `OXPRICE`, `OXTPRICE`, `OXSORT`, `OXVENDORID`, `OXPARENTID`, `OXMANUFACTURERID`, `OXSTOCK`, `OXSTOCKFLAG`) VALUES
-('6b698c33118caee4ca0882c33f513d2f', 1, '85-8573-846-1-4-3', 'F53sf45', 'PRODUCT NO. 1', 'Product number one for testing', 25.5, 36.7, 6, 'no-vendor', 'no-parent', 'non-existant-manufacturer', 5, 1),
+('6b698c33118caee4ca0882c33f513d2f', 1, '85-8573-846-1-4-3', 'F53sf45', 'PRODUCT NO. 1', 'Product number one for testing', 25.5, 36.7, 6, 'no-vendor', '', 'non-existant-manufacturer', 5, 1),
 ('6b6a6aedca3e438e98d51f0a5d586c0b', 0, '0702-85-853-9-2', 'F16fd56', 'PRODUCT NO. 2', 'Product number two for testing', 46.6, 35.7, 8, '6b6a6aedca3e438e98d51f0a5d12hjk', '6b698c33118caee4ca0882c33f513d2f', '90a8a18dd0cf0e7aec5238f30e1c6106', 2, 3);
 
 

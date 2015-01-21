@@ -36,7 +36,7 @@ class CategoryModifierTest extends TestBase
         $expectedCategory1->setHidden(true);
         $expectedCategory1->setLeft(4);
         $expectedCategory1->setRight(5);
-        $expectedCategory1->setParentId('fad2d80baf7aca6ac54e819e066f24aa');
+        $expectedCategory1->setParent('fad2d80baf7aca6ac54e819e066f24aa');
         $expectedCategory1->setRootId('30e44ab83fdee7564.23264141');
         $expectedCategory1->setSort(3010101);
         $expectedCategory1->setTitle('BestCategory');
@@ -52,7 +52,7 @@ class CategoryModifierTest extends TestBase
         $expectedCategory2->setHidden(false);
         $expectedCategory2->setLeft(6);
         $expectedCategory2->setRight(7);
-        $expectedCategory2->setParentId('fada9485f003c731b7fad08b873214e0');
+        $expectedCategory2->setParent('fada9485f003c731b7fad08b873214e0');
         $expectedCategory2->setRootId('943a9ba3050e78b443c16e043ae60ef3');
         $expectedCategory2->setSort(103);
         $expectedCategory2->setTitle('Trapeze');
