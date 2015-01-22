@@ -90,7 +90,7 @@ class ONGROXIDConnectorExtension extends Extension
     {
         $toLoad = [
             'product', 'category', 'content',
-            'oxaccessoire2article',
+            'oxaccessoire2article', 'oxactions2article',
         ];
 
         foreach ($toLoad as $modifier) {

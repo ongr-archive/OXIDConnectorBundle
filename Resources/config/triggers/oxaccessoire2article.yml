@@ -24,5 +24,5 @@ services:
           - { name: ongr_connections.sql_relation, trigger: accessories_delete }
 
     ongr_oxid.triggers.articles.update.accessories_articles:
-        class: %ongr_connections.sql_relations.composed_relation.class%
+        class: %ongr_connections.sql_relations.table_relation.class%
         arguments: [oxaccessoire2article, oxaccessoire2article.OXARTICLENID, oxaccessoire2article.OXOBJECTID=NEW.OXID, product, U, 1]
