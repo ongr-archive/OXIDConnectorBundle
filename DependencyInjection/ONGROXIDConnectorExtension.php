@@ -88,7 +88,10 @@ class ONGROXIDConnectorExtension extends Extension
      */
     protected function loadModifiers($config, LoaderInterface $loader)
     {
-        $toLoad = ['product', 'category', 'content'];
+        $toLoad = [
+            'product', 'category', 'content',
+            'oxaccessoire2article',
+        ];
 
         foreach ($toLoad as $modifier) {
             if ($config['modifiers'] === [] || in_array($modifier, $config['modifiers'])) {
