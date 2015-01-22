@@ -88,6 +88,7 @@ ongr_elasticsearch:
             mappings:
                 - AcmeTestBundle
                 - ONGROXIDConnectorBundle
+                - ONGRConnectionsBundle
 
 ongr_content:
     es:

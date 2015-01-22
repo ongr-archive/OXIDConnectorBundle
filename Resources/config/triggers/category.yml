@@ -12,16 +12,16 @@ parameters:
 services:
     # Category triggers
     ongr_oxid.triggers.oxcategories_insert:
-        class: %ongr_connections.sql_relations.simple_relation.class%
+        class: %ongr_connections.sql_relations.composed_relation.class%
         arguments: [oxcategories, C, 1, category, NEW.OXID]
         tags:
-            - { name: ongr_connections.trigger, trigger: oxcategory_insert }
+            - { name: ongr_connections.sql_relation, trigger: oxcategory_insert }
 
     ongr_oxid.triggers.oxcategories_update:
         class: %ongr_connections.sql_relations.composed_relation.class%
         arguments: [oxcategories, U, 1, category, NEW.OXID, %ongr_oxid.triggers.category.track_fields%]
         tags:
-          - { name: ongr_connections.trigger, trigger: oxcategory_oxarticles_update }
+          - { name: ongr_connections.sql_relation, trigger: oxcategory_oxarticles_update }
         calls:
           - [addStatement, [@ongr_oxid.triggers.oxcategories_update.articles]]
 
@@ -30,7 +30,7 @@ services:
         arguments: [oxobject2category, oxobject2category.OXOBJECTID, oxobject2category.OXCATNID=NEW.OXID, product, U, 1]
 
     ongr_oxid.triggers.oxcategory_delete:
-        class: %ongr_connections.sql_relations.simple_relation.class%
+        class: %ongr_connections.sql_relations.composed_relation.class%
         arguments: [oxcategories, D, 1, category, OLD.OXID]
         tags:
-            - { name: ongr_connections.trigger, trigger: "oxcategory_delete" }
+            - { name: ongr_connections.sql_relation, trigger: "oxcategory_delete" }

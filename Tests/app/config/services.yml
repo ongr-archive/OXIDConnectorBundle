@@ -2,7 +2,7 @@ parameters:
     test.sync.execute.chunk_size: 1
     test.sync.execute.shop_id: 1
     test.sync.execute.sync_storage_document_type: product
-    test.sync.execute.elastic_document_type: AcmeTestBundle:Product
+    test.sync.execute.elastic_document_type: ONGROXIDConnectorBundleTest:Article
 
 services:
     # Data provider setup
