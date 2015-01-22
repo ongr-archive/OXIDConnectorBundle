@@ -49,11 +49,11 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for triggerLoadingData().
+     * Data provider for relationLoadingData().
      *
      * @return array
      */
-    public function triggerLoadingData()
+    public function relationLoadingData()
     {
         // Case #0 setting non-existent, default true should be loaded.
         $config = $this->getDefaultConfig();
@@ -61,26 +61,26 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
 
         // Case #1 setting enabled, should be loaded.
         $config = $this->getDefaultConfig();
-        $config['ongr_oxid']['use_default_triggers'] = true;
+        $config['ongr_oxid']['use_default_relations'] = true;
         $out[] = [$config, true];
 
         // Case #2 set to false, shouldn't be loaded.
         $config = $this->getDefaultConfig();
-        $config['ongr_oxid']['use_default_triggers'] = false;
+        $config['ongr_oxid']['use_default_relations'] = false;
         $out[] = [$config, false];
 
         return $out;
     }
 
     /**
-     * Test if triggers are loaded when needed.
+     * Test if relations are loaded when needed.
      *
      * @param array $config
      * @param bool  $shouldExist
      *
-     * @dataProvider triggerLoadingData()
+     * @dataProvider relationLoadingData()
      */
-    public function testTriggerLoading($config, $shouldExist)
+    public function testRelationLoading($config, $shouldExist)
     {
         $container = new ContainerBuilder();
         $container->setParameter('ongr_connections.active_shop', 'alpha');
