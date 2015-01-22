@@ -88,17 +88,26 @@ class ONGROXIDConnectorExtension extends Extension
      */
     protected function loadModifiers($config, LoaderInterface $loader)
     {
-        $toLoad = [
+        $toLoadModifiers = [
+            'product', 'category', 'content',
+        ];
+
+        foreach ($toLoadModifiers as $modifier) {
+            if ($config['modifiers'] === [] || in_array($modifier, $config['modifiers'])) {
+                $loader->load("modifiers/{$modifier}.yml");
+            }
+        }
+
+        $toLoadTriggers = [
             'product', 'category', 'content',
             'oxaccessoire2article', 'oxactions2article',
         ];
 
-        foreach ($toLoad as $modifier) {
-            if ($config['modifiers'] === [] || in_array($modifier, $config['modifiers'])) {
-                $loader->load("modifiers/{$modifier}.yml");
+        foreach ($toLoadTriggers as $trigger) {
+            if ($config['modifiers'] === [] || in_array($trigger, $config['modifiers'])) {
                 // Load the trigger as well if they're enabled.
                 if ($config['use_default_triggers']) {
-                    $loader->load("triggers/{$modifier}.yml");
+                    $loader->load("triggers/{$trigger}.yml");
                 }
             }
         }
