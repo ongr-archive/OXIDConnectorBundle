@@ -1,25 +1,25 @@
 parameters:
-    ongr_oxid.triggers.content.track_fields:
+    ongr_oxid.relations.content.track_fields:
       - OXTITLE
       - OXCONTENT
       - OXFOLDER
       - OXLOADID
 
 services:
-    # Content triggers
-    ongr_oxid.triggers.oxcontent_insert:
+    # Content relations
+    ongr_oxid.relations.oxcontent_insert:
         class: %ongr_connections.sql_relations.composed_relation.class%
         arguments: [oxcontents, C, 1, content, NEW.OXID]
         tags:
           - { name: ongr_connections.sql_relation, trigger: oxcontent_insert }
 
-    ongr_oxid.triggers.oxcontent_update:
+    ongr_oxid.relations.oxcontent_update:
         class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxcontents, U, 1, content, NEW.OXID, %ongr_oxid.triggers.content.track_fields%]
+        arguments: [oxcontents, U, 1, content, NEW.OXID, %ongr_oxid.relations.content.track_fields%]
         tags:
           - { name: ongr_connections.sql_relation, trigger: oxcontent_update }
 
-    ongr_oxid.triggers.oxcontent_delete:
+    ongr_oxid.relations.oxcontent_delete:
         class: %ongr_connections.sql_relations.composed_relation.class%
         arguments: [oxcontents, D, 1, content, OLD.OXID]
         tags:

@@ -88,7 +88,7 @@ class ONGROXIDConnectorExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = new ONGROXIDConnectorExtension();
         $extension->load($config, $container);
 
-        $this->assertEquals($shouldExist, $container->hasDefinition('ongr_oxid.triggers.oxarticles_insert'));
+        $this->assertEquals($shouldExist, $container->hasDefinition('ongr_oxid.relations.oxarticles_insert'));
     }
 
     /**
