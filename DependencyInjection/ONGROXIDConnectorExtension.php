@@ -100,7 +100,7 @@ class ONGROXIDConnectorExtension extends Extension
 
         $toLoadTriggers = [
             'product', 'category', 'content',
-            'oxaccessoire2article', 'oxactions2article',
+            'oxaccessoire2article', 'oxactions2article', 'oxobject2action',
         ];
 
         foreach ($toLoadTriggers as $trigger) {
