@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\DriverManager;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -212,5 +213,17 @@ abstract class TestBase extends WebTestCase
         );
 
         return $commandTester;
+    }
+
+    /**
+     * Gets Connection from container.
+     *
+     * @return Connection
+     */
+    protected function getConnection()
+    {
+        /** @var $doctrine RegistryInterface */
+        $doctrine = $this->getServiceContainer()->get('doctrine');
+        return $doctrine->getConnection();
     }
 }
