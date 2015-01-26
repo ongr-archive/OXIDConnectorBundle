@@ -21,12 +21,12 @@ use ONGR\ConnectionsBundle\Sync\DiffProvider\Binlog\BinlogParser;
 use ONGR\ElasticsearchBundle\DSL\Search;
 use ONGR\ElasticsearchBundle\ORM\Repository;
 
-class DataSyncTest extends TestBase{
-
+class DataSyncTest extends TestBase
+{
     /**
-     * Tests data importing from client data to sync storage.
+     * Tests full data synchronization process.
      */
-    public function testDataImportFromClientDataToSyncStorage()
+    public function testDataSync()
     {
         // Delete existing binlog data.
         $this->getConnection()->executeQuery('RESET MASTER');
@@ -59,12 +59,12 @@ class DataSyncTest extends TestBase{
             ['target' => 'data_provide_test']
         );
 
-        # SYNC EXECUTE
+        // The part of "sync execute".
 
         $esManager = $this->getServiceContainer()->get('es.manager');
         $esManager->getConnection()->dropAndCreateIndex();
 
-        $result =  $this->executeCommand(
+        $result = $this->executeCommand(
             new SyncExecuteCommand(),
             'ongr:sync:execute',
             ['target' => 'data_execute_product']
@@ -72,7 +72,7 @@ class DataSyncTest extends TestBase{
 
         $this->assertContains('Job finished', $result->getDisplay());
 
-        $result =  $this->executeCommand(
+        $result = $this->executeCommand(
             new SyncExecuteCommand(),
             'ongr:sync:execute',
             ['target' => 'data_execute_category']
@@ -80,7 +80,7 @@ class DataSyncTest extends TestBase{
 
         $this->assertContains('Job finished', $result->getDisplay());
 
-        $result =  $this->executeCommand(
+        $result = $this->executeCommand(
             new SyncExecuteCommand(),
             'ongr:sync:execute',
             ['target' => 'data_execute_content']
@@ -107,37 +107,37 @@ class DataSyncTest extends TestBase{
         $expectedDocument = [
             'ONGROXIDConnectorBundle:ProductDocument' => [
                 0 => [
-                        'title' => 'The same title for all!',
-                        'description' => 'The same desc for all!',
-                        'sku' => '85-8573-846-1-4-3',
-                        'price' => 25.5,
-                        'active' => true,
-                        'old_price' => 36.7,
-                        'stock' => 5,
+                    'title' => 'The same title for all!',
+                    'description' => 'The same desc for all!',
+                    'sku' => '85-8573-846-1-4-3',
+                    'price' => 25.5,
+                    'active' => true,
+                    'old_price' => 36.7,
+                    'stock' => 5,
                 ],
                 1 => [
-                        'title' => 'Product 1',
-                        'active' => true,
+                    'title' => 'Product 1',
+                    'active' => true,
                 ],
                 2 => [
-                        'title' => 'Product 2',
-                        'active' => true,
+                    'title' => 'Product 2',
+                    'active' => true,
                 ],
                 3 => [
-                        'title' => 'Product 3',
-                        'active' => true,
+                    'title' => 'Product 3',
+                    'active' => true,
                 ],
                 4 => [
-                        'title' => 'The same title for all!',
-                        'description' => 'The same desc for all!',
-                        'long_description' => 'Product number two description for testing from extension',
-                        'sku' => '0702-85-853-9-2',
-                        'price' => 46.6,
-                        'old_price' => 35.7,
-                        'stock' => 2,
-                        'vendor' => 'Vendor Title for PRODUCT TWO',
-                        'manufacturer' => 'Naish',
-                        'categories' =>
+                    'title' => 'The same title for all!',
+                    'description' => 'The same desc for all!',
+                    'long_description' => 'Product number two description for testing from extension',
+                    'sku' => '0702-85-853-9-2',
+                    'price' => 46.6,
+                    'old_price' => 35.7,
+                    'stock' => 2,
+                    'vendor' => 'Vendor Title for PRODUCT TWO',
+                    'manufacturer' => 'Naish',
+                    'categories' =>
                             [
                                 0 => 'fada9485f003c731b7fad08b873214e0',
                             ],
@@ -175,14 +175,17 @@ class DataSyncTest extends TestBase{
             ],
         ];
 
-        $this->assertEquals($expectedDocument, $actualDocuments);
+        $this->assertEquals(
+            sort($expectedDocument),
+            sort($actualDocuments)
+        );
     }
 
     /**
      * Sets last_sync_date in bin log format or sets last_sync_position.
      *
      * @param \DateTime|int $from
-     * @param int $startType
+     * @param int           $startType
      */
     private function setLastSync($from, $startType)
     {

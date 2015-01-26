@@ -224,6 +224,7 @@ abstract class TestBase extends WebTestCase
     {
         /** @var $doctrine RegistryInterface */
         $doctrine = $this->getServiceContainer()->get('doctrine');
+
         return $doctrine->getConnection();
     }
 }
