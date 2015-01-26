@@ -81,21 +81,33 @@ class ONGROXIDConnectorExtension extends Extension
     }
 
     /**
-     * Loads required modifiers and triggers.
+     * Loads required modifiers and relations.
      *
      * @param array           $config
      * @param LoaderInterface $loader
      */
     protected function loadModifiers($config, LoaderInterface $loader)
     {
-        $toLoad = ['product', 'category', 'content'];
+        $toLoadModifiers = [
+            'product', 'category', 'content',
+        ];
 
-        foreach ($toLoad as $modifier) {
+        foreach ($toLoadModifiers as $modifier) {
             if ($config['modifiers'] === [] || in_array($modifier, $config['modifiers'])) {
                 $loader->load("modifiers/{$modifier}.yml");
-                // Load the trigger as well if they're enabled.
-                if ($config['use_default_triggers']) {
-                    $loader->load("triggers/{$modifier}.yml");
+            }
+        }
+
+        $toLoadRelations = [
+            'product', 'category', 'content',
+            'oxaccessoire2article', 'oxactions2article', 'oxobject2action', 'oxfield2shop',
+        ];
+
+        foreach ($toLoadRelations as $relation) {
+            if ($config['modifiers'] === [] || in_array($relation, $config['modifiers'])) {
+                // Load the relations as well if they're enabled.
+                if ($config['use_default_relations']) {
+                    $loader->load("relations/{$relation}.yml");
                 }
             }
         }

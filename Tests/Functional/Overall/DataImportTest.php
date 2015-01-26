@@ -13,32 +13,11 @@ namespace ONGR\OXIDConnectorBundle\Tests\Functional\Overall;
 
 use ONGR\ConnectionsBundle\Command\ImportFullCommand;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use ONGR\ElasticsearchBundle\ORM\Manager;
 use ONGR\ElasticsearchBundle\DSL\Query\MatchAllQuery;
 
 class DataImportTest extends TestBase
 {
-    /**
-     * @var Application
-     */
-    private $application;
-
-    /**
-     * Prepare services for tests.
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->application = new Application($this->getClient()->getKernel());
-
-        // Update some data.
-        $this->importData('DataImportTest/updateProducts.sql');
-    }
-
     /**
      * Test cases to test Data Import.
      *
@@ -112,34 +91,5 @@ class DataImportTest extends TestBase
         $documents = iterator_to_array($documents);
         sort($documents);
         $this->assertEquals($firstValue, $documents[0]->getId());
-    }
-
-    /**
-     * Executes specified command.
-     *
-     * @param ContainerAwareCommand $commandInstance
-     * @param string                $commandNamespace
-     * @param array                 $parameters
-     *
-     * @return CommandTester
-     */
-    private function executeCommand(
-        ContainerAwareCommand $commandInstance,
-        $commandNamespace,
-        array $parameters = []
-    ) {
-        $application = new Application($this->getClient()->getKernel());
-        $commandInstance->setContainer($this->getServiceContainer());
-        $application->add($commandInstance);
-        $command = $application->find($commandNamespace);
-        $commandTester = new CommandTester($command);
-        $commandTester->execute(
-            array_merge_recursive(
-                ['command' => $command->getName()],
-                $parameters
-            )
-        );
-
-        return $commandTester;
     }
 }

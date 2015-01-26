@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->booleanNode('use_default_triggers')
+                ->booleanNode('use_default_relations')
                     ->defaultTrue()
                     ->info('enabled')
                 ->end()

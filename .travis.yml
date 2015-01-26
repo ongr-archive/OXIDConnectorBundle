@@ -9,6 +9,13 @@ services:
   - elasticsearch
 install:
   - composer require --no-update symfony/symfony:${SYMFONY}
+before_install:
+  # SQL settings
+  - sudo chmod 0644 /etc/mysql/my.cnf
+  - sudo sed "/skip-external-locking/a log-bin=mysql-bin\nbinlog_format = ROW\ndatadir = /var/lib/mysql" -i /etc/mysql/my.cnf
+  - sudo usermod -g travis mysql
+  - sudo chmod -R 0777 /var/lib/mysql
+  - sudo service mysql restart
 before_script:
   - composer self-update
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root

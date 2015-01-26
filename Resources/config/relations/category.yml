@@ -1,0 +1,36 @@
+parameters:
+    ongr_oxid.relations.category.track_fields:
+      - OXPARENTID
+      - OXLEFT
+      - OXRIGHT
+      - OXROOTID
+      - OXSORT
+      - OXACTIVE
+      - OXHIDDEN
+      - OXTITLE
+
+services:
+    # Category relations
+    ongr_oxid.relations.oxcategories_insert:
+        class: %ongr_connections.sql_relations.composed_relation.class%
+        arguments: [oxcategories, C, 1, category, NEW.OXID]
+        tags:
+            - { name: ongr_connections.sql_relation, trigger: oxcategory_insert }
+
+    ongr_oxid.relations.oxcategories_update:
+        class: %ongr_connections.sql_relations.composed_relation.class%
+        arguments: [oxcategories, U, 1, category, NEW.OXID, %ongr_oxid.relations.category.track_fields%]
+        tags:
+          - { name: ongr_connections.sql_relation, trigger: oxcategory_oxarticles_update }
+        calls:
+          - [addStatement, [@ongr_oxid.relations.oxcategories_update.articles]]
+
+    ongr_oxid.relations.oxcategories_update.articles:
+        class: %ongr_connections.sql_relations.table_relation.class%
+        arguments: [oxobject2category, oxobject2category.OXOBJECTID, oxobject2category.OXCATNID=NEW.OXID, product, U, 1]
+
+    ongr_oxid.relations.oxcategory_delete:
+        class: %ongr_connections.sql_relations.composed_relation.class%
+        arguments: [oxcategories, D, 1, category, OLD.OXID]
+        tags:
+            - { name: ongr_connections.sql_relation, trigger: "oxcategory_delete" }

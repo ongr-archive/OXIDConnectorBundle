@@ -18,6 +18,10 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\DriverManager;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Class TestBase.
@@ -180,5 +184,47 @@ abstract class TestBase extends WebTestCase
     public static function getRootDir($container)
     {
         return $container->get('kernel')->getRootDir();
+    }
+
+    /**
+     * Executes specified command.
+     *
+     * @param ContainerAwareCommand $commandInstance
+     * @param string                $commandNamespace
+     * @param array                 $parameters
+     *
+     * @return CommandTester
+     */
+    protected function executeCommand(
+        ContainerAwareCommand $commandInstance,
+        $commandNamespace,
+        array $parameters = []
+    ) {
+        $application = new Application($this->getClient()->getKernel());
+        $commandInstance->setContainer($this->getServiceContainer());
+        $application->add($commandInstance);
+        $command = $application->find($commandNamespace);
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(
+            array_merge_recursive(
+                ['command' => $command->getName()],
+                $parameters
+            )
+        );
+
+        return $commandTester;
+    }
+
+    /**
+     * Gets Connection from container.
+     *
+     * @return Connection
+     */
+    protected function getConnection()
+    {
+        /** @var $doctrine RegistryInterface */
+        $doctrine = $this->getServiceContainer()->get('doctrine');
+
+        return $doctrine->getConnection();
     }
 }
