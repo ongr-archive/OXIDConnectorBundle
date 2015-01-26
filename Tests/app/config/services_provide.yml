@@ -1,0 +1,15 @@
+services:
+    # Sync provider setup
+    test.sync.data_sync.source:
+        class: %ongr_connections.sync.data_sync.source.class%
+        arguments:
+            - @ongr_connections.sync.diff_provider.binlog_diff_provider
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.data_sync.data_provide_test.source, method: onSource }
+
+    test.sync.data_sync.consume:
+        class: %ongr_connections.sync.data_sync.consume.class%
+        arguments:
+            - @ongr_connections.sync.extractor.doctrine_extractor
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.data_sync.data_provide_test.consume, method: onConsume }
