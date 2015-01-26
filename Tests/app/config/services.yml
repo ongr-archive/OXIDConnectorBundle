@@ -1,11 +1,9 @@
 parameters:
     test.sync.execute.chunk_size: 1
-    test.sync.execute.shop_id: 1
-    test.sync.execute.sync_storage_document_type: product
-    test.sync.execute.elastic_document_type: ONGROXIDConnectorBundleTest:Article
+    test.sync.execute.shop_id: 0
 
 services:
-    # Data provider setup
+    # Sync provider setup
     test.sync.data_sync.source:
         class: %ongr_connections.sync.data_sync.source.class%
         arguments:
@@ -20,37 +18,105 @@ services:
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.data_sync.data_provide_test.consume, method: onConsume }
 
-    # Data sync execute setup
-    test.sync.execute.source:
+    # Sync execute setup for product
+    test.sync.execute.source.product:
         class: %ongr_connections.sync.execute.source.class%
         parent: ongr_connections.import.source
         arguments:
             - @doctrine.orm.default_entity_manager
-            - "Test:TestProduct"
+            - "ONGROXIDConnectorBundleTest:Article"
             - @es.manager
-            - "AcmeTestBundle:Product"
+            - "ONGROXIDConnectorBundle:ProductDocument"
             - @ongr_connections.sync.sync_storage
         calls:
             - [ setChunkSize, [ %test.sync.execute.chunk_size% ] ]
             - [ setShopId, [ %test.sync.execute.shop_id% ] ]
-            - [ setDocumentType, [ %test.sync.execute.sync_storage_document_type% ] ]
+            - [ setDocumentType, [ "product" ] ]
         tags:
-            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.source, method: onSource }
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_product.source, method: onSource }
 
-    test.sync.execute.modifier:
+    test.sync.execute.modifier.product:
         class: %ongr_oxid.modifier.product.class%
+        arguments: [ "@ongr_oxid.attr_to_doc_service" ]
         tags:
-            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.modify, method: onModify }
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_product.modify, method: onModify }
 
-    test.sync.execute.consumer:
-        class: %ongr_connections.sync.execute.consumer.class%
-        parent: ongr_connections.sync.execute.consumer
+    test.sync.execute.consumer.product:
+            class: %ongr_connections.sync.execute.consumer.class%
+            parent: ongr_connections.sync.execute.consumer
+            arguments:
+                - @es.manager
+                - "ONGROXIDConnectorBundleTest:Article"
+                - @ongr_connections.sync.sync_storage
+            tags:
+                - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_product.consume, method: onConsume }
+
+    # Sync execute setup for category
+    test.sync.execute.source.category:
+        class: %ongr_connections.sync.execute.source.class%
+        parent: ongr_connections.import.source
         arguments:
+            - @doctrine.orm.default_entity_manager
+            - "ONGROXIDConnectorBundleTest:Category"
             - @es.manager
-            - %test.sync.execute.elastic_document_type%
+            - "ONGROXIDConnectorBundle:CategoryDocument"
             - @ongr_connections.sync.sync_storage
+        calls:
+            - [ setChunkSize, [ %test.sync.execute.chunk_size% ] ]
+            - [ setShopId, [ %test.sync.execute.shop_id% ] ]
+            - [ setDocumentType, [ "category" ] ]
         tags:
-            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.consume, method: onConsume }
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_category.source, method: onSource }
+
+    test.sync.execute.modifier.category:
+        class: %ongr_oxid.modifier.category.class%
+        arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_category.modify, method: onModify }
+
+    test.sync.execute.consumer.category:
+            class: %ongr_connections.sync.execute.consumer.class%
+            parent: ongr_connections.sync.execute.consumer
+            arguments:
+                - @es.manager
+                - "ONGROXIDConnectorBundleTest:Category"
+                - @ongr_connections.sync.sync_storage
+            tags:
+                - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_category.consume, method: onConsume }
+
+    # Sync execute setup for content
+    test.sync.execute.source.content:
+        class: %ongr_connections.sync.execute.source.class%
+        parent: ongr_connections.import.source
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - "ONGROXIDConnectorBundleTest:Content"
+            - @es.manager
+            - "ONGROXIDConnectorBundle:ContentDocument"
+            - @ongr_connections.sync.sync_storage
+        calls:
+            - [ setChunkSize, [ %test.sync.execute.chunk_size% ] ]
+            - [ setShopId, [ %test.sync.execute.shop_id% ] ]
+            - [ setDocumentType, [ "content" ] ]
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_content.source, method: onSource }
+
+    test.sync.execute.modifier.content:
+        class: %ongr_oxid.modifier.content.class%
+        arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        tags:
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_content.modify, method: onModify }
+
+    test.sync.execute.consumer.content:
+            class: %ongr_connections.sync.execute.consumer.class%
+            parent: ongr_connections.sync.execute.consumer
+            arguments:
+                - @es.manager
+                - "ONGROXIDConnectorBundleTest:Content"
+                - @ongr_connections.sync.sync_storage
+            tags:
+                - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_content.consume, method: onConsume }
+
 
     test.sync.execute.finish:
         class: %ongr_connections.import.finish.class%
@@ -58,9 +124,11 @@ services:
         arguments:
             - @es.manager
         tags:
-            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_sync_test.finish, method: onFinish }
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_category.finish, method: onFinish }
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_product.finish, method: onFinish }
+            - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_content.finish, method: onFinish }
 
-    # Data import
+    # Data import setup
     test.import.source.category:
            class: %ongr_connections.import.source.class%
            parent: ongr_connections.import.source
