@@ -61,9 +61,9 @@ class ProductModifier extends AbstractImportModifyEventListener
 
         $parent_id = $article->getParent()->getId();
         if (empty($parent_id) === false) {
-            $document->setParent($parent_id);
+            $document->setParentId($parent_id);
         } else {
-            $document->setParent('oxrootid');
+            $document->setParentId('oxrootid');
         }
 
         $this->extractExtensionData($article, $document);

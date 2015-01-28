@@ -72,9 +72,9 @@ class CategoryModifier extends AbstractImportModifyEventListener
 
         $parent_id = $category->getParent()->getId();
         if (empty($parent_id) === false) {
-            $document->setParent($parent_id);
+            $document->setParentId($parent_id);
         } else {
-            $document->setParent('oxrootid');
+            $document->setParentId('oxrootid');
         }
     }
 }

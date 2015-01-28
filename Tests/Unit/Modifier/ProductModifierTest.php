@@ -13,14 +13,13 @@ namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\AttributeObject;
-use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
 use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Entity\ArticleExtension;
 use ONGR\OXIDConnectorBundle\Entity\ArticleToCategory;
 use ONGR\OXIDConnectorBundle\Entity\Manufacturer;
 use ONGR\OXIDConnectorBundle\Entity\Vendor;
-use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
+use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\ArticleToAttribute;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Attribute;
@@ -128,7 +127,7 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setOldPrice(43.21);
         $expectedDocument->setLongDescription('Long description');
         $expectedDocument->setCategories(['activeCategoryId']);
-        $expectedDocument->setParent('parentId');
+        $expectedDocument->setParentId('parentId');
         $expectedDocument->setStock(5);
         $expectedDocument->setVendor('Vendor A');
         $expectedDocument->setManufacturer('Manufacturer A');

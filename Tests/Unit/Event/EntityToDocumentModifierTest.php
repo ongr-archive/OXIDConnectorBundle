@@ -146,7 +146,7 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
                 ['setDescription', 1, null, 'testDescription'],
                 ['setLongDescription', 1, null, 'testLongDescription'],
                 ['setAttributes', 1, null, [11, 22, 33]],
-                ['setParent', 1, null, 234],
+                ['setParentId', 1, null, 234],
             ]
         );
 
@@ -307,7 +307,7 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
                 ['setDescription', 1, null, 'testShortDescription'],
                 ['setPrice', 1, null, 20.20],
                 ['setOldPrice', 1, null, 25.00],
-                ['setParent', 1, null, 123],
+                ['setParentId', 1, null, 123],
                 ['setStock', 1, null, 50],
                 ['setAttributes', 1, null, [11, 22, 33]],
                 ['setLongDescription', 1, null, 'testLongDescription'],

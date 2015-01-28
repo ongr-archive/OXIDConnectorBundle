@@ -17,10 +17,17 @@ use ONGR\ElasticsearchBundle\Annotation as ES;
 /**
  * Product document.
  *
- * @ES\Document(type="product", parent="ONGROXIDConnectorBundle:ProductDocument")
+ * @ES\Document(type="product")
  */
 class ProductDocument extends AbstractProductDocument
 {
+    /**
+     * @var string
+     *
+     * @ES\Property(name="parent_id", type="string")
+     */
+    private $parentId;
+
     /**
      * @var bool
      *
@@ -219,6 +226,26 @@ class ProductDocument extends AbstractProductDocument
     public function setAttributes($attributes = null)
     {
         $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * @param string $parentId
+     *
+     * @return $this
+     */
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
 
         return $this;
     }

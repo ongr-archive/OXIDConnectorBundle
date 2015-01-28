@@ -39,7 +39,7 @@ class ProductModifierTest extends TestBase
         $expected1->setManufacturer(null);
         $expected1->setLongDescription(null);
         $expected1->setVendor(null);
-        $expected1->setParent('oxrootid');
+        $expected1->setParentId('oxrootid');
         $expected1->setStock(5.0);
         $expected1->setAttributes([]);
 
@@ -54,7 +54,7 @@ class ProductModifierTest extends TestBase
         $expected2->setManufacturer('Naish');
         $expected2->setLongDescription('Product number two description for testing from extension');
         $expected2->setVendor('Vendor Title for PRODUCT TWO');
-        $expected2->setParent('6b698c33118caee4ca0882c33f513d2f');
+        $expected2->setParentId('6b698c33118caee4ca0882c33f513d2f');
         $expected2->setStock(2);
         $expected2->setCategories(['fada9485f003c731b7fad08b873214e0']);
         $expected2->setAttributes([]);
