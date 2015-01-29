@@ -43,6 +43,7 @@ class ContentDocumentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(true, $this->document->getSnippet());
         $this->assertEquals(14, $this->document->getType());
         $this->assertEquals(false, $this->document->getActive());
+        $this->assertEquals(false, $this->document->isActive());
         $this->assertEquals(1234, $this->document->getPosition());
         $this->assertEquals('testFolder', $this->document->getFolder());
     }

@@ -14,6 +14,7 @@ namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\AttributeObject;
 use ONGR\OXIDConnectorBundle\Document\ProductDocument;
+use ONGR\OXIDConnectorBundle\Document\VariantObject;
 use ONGR\OXIDConnectorBundle\Entity\ArticleExtension;
 use ONGR\OXIDConnectorBundle\Entity\ArticleToCategory;
 use ONGR\OXIDConnectorBundle\Entity\Manufacturer;
@@ -110,12 +111,13 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
             ->setExtension($extension)
             ->addCategory($objToCat)
             ->addCategory($activeObjToCat)
-            ->setParent($parent)
             ->setStock(5)
             ->setStockFlag(1)
             ->setVendor($vendor)
             ->setManufacturer($manufacturer)
             ->addAttribute($artToAttr);
+
+        $entity->setVariants($this->getVariants($entity));
 
         $expectedDocument = new ProductDocument();
         $expectedDocument->setId('id123');
@@ -127,10 +129,10 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setOldPrice(43.21);
         $expectedDocument->setLongDescription('Long description');
         $expectedDocument->setCategories(['activeCategoryId']);
-        $expectedDocument->setParentId('parentId');
         $expectedDocument->setStock(5);
         $expectedDocument->setVendor('Vendor A');
         $expectedDocument->setManufacturer('Manufacturer A');
+        $expectedDocument->setVariants($this->getExpectedVariants());
         $attObj = new AttributeObject();
         $attObj->setPos(1);
         $attObj->setTitle('testAttributeTitle');
@@ -140,5 +142,121 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $this->modifier->modify(new ImportItem($entity, $document));
 
         $this->assertEquals($expectedDocument, $document);
+    }
+
+    /**
+     * @param Article $parent
+     *
+     * @return Article[] ;
+     */
+    private function getVariants($parent)
+    {
+        /** @var ArticleExtension $extension */
+        $extension = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\ArticleExtension');
+        $extension->setLongDesc('Long description');
+
+        /** @var Article $entity1 */
+        $entity1 = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Article');
+
+        $attribute = new Attribute();
+        $attribute->setId(125);
+        $attribute->setPos(1);
+        $attribute->setTitle('testAttributeTitle');
+        $artToAttr = new ArticleToAttribute();
+        $artToAttr->setId(3213);
+        $artToAttr->setPos(1);
+        $artToAttr->setArticle($entity1);
+        $artToAttr->setAttribute($attribute);
+
+        $entity1
+            ->setId('id1235')
+            ->setActive(true)
+            ->setArtNum('abc123')
+            ->setTitle('Any title')
+            ->setShortDesc('Short description')
+            ->setPrice(13.34)
+            ->setTPrice(44.21)
+            ->setExtension($extension)
+            ->setStock(5)
+            ->setStockFlag(1)
+            ->addAttribute($artToAttr)
+            ->setParent($parent);
+
+        /** @var ArticleExtension $extension */
+        $extension = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\ArticleExtension');
+        $extension->setLongDesc('Long description2');
+
+        /** @var Article $entity2 */
+        $entity2 = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Article');
+
+        $attribute = new Attribute();
+        $attribute->setId(126);
+        $attribute->setPos(1);
+        $attribute->setTitle('testAttributeTitle2');
+        $artToAttr = new ArticleToAttribute();
+        $artToAttr->setId(3211);
+        $artToAttr->setPos(1);
+        $artToAttr->setArticle($entity2);
+        $artToAttr->setAttribute($attribute);
+
+        $entity2
+            ->setId('id1234')
+            ->setActive(false)
+            ->setArtNum('abc1234')
+            ->setTitle('Any title2')
+            ->setShortDesc('Short description2')
+            ->setPrice(13.34)
+            ->setTPrice(44.21)
+            ->setExtension($extension)
+            ->setStock(6)
+            ->setStockFlag(1)
+            ->addAttribute($artToAttr)
+            ->setParent($parent);
+
+        return [$entity1, $entity2];
+    }
+
+    /**
+     * @return VariantObject[]
+     */
+    private function getExpectedVariants()
+    {
+        $variant1 = new VariantObject();
+
+        $attObj = new AttributeObject();
+        $attObj->setPos(1);
+        $attObj->setTitle('testAttributeTitle');
+
+        $variant1
+            ->setId('id1235')
+            ->setActive(true)
+            ->setOldPrice(44.21)
+            ->setStock(5)
+            ->setAttributes([$attObj])
+            ->setTitle('Any title')
+            ->setDescription('Short description')
+            ->setLongDescription('Long description')
+            ->setSku('abc123')
+            ->setPrice(13.34);
+
+        $variant2 = new VariantObject();
+
+        $attObj = new AttributeObject();
+        $attObj->setPos(1);
+        $attObj->setTitle('testAttributeTitle2');
+
+        $variant2
+            ->setId('id1234')
+            ->setActive(false)
+            ->setOldPrice(44.21)
+            ->setStock(6)
+            ->setAttributes([$attObj])
+            ->setTitle('Any title2')
+            ->setDescription('Short description2')
+            ->setLongDescription('Long description2')
+            ->setSku('abc1234')
+            ->setPrice(13.34);
+
+        return [$variant1, $variant2];
     }
 }

@@ -114,12 +114,22 @@ abstract class Article
     /**
      * @var Article
      *
-     * @ORM\ManyToOne(targetEntity="Article")
+     * @ORM\ManyToOne(targetEntity="Article", inversedBy="variants")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(name="OXPARENTID", referencedColumnName="OXID")
      * })
      */
     protected $parent;
+
+    /**
+     * @var Article[]
+     *
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="parent")
+     * @ORM\JoinColumns({
+     *     @ORM\JoinColumn(name="OXPARENTID", referencedColumnName="OXID")
+     * })
+     */
+    protected $variants;
 
     /**
      * @var Manufacturer
@@ -575,30 +585,6 @@ abstract class Article
     }
 
     /**
-     * Sets parent.
-     *
-     * @param Article $parent
-     *
-     * @return Article
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Returns parent.
-     *
-     * @return Article
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
      * Sets stock.
      *
      * @param float $stock
@@ -640,5 +626,45 @@ abstract class Article
     public function getStockFlag()
     {
         return $this->stockFlag;
+    }
+
+    /**
+     * @return Article[]
+     */
+    public function getVariants()
+    {
+        return $this->variants;
+    }
+
+    /**
+     * @param Article[] $variants
+     *
+     * @return $this
+     */
+    public function setVariants($variants)
+    {
+        $this->variants = $variants;
+
+        return $this;
+    }
+
+    /**
+     * @return Article
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Article $parent
+     *
+     * @return $this
+     */
+    public function setParent(Article $parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
     }
 }

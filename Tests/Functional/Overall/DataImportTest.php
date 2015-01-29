@@ -12,9 +12,9 @@
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Overall;
 
 use ONGR\ConnectionsBundle\Command\ImportFullCommand;
-use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
-use ONGR\ElasticsearchBundle\ORM\Manager;
 use ONGR\ElasticsearchBundle\DSL\Query\MatchAllQuery;
+use ONGR\ElasticsearchBundle\ORM\Manager;
+use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 class DataImportTest extends TestBase
 {
@@ -47,7 +47,7 @@ class DataImportTest extends TestBase
         $cases[] = [
             'target' => 'product_import_test',
             'repository' => 'ONGROXIDConnectorBundle:ProductDocument',
-            'resultCount' => 2,
+            'resultCount' => 1,
             'firstValue' => '6b698c33118caee4ca0882c33f513d2f',
         ];
 

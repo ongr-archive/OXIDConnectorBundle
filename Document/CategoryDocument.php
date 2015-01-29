@@ -17,7 +17,7 @@ use ONGR\ElasticsearchBundle\Annotation as ES;
 /**
  * Category document.
  *
- * @ES\Document(type="category")
+ * @ES\Document(type="category", create=false)
  */
 class CategoryDocument extends AbstractCategoryDocument
 {

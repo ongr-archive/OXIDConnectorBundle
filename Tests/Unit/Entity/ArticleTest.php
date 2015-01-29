@@ -37,6 +37,7 @@ class ArticleTest extends AbstractEntityTest
             ['categories', 'ONGR\OXIDConnectorBundle\Entity\ArticleToCategory', 'addCategory', 'removeCategory'],
             ['attributes', 'ONGR\OXIDConnectorBundle\Entity\ArticleToAttribute', 'addAttribute', 'removeAttribute'],
             ['parent', 'ONGR\OXIDConnectorBundle\Entity\Article'],
+            ['variants', 'ONGR\OXIDConnectorBundle\Entity\Article'],
             ['stock'],
             ['stockFlag'],
         ];

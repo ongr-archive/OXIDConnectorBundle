@@ -50,10 +50,6 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $root = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Category');
         $root->setId('testIdRoot');
 
-        /** @var Category $parent */
-        $parent = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Category');
-        $parent->setId('testIdParent');
-
         /** @var Category $category */
         $category = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Category');
 
@@ -77,7 +73,6 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
             ->setLongDesc('testLongDescription')
             ->setSort(3)
             ->setRoot($root)
-            ->setParent($parent)
             ->setRight(501)
             ->setLeft(102)
             ->addAttribute($catToAttr);
@@ -92,7 +87,7 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setLongDescription('testLongDescription');
         $expectedDocument->setSort(3);
         $expectedDocument->setRootId('testIdRoot');
-        $expectedDocument->setParentId('testIdParent');
+        $expectedDocument->setParentId('oxrootid');
         $expectedDocument->setLeft(102);
         $expectedDocument->setRight(501);
         $attrObj = new AttributeObject();

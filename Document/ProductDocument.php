@@ -17,17 +17,10 @@ use ONGR\ElasticsearchBundle\Annotation as ES;
 /**
  * Product document.
  *
- * @ES\Document(type="product")
+ * @ES\Document(type="product", create=false)
  */
 class ProductDocument extends AbstractProductDocument
 {
-    /**
-     * @var string
-     *
-     * @ES\Property(name="parent_id", type="string")
-     */
-    private $parentId;
-
     /**
      * @var bool
      *
@@ -81,6 +74,18 @@ class ProductDocument extends AbstractProductDocument
      * )
      */
     private $attributes;
+
+    /**
+     * @var VariantObject[]
+     *
+     * @ES\Property(
+     *     name="variants",
+     *     objectName="ONGROXIDConnectorBundle:VariantObject",
+     *     multiple=true,
+     *     type="object"
+     * )
+     */
+    private $variants;
 
     /**
      * @return bool
@@ -231,21 +236,33 @@ class ProductDocument extends AbstractProductDocument
     }
 
     /**
-     * @return string
+     * @return VariantObject[]
      */
-    public function getParentId()
+    public function getVariants()
     {
-        return $this->parentId;
+        return $this->variants;
     }
 
     /**
-     * @param string $parentId
+     * @param VariantObject[] $variants
      *
      * @return $this
      */
-    public function setParentId($parentId)
+    public function setVariants($variants)
     {
-        $this->parentId = $parentId;
+        $this->variants = $variants;
+
+        return $this;
+    }
+
+    /**
+     * @param VariantObject $variant
+     *
+     * @return $this
+     */
+    public function addVariant(VariantObject $variant)
+    {
+        $this->variants[] = $variant;
 
         return $this;
     }
