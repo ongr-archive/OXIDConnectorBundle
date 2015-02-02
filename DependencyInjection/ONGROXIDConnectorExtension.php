@@ -46,8 +46,11 @@ class ONGROXIDConnectorExtension extends Extension
             $languageId = $config['database_mapping'][$activeShop]['lang_id'];
         }
 
+        foreach ($config['database_mapping'] as $shop => $shopParam) {
+            $container->setParameter('ongr_connections.shops', [$shop => ['shop_id' => $shopParam['shop_id']]]);
+        }
+
         $container->setParameter('ongr_oxid.entity_namespace', $config['entity_namespace']);
-        $container->setParameter('ongr_oxid.shop_id', $shopId);
         $container->setParameter('ongr_oxid.language_id', $languageId);
 
         if ($config['use_modifiers']) {
