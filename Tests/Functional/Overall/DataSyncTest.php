@@ -13,13 +13,13 @@ namespace ONGR\OXIDConnectorBundle\Tests\Functional\Overall;
 
 use ONGR\ConnectionsBundle\Command\SyncExecuteCommand;
 use ONGR\ConnectionsBundle\Command\SyncProvideCommand;
-use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
-use ONGR\ConnectionsBundle\Sync\StorageManager\MysqlStorageManager;
 use ONGR\ConnectionsBundle\Service\PairStorage;
 use ONGR\ConnectionsBundle\Sync\DiffProvider\Binlog\BinlogDiffProvider;
 use ONGR\ConnectionsBundle\Sync\DiffProvider\Binlog\BinlogParser;
+use ONGR\ConnectionsBundle\Sync\StorageManager\MysqlStorageManager;
 use ONGR\ElasticsearchBundle\DSL\Search;
 use ONGR\ElasticsearchBundle\ORM\Repository;
+use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
 
 class DataSyncTest extends TestBase
 {
@@ -89,9 +89,9 @@ class DataSyncTest extends TestBase
         $this->assertContains('Job finished', $result->getDisplay());
 
         $repositories = [
-            'ONGROXIDConnectorBundle:ProductDocument',
-            'ONGROXIDConnectorBundle:CategoryDocument',
-            'ONGROXIDConnectorBundle:ContentDocument',
+            'TestBundle:ProductDocument',
+            'TestBundle:CategoryDocument',
+            'TestBundle:ContentDocument',
         ];
 
         $actualDocuments = [];
@@ -105,7 +105,7 @@ class DataSyncTest extends TestBase
         }
 
         $expectedDocument = [
-            'ONGROXIDConnectorBundle:ProductDocument' => [
+            'TestBundle:ProductDocument' => [
                 0 => [
                     'title' => 'The same title for all!',
                     'description' => 'The same desc for all!',
@@ -143,7 +143,7 @@ class DataSyncTest extends TestBase
                             ],
                 ],
             ],
-            'ONGROXIDConnectorBundle:CategoryDocument' => [
+            'TestBundle:CategoryDocument' => [
                 0 => [
                     'sort' => 3010101,
                     'active' => true,
@@ -162,7 +162,7 @@ class DataSyncTest extends TestBase
                         ],
                 ],
             ],
-            'ONGROXIDConnectorBundle:ContentDocument' => [
+            'TestBundle:ContentDocument' => [
                 0 => [
                     'slug' => 'oxadminorderemail',
                     'title' => 'Title of content two',

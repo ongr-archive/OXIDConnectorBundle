@@ -30,7 +30,7 @@ class DataImportTest extends TestBase
         // Case No 1. Test Category import.
         $cases[] = [
             'target' => 'category_import_test',
-            'repository' => 'ONGROXIDConnectorBundle:CategoryDocument',
+            'repository' => 'TestBundle:CategoryDocument',
             'resultCount' => 2,
             'firstValue' => '0f41a4463b227c437f6e6bf57b1697c4',
         ];
@@ -38,7 +38,7 @@ class DataImportTest extends TestBase
         // Case No 2. Test Content import.
         $cases[] = [
             'target' => 'content_import_test',
-            'repository' => 'ONGROXIDConnectorBundle:ContentDocument',
+            'repository' => 'TestBundle:ContentDocument',
             'resultCount' => 2,
             'firstValue' => 'ad542e49bff479009.64538090',
         ];
@@ -46,7 +46,7 @@ class DataImportTest extends TestBase
         // Case No 3. Test Product import.
         $cases[] = [
             'target' => 'product_import_test',
-            'repository' => 'ONGROXIDConnectorBundle:ProductDocument',
+            'repository' => 'TestBundle:ProductDocument',
             'resultCount' => 1,
             'firstValue' => '6b698c33118caee4ca0882c33f513d2f',
         ];

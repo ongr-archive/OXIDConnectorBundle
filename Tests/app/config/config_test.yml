@@ -71,7 +71,8 @@ ongr_oxid:
 ongr_connections:
     active_shop: test
     shops:
-        test: ~
+        test:
+            shop-id: 0
 
 ongr_elasticsearch:
     connections:
@@ -89,6 +90,7 @@ ongr_elasticsearch:
                 - AcmeTestBundle
                 - ONGROXIDConnectorBundle
                 - ONGRConnectionsBundle
+                - TestBundle
 
 ongr_content:
     es:
