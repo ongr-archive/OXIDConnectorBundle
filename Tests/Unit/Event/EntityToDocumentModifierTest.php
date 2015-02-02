@@ -146,7 +146,7 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
                 ['setDescription', 1, null, 'testDescription'],
                 ['setLongDescription', 1, null, 'testLongDescription'],
                 ['setAttributes', 1, null, [11, 22, 33]],
-                ['setParent', 1, null, 234],
+                ['setParentId', 1, null, 234],
             ]
         );
 
@@ -238,11 +238,6 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testProductModifierListener()
     {
-        $article = $this->getMock('\ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article');
-        $article->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(123));
-
         $articleExtension = $this->getMock('\ONGR\OXIDConnectorBundle\Tests\Functional\Entity\ArticleExtension');
         $articleExtension->expects($this->once())
             ->method('getLongDesc')
@@ -288,7 +283,7 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
                 ['getShortDesc', 1, 'testShortDescription'],
                 ['getPrice', 1, 20.20],
                 ['getTPrice', 1, 25.00],
-                ['getParent', 1, $article],
+                ['getParent', 1, null],
                 ['getStock', 1, 50],
                 ['getAttributes', 1, [1, 2, 3]],
                 ['getExtension', 1, $articleExtension],
@@ -307,7 +302,6 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
                 ['setDescription', 1, null, 'testShortDescription'],
                 ['setPrice', 1, null, 20.20],
                 ['setOldPrice', 1, null, 25.00],
-                ['setParent', 1, null, 123],
                 ['setStock', 1, null, 50],
                 ['setAttributes', 1, null, [11, 22, 33]],
                 ['setLongDescription', 1, null, 'testLongDescription'],

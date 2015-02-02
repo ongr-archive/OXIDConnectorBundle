@@ -13,6 +13,7 @@ namespace ONGR\OXIDConnectorBundle\Tests\Functional\Modifier;
 
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\ProductDocument;
+use ONGR\OXIDConnectorBundle\Document\VariantObject;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
@@ -39,11 +40,10 @@ class ProductModifierTest extends TestBase
         $expected1->setManufacturer(null);
         $expected1->setLongDescription(null);
         $expected1->setVendor(null);
-        $expected1->setParent('oxrootid');
         $expected1->setStock(5.0);
         $expected1->setAttributes([]);
 
-        $expected2 = new ProductDocument();
+        $expected2 = new VariantObject();
         $expected2->setId('6b6a6aedca3e438e98d51f0a5d586c0b');
         $expected2->setActive(false);
         $expected2->setSku('0702-85-853-9-2');
@@ -51,15 +51,13 @@ class ProductModifierTest extends TestBase
         $expected2->setDescription('Product number two for testing');
         $expected2->setPrice(46.6);
         $expected2->setOldPrice(35.7);
-        $expected2->setManufacturer('Naish');
         $expected2->setLongDescription('Product number two description for testing from extension');
-        $expected2->setVendor('Vendor Title for PRODUCT TWO');
-        $expected2->setParent('6b698c33118caee4ca0882c33f513d2f');
         $expected2->setStock(2);
-        $expected2->setCategories(['fada9485f003c731b7fad08b873214e0']);
         $expected2->setAttributes([]);
 
-        $expectedEntities = [$expected1, $expected2];
+        $expected1->setVariants([$expected2]);
+
+        $expectedEntities = [$expected1];
 
         $productItems = $this->getTestElements(
             ['6b698c33118caee4ca0882c33f513d2f', '6b6a6aedca3e438e98d51f0a5d586c0b'],

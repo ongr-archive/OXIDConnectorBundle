@@ -9,8 +9,8 @@
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new ONGR\OXIDConnectorBundle\ONGROXIDConnectorBundle(),
             new ONGR\RouterBundle\ONGRRouterBundle(),
             new ONGR\ContentBundle\Tests\app\fixture\Acme\TestBundle\AcmeTestBundle(),
+            new ONGR\OXIDConnectorBundle\Tests\Functional\Fixtures\Bundles\Acme\TestBundle\TestBundle(),
         ];
     }
 

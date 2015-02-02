@@ -70,11 +70,12 @@ class CategoryModifier extends AbstractImportModifyEventListener
         $document->setLongDescription($category->getLongDesc());
         $document->setAttributes($this->attrToDocService->transform($category->getAttributes()));
 
-        $parent_id = $category->getParent()->getId();
-        if (empty($parent_id) === false) {
-            $document->setParent($parent_id);
+        $parent = $category->getParent();
+        $parentId = $parent ? $parent->getId() : null;
+        if (empty($parentId) === false) {
+            $document->setParentId($parentId);
         } else {
-            $document->setParent('oxrootid');
+            $document->setParentId('oxrootid');
         }
     }
 }

@@ -7,7 +7,7 @@ services:
                - @doctrine.orm.default_entity_manager
                - ONGROXIDConnectorBundleTest:Category
                - @es.manager
-               - ONGROXIDConnectorBundle:CategoryDocument
+               - TestBundle:CategoryDocument
            tags:
                - { name: kernel.event_listener, event: ongr.pipeline.import.category_import_test.source, method: onSource }
 
@@ -25,7 +25,7 @@ services:
                - @doctrine.orm.default_entity_manager
                - ONGROXIDConnectorBundleTest:Content
                - @es.manager
-               - ONGROXIDConnectorBundle:ContentDocument
+               - TestBundle:ContentDocument
            tags:
                - { name: kernel.event_listener, event: ongr.pipeline.import.content_import_test.source, method: onSource }
 
@@ -43,7 +43,7 @@ services:
                - @doctrine.orm.default_entity_manager
                - ONGROXIDConnectorBundleTest:Article
                - @es.manager
-               - ONGROXIDConnectorBundle:ProductDocument
+               - TestBundle:ProductDocument
            tags:
                - { name: kernel.event_listener, event: ongr.pipeline.import.product_import_test.source, method: onSource }
 

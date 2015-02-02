@@ -7,7 +7,7 @@ services:
             - @doctrine.orm.default_entity_manager
             - "ONGROXIDConnectorBundleTest:Article"
             - @es.manager
-            - "ONGROXIDConnectorBundle:ProductDocument"
+            - "TestBundle:ProductDocument"
             - @ongr_connections.sync.sync_storage
         calls:
             - [ setChunkSize, [ %test.sync.execute.chunk_size% ] ]
@@ -40,7 +40,7 @@ services:
             - @doctrine.orm.default_entity_manager
             - "ONGROXIDConnectorBundleTest:Category"
             - @es.manager
-            - "ONGROXIDConnectorBundle:CategoryDocument"
+            - "TestBundle:CategoryDocument"
             - @ongr_connections.sync.sync_storage
         calls:
             - [ setChunkSize, [ %test.sync.execute.chunk_size% ] ]
@@ -73,7 +73,7 @@ services:
             - @doctrine.orm.default_entity_manager
             - "ONGROXIDConnectorBundleTest:Content"
             - @es.manager
-            - "ONGROXIDConnectorBundle:ContentDocument"
+            - "TestBundle:ContentDocument"
             - @ongr_connections.sync.sync_storage
         calls:
             - [ setChunkSize, [ %test.sync.execute.chunk_size% ] ]

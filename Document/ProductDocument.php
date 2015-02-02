@@ -17,7 +17,7 @@ use ONGR\ElasticsearchBundle\Annotation as ES;
 /**
  * Product document.
  *
- * @ES\Document(type="product", parent="ONGROXIDConnectorBundle:ProductDocument")
+ * @ES\Document(type="product", create=false)
  */
 class ProductDocument extends AbstractProductDocument
 {
@@ -74,6 +74,18 @@ class ProductDocument extends AbstractProductDocument
      * )
      */
     private $attributes;
+
+    /**
+     * @var VariantObject[]
+     *
+     * @ES\Property(
+     *     name="variants",
+     *     objectName="ONGROXIDConnectorBundle:VariantObject",
+     *     multiple=true,
+     *     type="object"
+     * )
+     */
+    private $variants;
 
     /**
      * @return bool
@@ -219,6 +231,38 @@ class ProductDocument extends AbstractProductDocument
     public function setAttributes($attributes = null)
     {
         $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    /**
+     * @return VariantObject[]
+     */
+    public function getVariants()
+    {
+        return $this->variants;
+    }
+
+    /**
+     * @param VariantObject[] $variants
+     *
+     * @return $this
+     */
+    public function setVariants($variants)
+    {
+        $this->variants = $variants;
+
+        return $this;
+    }
+
+    /**
+     * @param VariantObject $variant
+     *
+     * @return $this
+     */
+    public function addVariant(VariantObject $variant)
+    {
+        $this->variants[] = $variant;
 
         return $this;
     }

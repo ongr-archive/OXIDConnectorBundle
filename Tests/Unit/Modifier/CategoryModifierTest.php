@@ -14,10 +14,8 @@ namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\AttributeObject;
 use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
-use ONGR\OXIDConnectorBundle\Document\ProductDocument;
-use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;
-use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
+use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Attribute;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\CategoryToAttribute;
@@ -52,10 +50,6 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $root = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Category');
         $root->setId('testIdRoot');
 
-        /** @var Category $parent */
-        $parent = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Category');
-        $parent->setId('testIdParent');
-
         /** @var Category $category */
         $category = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Category');
 
@@ -79,7 +73,6 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
             ->setLongDesc('testLongDescription')
             ->setSort(3)
             ->setRoot($root)
-            ->setParent($parent)
             ->setRight(501)
             ->setLeft(102)
             ->addAttribute($catToAttr);
@@ -94,7 +87,7 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setLongDescription('testLongDescription');
         $expectedDocument->setSort(3);
         $expectedDocument->setRootId('testIdRoot');
-        $expectedDocument->setParent('testIdParent');
+        $expectedDocument->setParentId('oxrootid');
         $expectedDocument->setLeft(102);
         $expectedDocument->setRight(501);
         $attrObj = new AttributeObject();

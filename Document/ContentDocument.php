@@ -17,7 +17,7 @@ use ONGR\ElasticsearchBundle\Annotation as ES;
 /**
  * Content document.
  *
- * @ES\Document(type="content")
+ * @ES\Document(type="content", create=false)
  */
 class ContentDocument extends AbstractContentDocument
 {
