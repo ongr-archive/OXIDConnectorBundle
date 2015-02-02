@@ -26,21 +26,21 @@ class CategoryDocument extends AbstractCategoryDocument
      *
      * @ES\Property(name="root_id", type="string")
      */
-    private $rootId;
+    protected $rootId;
 
     /**
      * @var string
      *
      * @ES\Property(name="description", type="string")
      */
-    private $description;
+    protected $description;
 
     /**
      * @var string
      *
      * @ES\Property(name="description", type="string")
      */
-    private $longDescription;
+    protected $longDescription;
 
     /**
      * @var AttributeObject[]
@@ -52,7 +52,7 @@ class CategoryDocument extends AbstractCategoryDocument
      *     type="object"
      * )
      */
-    private $attributes;
+    protected $attributes;
 
     /**
      * @return mixed

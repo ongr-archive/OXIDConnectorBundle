@@ -25,14 +25,14 @@ class AttributeObject
      *
      * @ES\Property(name="title", type="string")
      */
-    private $title;
+    protected $title;
 
     /**
      * @var int
      *
      * @ES\Property(name="pos", type="integer")
      */
-    private $pos;
+    protected $pos;
 
     /**
      * @return mixed

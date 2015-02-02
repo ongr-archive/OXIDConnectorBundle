@@ -25,28 +25,28 @@ class VariantObject
      *
      * @ES\Property(name="id", type="string")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var bool
      *
      * @ES\Property(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var float
      *
      * @ES\Property(name="old_price", type="float")
      */
-    private $oldPrice;
+    protected $oldPrice;
 
     /**
      * @var float
      *
      * @ES\Property(name="stock", type="float")
      */
-    private $stock;
+    protected $stock;
 
     /**
      * @var AttributeObject[]
@@ -58,42 +58,42 @@ class VariantObject
      *     type="object"
      * )
      */
-    private $attributes;
+    protected $attributes;
 
     /**
      * @var string
      *
      * @ES\Property(type="string", name="title", fields={@ES\MultiField(name="raw", type="string")})
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      *
      * @ES\Property(type="string", name="description")
      */
-    private $description;
+    protected $description;
 
     /**
      * @var string
      *
      * @ES\Property(type="string", name="long_description")
      */
-    private $longDescription;
+    protected $longDescription;
 
     /**
      * @var string
      *
      * @ES\Property(type="string", name="sku")
      */
-    private $sku;
+    protected $sku;
 
     /**
      * @var float
      *
      * @ES\Property(type="float", name="price")
      */
-    private $price;
+    protected $price;
 
     /**
      * @return bool
