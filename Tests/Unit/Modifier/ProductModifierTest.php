@@ -11,6 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\AttributeObject;
 use ONGR\OXIDConnectorBundle\Document\ProductDocument;
@@ -139,9 +140,35 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setAttributes([$attObj]);
 
         $document = new ProductDocument();
-        $this->modifier->modify(new ImportItem($entity, $document));
+
+        /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);
+
+        $this->modifier->modify(new ImportItem($entity, $document), $event);
 
         $this->assertEquals($expectedDocument, $document);
+    }
+
+    /**
+     * Tests skipping.
+     */
+    public function testModifySkip()
+    {
+        /** @var Article $entityParent */
+        $entityParent = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Article');
+        $entityParent->setId('id');
+
+        /** @var Article $entity */
+        $entity = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Article');
+        $entity->setParent($entityParent);
+
+        $document = new ProductDocument();
+
+        /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);
+        $event->expects($this->once())->method('setItemSkip');
+
+        $this->modifier->modify(new ImportItem($entity, $document), $event);
     }
 
     /**

@@ -11,6 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Document\VariantObject;
@@ -66,9 +67,13 @@ class ProductModifierTest extends TestBase
         $this->assertCount(2, $productItems);
 
         $modifier = new ProductModifier(new AttributesToDocumentsService());
+
+        /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);
+
         foreach ($expectedEntities as $key => $expectedProduct) {
             $actualProduct = new ProductDocument();
-            $modifier->modify(new ImportItem($productItems[$key], $actualProduct));
+            $modifier->modify(new ImportItem($productItems[$key], $actualProduct), $event);
             $this->assertEquals($expectedProduct, $actualProduct);
         }
     }

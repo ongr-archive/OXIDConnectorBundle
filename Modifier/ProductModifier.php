@@ -13,8 +13,9 @@ namespace ONGR\OXIDConnectorBundle\Modifier;
 
 use Doctrine\ORM\EntityNotFoundException;
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
-use ONGR\ConnectionsBundle\Pipeline\ItemSkipException;
+use ONGR\ConnectionsBundle\Pipeline\ItemSkipper;
 use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Document\VariantObject;
 use ONGR\OXIDConnectorBundle\Entity\Article;
@@ -44,14 +45,16 @@ class ProductModifier extends AbstractImportModifyEventListener
     /**
      * {@inheritdoc}
      */
-    public function modify(AbstractImportItem $eventItem)
+    public function modify(AbstractImportItem $eventItem, ItemPipelineEvent $event)
     {
         /** @var Article $article */
         $article = $eventItem->getEntity();
 
         $parent = $article->getParent();
         if ($parent && $parent->getId()) {
-            throw new ItemSkipException('Ignore item variants');
+            ItemSkipper::skip($event, 'Ignore item variants');
+
+            return;
         }
 
         /** @var ProductDocument $document */

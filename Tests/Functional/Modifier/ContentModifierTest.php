@@ -11,6 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
@@ -57,9 +58,13 @@ class ContentModifierTest extends TestBase
         $this->assertCount(2, $contentItems);
 
         $modifier = new ContentModifier();
+
+        /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);
+
         foreach ($expectedEntities as $key => $expectedContent) {
             $actualContent = new ContentDocument();
-            $modifier->modify(new ImportItem($contentItems[$key], $actualContent));
+            $modifier->modify(new ImportItem($contentItems[$key], $actualContent), $event);
             $this->assertEquals($expectedContent, $actualContent);
         }
     }

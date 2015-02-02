@@ -11,6 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\AttributeObject;
 use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
@@ -96,7 +97,11 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setAttributes([$attrObj]);
 
         $document = new CategoryDocument();
-        $this->modifier->modify(new ImportItem($category, $document));
+
+        /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);
+
+        $this->modifier->modify(new ImportItem($category, $document), $event);
 
         $this->assertEquals($expectedDocument, $document);
     }
