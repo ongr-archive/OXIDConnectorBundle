@@ -11,11 +11,10 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
-use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
-use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
 
 class ContentModifierTest extends \PHPUnit_Framework_TestCase
@@ -54,7 +53,11 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setFolder('testFolder');
 
         $document = new ContentDocument();
-        $modifier->modify(new ImportItem($content, $document));
+
+        /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);
+
+        $modifier->modify(new ImportItem($content, $document), $event);
 
         $this->assertEquals($expectedDocument, $document);
     }

@@ -26,42 +26,42 @@ class ProductDocument extends AbstractProductDocument
      *
      * @ES\Property(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var float
      *
      * @ES\Property(name="old_price", type="float")
      */
-    private $oldPrice;
+    protected $oldPrice;
 
     /**
      * @var float
      *
      * @ES\Property(name="stock", type="float")
      */
-    private $stock;
+    protected $stock;
 
     /**
      * @var string
      *
      * @ES\Property(name="vendor", type="string")
      */
-    private $vendor;
+    protected $vendor;
 
     /**
      * @var string
      *
      * @ES\Property(name="manufacturer", type="string")
      */
-    private $manufacturer;
+    protected $manufacturer;
 
     /**
      * @var string[]
      *
      * @ES\Property(name="categories", type="string")
      */
-    private $categories;
+    protected $categories;
 
     /**
      * @var AttributeObject[]
@@ -73,7 +73,7 @@ class ProductDocument extends AbstractProductDocument
      *     type="object"
      * )
      */
-    private $attributes;
+    protected $attributes;
 
     /**
      * @var VariantObject[]
@@ -85,7 +85,7 @@ class ProductDocument extends AbstractProductDocument
      *     type="object"
      * )
      */
-    private $variants;
+    protected $variants;
 
     /**
      * @return bool

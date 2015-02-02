@@ -12,6 +12,7 @@
 namespace ONGR\OXIDConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
 use ONGR\OXIDConnectorBundle\Entity\Category;
@@ -40,7 +41,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
     /**
      * {@inheritdoc}
      */
-    public function modify(AbstractImportItem $importItem)
+    public function modify(AbstractImportItem $importItem, ItemPipelineEvent $event)
     {
         /** @var Category $category */
         $category = $importItem->getEntity();

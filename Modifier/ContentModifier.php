@@ -12,6 +12,7 @@
 namespace ONGR\OXIDConnectorBundle\Modifier;
 
 use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Entity\Content;
@@ -24,7 +25,7 @@ class ContentModifier extends AbstractImportModifyEventListener
     /**
      * {@inheritdoc}
      */
-    public function modify(AbstractImportItem $eventItem)
+    public function modify(AbstractImportItem $eventItem, ItemPipelineEvent $event)
     {
         /** @var Content $content */
         $content = $eventItem->getEntity();

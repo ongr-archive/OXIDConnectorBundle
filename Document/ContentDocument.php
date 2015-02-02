@@ -26,35 +26,35 @@ class ContentDocument extends AbstractContentDocument
      *
      * @ES\Property(name="snippet", type="boolean")
      */
-    private $snippet;
+    protected $snippet;
 
     /**
      * @var int
      *
      * @ES\Property(name="type", type="integer")
      */
-    private $type;
+    protected $type;
 
     /**
      * @var bool
      *
      * @ES\Property(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @var string
      *
      * @ES\Property(name="position", type="string")
      */
-    private $position;
+    protected $position;
 
     /**
      * @var string
      *
      * @ES\Property(name="folder", type="string")
      */
-    private $folder;
+    protected $folder;
 
     /**
      * @return bool
