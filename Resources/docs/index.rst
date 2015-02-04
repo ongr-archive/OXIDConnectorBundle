@@ -1,7 +1,15 @@
 Connector installation
 ======================
 
-Add ConnectionsBundle and OXIDConnectorBundle to ``AppKernel.php``
+First of all add OXID connector bundle to your project:
+
+.. code-block:: bash
+
+composer require ongr/oxid-connector-bundle
+
+..
+
+Then add ConnectionsBundle and OXIDConnectorBundle to ``AppKernel.php``
 
 .. code-block:: php
 
@@ -49,7 +57,9 @@ Then you will need to add mappings for these documents and entities. Examples:
                     - ONGRDemoOXIDBundle
 ..
 
-Then add configuration for bundles:
+Then add configuration for bundles.
+Detailed information for ``ongr_connections`` configuration with information why and how everything works here :doc:`imports`.
+``ongr_oxid`` configuration is still under development and may change or be removed in future.
 
 .. code-block:: yaml
 
@@ -76,7 +86,8 @@ Then add configuration for bundles:
 
 ..
 
-Then you will need to configure import and sync.
+Then you will need to configure import and sync pipelines.
+Detailed information how pipeline works :doc:`components/ConnectionsBundle/Resources/doc/pipeline/pipeline`
 
 Example import
 --------------
