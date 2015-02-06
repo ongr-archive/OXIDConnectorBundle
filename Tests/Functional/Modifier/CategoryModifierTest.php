@@ -46,6 +46,8 @@ class CategoryModifierTest extends TestBase
         $attribute->setPos(9999);
         $attribute->setTitle('testAttribute');
         $expectedCategory1->setAttributes([$attribute]);
+        $expectedCategory1->url = [];
+        $expectedCategory1->expiredUrl = [];
 
         $expectedCategory2 = new CategoryDocument();
         $expectedCategory2->setId('0f41a4463b227c437f6e6bf57b1697c4');
@@ -59,6 +61,8 @@ class CategoryModifierTest extends TestBase
         $expectedCategory2->setTitle('Trapeze');
         $expectedCategory2->setDescription('Description 2');
         $expectedCategory2->setAttributes([]);
+        $expectedCategory2->url = [];
+        $expectedCategory2->expiredUrl = [];
 
         $expectedCategories = [$expectedCategory1, $expectedCategory2];
 

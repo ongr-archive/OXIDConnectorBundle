@@ -16,12 +16,18 @@ use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Entity\Content;
+use ONGR\RouterBundle\Document\UrlObject;
 
 /**
  * Converts OXID content to ONGR content document.
  */
 class ContentModifier extends AbstractImportModifyEventListener
 {
+    /**
+     * @var int
+     */
+    private $languageId = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -52,5 +58,42 @@ class ContentModifier extends AbstractImportModifyEventListener
         $document->setType($content->getType());
         $document->setActive($content->isActive());
         $document->setPosition($content->getPosition());
+
+        $this->extractUrls($content, $document);
+    }
+
+    /**
+     * Extract content seo urls.
+     *
+     * @param Content         $content
+     * @param ContentDocument $document
+     */
+    private function extractUrls(Content $content, $document)
+    {
+        $urls = [];
+        $seoUrls = $content->getSeoUrls();
+        if (count($seoUrls) > 0) {
+            foreach ($seoUrls as $seo) {
+                if ($seo->getLang() === $this->languageId) {
+                    /** @var Seo $seo */
+                    $urlObject = new UrlObject();
+                    $urlObject->url = $seo->getSeoUrl();
+                    $urls[] = $urlObject;
+                }
+            }
+        }
+
+        $document->url = $urls;
+        $document->expiredUrl = [];
+    }
+
+    /**
+     * Set language id.
+     *
+     * @param int $languageId
+     */
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
     }
 }

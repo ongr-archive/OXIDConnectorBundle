@@ -46,6 +46,14 @@ class ArticleTest extends AbstractEntityTest
     /**
      * {@inheritdoc}
      */
+    protected function getIgnoredFields()
+    {
+        return ['seoUrls'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getClassName()
     {
         return 'ONGR\OXIDConnectorBundle\Entity\Article';
