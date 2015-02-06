@@ -32,14 +32,14 @@ abstract class ArticleExtension
     /**
      * @var string
      *
-     * @ORM\Column(name="OXLONGDESC", type="text")
+     * @ORM\Column(name="OXLONGDESC@lang_tag", type="text")
      */
     protected $longDesc;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="OXTAGS", type="string")
+     * @ORM\Column(name="OXTAGS@lang_tag", type="string")
      */
     protected $tags;
 
