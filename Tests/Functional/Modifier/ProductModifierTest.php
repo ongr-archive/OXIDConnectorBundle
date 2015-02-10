@@ -29,36 +29,38 @@ class ProductModifierTest extends TestBase
      */
     public function testModify()
     {
-        // Non-existant category in db.
-        $expected1 = new ProductDocument();
-        $expected1->setId('6b698c33118caee4ca0882c33f513d2f');
-        $expected1->setActive(true);
-        $expected1->setSku('85-8573-846-1-4-3');
-        $expected1->setTitle('PRODUCT NO. 1');
-        $expected1->setDescription('Product number one for testing');
-        $expected1->setPrice(25.5);
-        $expected1->setOldPrice(36.7);
-        $expected1->setManufacturer(null);
-        $expected1->setLongDescription(null);
-        $expected1->setVendor(null);
-        $expected1->setStock(5.0);
-        $expected1->setAttributes([]);
+        // Non-existant product in db.
+        $expectedProduct1 = new ProductDocument();
+        $expectedProduct1->setId('6b698c33118caee4ca0882c33f513d2f');
+        $expectedProduct1->setActive(true);
+        $expectedProduct1->setSku('85-8573-846-1-4-3');
+        $expectedProduct1->setTitle('PRODUCT NO. 1');
+        $expectedProduct1->setDescription('Product number one for testing');
+        $expectedProduct1->setPrice(25.5);
+        $expectedProduct1->setOldPrice(36.7);
+        $expectedProduct1->setManufacturer(null);
+        $expectedProduct1->setLongDescription(null);
+        $expectedProduct1->setVendor(null);
+        $expectedProduct1->setStock(5);
+        $expectedProduct1->setAttributes([]);
+        $expectedProduct1->url = [];
+        $expectedProduct1->expiredUrl = [];
 
-        $expected2 = new VariantObject();
-        $expected2->setId('6b6a6aedca3e438e98d51f0a5d586c0b');
-        $expected2->setActive(false);
-        $expected2->setSku('0702-85-853-9-2');
-        $expected2->setTitle('PRODUCT NO. 2');
-        $expected2->setDescription('Product number two for testing');
-        $expected2->setPrice(46.6);
-        $expected2->setOldPrice(35.7);
-        $expected2->setLongDescription('Product number two description for testing from extension');
-        $expected2->setStock(2);
-        $expected2->setAttributes([]);
+        $expectedProduct2 = new VariantObject();
+        $expectedProduct2->setId('6b6a6aedca3e438e98d51f0a5d586c0b');
+        $expectedProduct2->setActive(false);
+        $expectedProduct2->setSku('0702-85-853-9-2');
+        $expectedProduct2->setTitle('PRODUCT NO. 2');
+        $expectedProduct2->setDescription('Product number two for testing');
+        $expectedProduct2->setPrice(46.6);
+        $expectedProduct2->setOldPrice(35.7);
+        $expectedProduct2->setLongDescription('Product number two description for testing from extension');
+        $expectedProduct2->setStock(2);
+        $expectedProduct2->setAttributes([]);
 
-        $expected1->setVariants([$expected2]);
+        $expectedProduct1->setVariants([$expectedProduct2]);
 
-        $expectedEntities = [$expected1];
+        $expectedEntities = [$expectedProduct1];
 
         $productItems = $this->getTestElements(
             ['6b698c33118caee4ca0882c33f513d2f', '6b6a6aedca3e438e98d51f0a5d586c0b'],

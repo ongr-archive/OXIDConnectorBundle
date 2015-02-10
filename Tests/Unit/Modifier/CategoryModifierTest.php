@@ -91,6 +91,8 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setParentId('oxrootid');
         $expectedDocument->setLeft(102);
         $expectedDocument->setRight(501);
+        $expectedDocument->url = [];
+        $expectedDocument->expiredUrl = [];
         $attrObj = new AttributeObject();
         $attrObj->setPos(1);
         $attrObj->setTitle('testAttributeTitle');

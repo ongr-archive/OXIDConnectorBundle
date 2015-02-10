@@ -27,29 +27,33 @@ class ContentModifierTest extends TestBase
      */
     public function testModify()
     {
-        $expected1 = new ContentDocument();
-        $expected1->setId('8709e45f31a86909e9f999222e80b1d0');
-        $expected1->setContent('CONTENT ONE');
-        $expected1->setTitle('TITLE OF CONTENT ONE');
-        $expected1->setFolder('CMSFOLDER_STANDARD');
-        $expected1->setSlug('oxstdfooter');
-        $expected1->setSnippet(true);
-        $expected1->setType(2);
-        $expected1->setActive(false);
-        $expected1->setPosition('position1');
+        $expectedContent1 = new ContentDocument();
+        $expectedContent1->setId('8709e45f31a86909e9f999222e80b1d0');
+        $expectedContent1->setContent('CONTENT ONE');
+        $expectedContent1->setTitle('TITLE OF CONTENT ONE');
+        $expectedContent1->setFolder('CMSFOLDER_STANDARD');
+        $expectedContent1->setSlug('oxstdfooter');
+        $expectedContent1->setSnippet(true);
+        $expectedContent1->setType(2);
+        $expectedContent1->setActive(false);
+        $expectedContent1->setPosition('position1');
+        $expectedContent1->url = [];
+        $expectedContent1->expiredUrl = [];
 
-        $expected2 = new ContentDocument();
-        $expected2->setId('ad542e49bff479009.64538090');
-        $expected2->setContent('<div>Content two</div>');
-        $expected2->setTitle('Title of content two');
-        $expected2->setFolder('CMSFOLDER_EMAILS');
-        $expected2->setSlug('oxadminorderemail');
-        $expected2->setSnippet(false);
-        $expected2->setType(1);
-        $expected2->setActive(true);
-        $expected2->setPosition('position2');
+        $expectedContent2 = new ContentDocument();
+        $expectedContent2->setId('ad542e49bff479009.64538090');
+        $expectedContent2->setContent('<div>Content two</div>');
+        $expectedContent2->setTitle('Title of content two');
+        $expectedContent2->setFolder('CMSFOLDER_EMAILS');
+        $expectedContent2->setSlug('oxadminorderemail');
+        $expectedContent2->setSnippet(false);
+        $expectedContent2->setType(1);
+        $expectedContent2->setActive(true);
+        $expectedContent2->setPosition('position2');
+        $expectedContent2->url = [];
+        $expectedContent2->expiredUrl = [];
 
-        $expectedEntities = [$expected1, $expected2];
+        $expectedEntities = [$expectedContent1, $expectedContent2];
 
         $contentItems = $this->getTestElements(
             ['8709e45f31a86909e9f999222e80b1d0', 'ad542e49bff479009.64538090'],

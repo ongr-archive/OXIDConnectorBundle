@@ -11,6 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -91,6 +92,19 @@ abstract class Content
      * @ORM\Column(name="OXFOLDER", type="string")
      */
     protected $folder;
+
+    /**
+     * @var ArrayCollection Placeholder for seo urls.
+     */
+    protected $seoUrls;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->seoUrls = new ArrayCollection();
+    }
 
     /**
      * Sets object ID.
@@ -326,5 +340,21 @@ abstract class Content
     public function getFolder()
     {
         return $this->folder;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSeoUrls()
+    {
+        return $this->seoUrls;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $seoUrls
+     */
+    public function setSeoUrls($seoUrls)
+    {
+        $this->seoUrls = $seoUrls;
     }
 }

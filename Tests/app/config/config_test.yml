@@ -63,7 +63,7 @@ ongr_oxid:
         test:
             tags:
                 @shop_tag: '_1'
-                @lang_tag: '_1_en'
+                @lang_tag: ''
             shop_id: 0
             lang_id: 0
     entity_namespace: ONGROXIDConnectorBundle

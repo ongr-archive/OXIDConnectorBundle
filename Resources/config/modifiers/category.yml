@@ -5,5 +5,7 @@ services:
     ongr_oxid.modifier.category:
         class: %ongr_oxid.modifier.category.class%
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        calls:
+           - [ setLanguageId, [%ongr_oxid.language_id%] ]
         tags:
             - { name: 'kernel.event_listener', event: ongr.pipeline.import.default.modify, method: onModify }

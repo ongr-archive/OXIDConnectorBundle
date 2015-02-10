@@ -17,6 +17,7 @@ use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
 use ONGR\OXIDConnectorBundle\Entity\Category;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
+use ONGR\RouterBundle\Document\UrlObject;
 
 /**
  * Converts OXID category to ONGR category document.
@@ -27,6 +28,11 @@ class CategoryModifier extends AbstractImportModifyEventListener
      * @var AttributesToDocumentsService
      */
     private $attrToDocService;
+
+    /**
+     * @var int
+     */
+    private $languageId = 0;
 
     /**
      * Dependency injection.
@@ -70,6 +76,7 @@ class CategoryModifier extends AbstractImportModifyEventListener
         $document->setDescription($category->getDesc());
         $document->setLongDescription($category->getLongDesc());
         $document->setAttributes($this->attrToDocService->transform($category->getAttributes()));
+        $this->extractUrls($category, $document);
 
         $parent = $category->getParent();
         $parentId = $parent ? $parent->getId() : null;
@@ -78,5 +85,40 @@ class CategoryModifier extends AbstractImportModifyEventListener
         } else {
             $document->setParentId('oxrootid');
         }
+    }
+
+    /**
+     * Extract category seo urls.
+     *
+     * @param Category         $category
+     * @param CategoryDocument $document
+     */
+    private function extractUrls(Category $category, $document)
+    {
+        $urls = [];
+        $seoUrls = $category->getSeoUrls();
+        if (count($seoUrls) > 0) {
+            foreach ($seoUrls as $seo) {
+                if ($seo->getLang() === $this->languageId) {
+                    /** @var Seo $seo */
+                    $urlObject = new UrlObject();
+                    $urlObject->url = $seo->getSeoUrl();
+                    $urls[] = $urlObject;
+                }
+            }
+        }
+
+        $document->url = $urls;
+        $document->expiredUrl = [];
+    }
+
+    /**
+     * Set language id.
+     *
+     * @param int $languageId
+     */
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
     }
 }

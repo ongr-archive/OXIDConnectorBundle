@@ -62,13 +62,6 @@ class Seo
     protected $seoUrl;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="OXTYPE", type="string")
-     */
-    protected $type;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="OXFIXED", type="boolean")

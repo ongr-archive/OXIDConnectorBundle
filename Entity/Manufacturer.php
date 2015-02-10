@@ -39,14 +39,14 @@ abstract class Manufacturer
     /**
      * @var string
      *
-     * @ORM\Column(name="OXTITLE", type="string")
+     * @ORM\Column(name="OXTITLE@lang_tag", type="string")
      */
     protected $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="OXSHORTDESC", type="string")
+     * @ORM\Column(name="OXSHORTDESC@lang_tag", type="string")
      */
     protected $shortDesc;
 

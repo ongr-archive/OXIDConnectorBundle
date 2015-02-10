@@ -95,21 +95,21 @@ abstract class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="OXTITLE", type="string")
+     * @ORM\Column(name="OXTITLE@lang_tag", type="string")
      */
     protected $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="OXDESC", type="string")
+     * @ORM\Column(name="OXDESC@lang_tag", type="string")
      */
     protected $desc;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="OXLONGDESC", type="text")
+     * @ORM\Column(name="OXLONGDESC@lang_tag", type="text")
      */
     protected $longDesc;
 
@@ -129,12 +129,18 @@ abstract class Category
     protected $attributes;
 
     /**
+     * @var ArrayCollection Placeholder for seo urls.
+     */
+    protected $seoUrls;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->children = new ArrayCollection();
         $this->attributes = new ArrayCollection();
+        $this->seoUrls = new ArrayCollection();
     }
 
     /**
@@ -515,5 +521,21 @@ abstract class Category
         $this->children->removeElement($category);
 
         return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSeoUrls()
+    {
+        return $this->seoUrls;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $seoUrls
+     */
+    public function setSeoUrls($seoUrls)
+    {
+        $this->seoUrls = $seoUrls;
     }
 }
