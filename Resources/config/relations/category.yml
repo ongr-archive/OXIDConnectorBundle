@@ -12,25 +12,25 @@ parameters:
 services:
     # Category relations
     ongr_oxid.relations.oxcategories_insert:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxcategories, C, 1, category, NEW.OXID]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxcategories, C, NEW.OXID, 1, category]
         tags:
-            - { name: ongr_connections.sql_relation, trigger: oxcategory_insert }
+            - { name: ongr_connections.extraction_descriptor, trigger: oxcategory_insert }
 
     ongr_oxid.relations.oxcategories_update:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxcategories, U, 1, category, NEW.OXID, %ongr_oxid.relations.category.track_fields%]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxcategories, U, NEW.OXID, 1, category, %ongr_oxid.relations.category.track_fields%]
         tags:
-          - { name: ongr_connections.sql_relation, trigger: oxcategory_oxarticles_update }
+          - { name: ongr_connections.extraction_descriptor, trigger: oxcategory_oxarticles_update }
         calls:
-          - [addStatement, [@ongr_oxid.relations.oxcategories_update.articles]]
+          - [addRelation, [@ongr_oxid.relations.oxcategories_update.articles]]
 
     ongr_oxid.relations.oxcategories_update.articles:
-        class: %ongr_connections.sql_relations.table_relation.class%
+        class: %ongr_connections.extractor.join_relation.class%
         arguments: [oxobject2category, oxobject2category.OXOBJECTID, oxobject2category.OXCATNID=NEW.OXID, product, U, 1]
 
     ongr_oxid.relations.oxcategory_delete:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxcategories, D, 1, category, OLD.OXID]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxcategories, D, OLD.OXID, 1, category]
         tags:
-            - { name: ongr_connections.sql_relation, trigger: "oxcategory_delete" }
+            - { name: ongr_connections.extraction_descriptor, trigger: "oxcategory_delete" }

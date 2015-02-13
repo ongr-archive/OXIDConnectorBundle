@@ -6,19 +6,19 @@ parameters:
 
 services:
     ongr_oxid.relations.action_article.create:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxobject2action, C, 1, product, NEW.OXOBJECTID, [], U]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxobject2action, C, NEW.OXOBJECTID, 1, product, [], U]
         tags:
-          - { name: ongr_connections.sql_relation, trigger: action_article_create }
+          - { name: ongr_connections.extraction_descriptor, trigger: action_article_create }
 
     ongr_oxid.relations.action_article.delete:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxobject2action, D, 1, product, OLD.OXOBJECTID, [], U]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxobject2action, D, OLD.OXOBJECTID, 1, product, [], U]
         tags:
-          - { name: ongr_connections.sql_relation, trigger: action_article_delete }
+          - { name: ongr_connections.extraction_descriptor, trigger: action_article_delete }
 
     ongr_oxid.relations.action_article.update:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxobject2action, U, 1, product, OLD.OXOBJECTID, %ongr_oxid.relations.action_article.track_fields%]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxobject2action, U, OLD.OXOBJECTID, 1, product, %ongr_oxid.relations.action_article.track_fields%]
         tags:
-          - { name: ongr_connections.sql_relation, trigger: action_article_update }
+          - { name: ongr_connections.extraction_descriptor, trigger: action_article_update }
