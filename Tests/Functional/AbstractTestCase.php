@@ -24,9 +24,9 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
- * Class TestBase.
+ * Class AbstractTestCase.
  */
-abstract class TestBase extends WebTestCase
+abstract class AbstractTestCase extends WebTestCase
 {
     /**
      * @var Client

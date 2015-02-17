@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass
  */
-abstract class ArticleExtension
+class ArticleExtension
 {
     /**
      * @var string

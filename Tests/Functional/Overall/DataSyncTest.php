@@ -19,9 +19,9 @@ use ONGR\ConnectionsBundle\Sync\DiffProvider\Binlog\BinlogParser;
 use ONGR\ConnectionsBundle\Sync\StorageManager\MysqlStorageManager;
 use ONGR\ElasticsearchBundle\DSL\Search;
 use ONGR\ElasticsearchBundle\ORM\Repository;
-use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
+use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
 
-class DataSyncTest extends TestBase
+class DataSyncTest extends AbstractTestCase
 {
     /**
      * Tests full data synchronization process.

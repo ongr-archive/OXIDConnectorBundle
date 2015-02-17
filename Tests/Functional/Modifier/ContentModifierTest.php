@@ -15,12 +15,12 @@ use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
-use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
+use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
 
 /**
  * Tests if category modifier works as expected.
  */
-class ContentModifierTest extends TestBase
+class ContentModifierTest extends AbstractTestCase
 {
     /**
      * Test modification.

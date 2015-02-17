@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass
  */
-abstract class ArticleToCategory extends ObjectToCategory
+class ArticleToCategory extends ObjectToCategory
 {
     /**
      * @var Article

@@ -14,9 +14,9 @@ namespace ONGR\OXIDConnectorBundle\Tests\Functional\Overall;
 use ONGR\ConnectionsBundle\Command\ImportFullCommand;
 use ONGR\ElasticsearchBundle\DSL\Query\MatchAllQuery;
 use ONGR\ElasticsearchBundle\ORM\Manager;
-use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
+use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
 
-class DataImportTest extends TestBase
+class DataImportTest extends AbstractTestCase
 {
     /**
      * Test cases to test Data Import.

@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass
  */
-abstract class ArticleToAttribute extends ObjectToAttribute
+class ArticleToAttribute extends ObjectToAttribute
 {
     /**
      * @var Article

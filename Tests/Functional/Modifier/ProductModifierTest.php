@@ -17,12 +17,12 @@ use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Document\VariantObject;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
-use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
+use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
 
 /**
  * Tests if product modifier works as expected.
  */
-class ProductModifierTest extends TestBase
+class ProductModifierTest extends AbstractTestCase
 {
     /**
      * Test modification.
