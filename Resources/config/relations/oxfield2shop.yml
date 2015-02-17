@@ -9,19 +9,19 @@ parameters:
 
 services:
     ongr_oxid.relations.shop_field.create:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxfield2shop, C, 1, product, NEW.OXARTID, [], U]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxfield2shop, C, NEW.OXARTID, 1, product, [], U]
         tags:
-          - { name: ongr_connections.sql_relation, trigger: shop_field_create }
+          - { name: ongr_connections.extraction_descriptor, trigger: shop_field_create }
 
     ongr_oxid.relations.shop_field.delete:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxfield2shop, D, 1, product, OLD.OXARTID, [], U]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxfield2shop, D, OLD.OXARTID, 1, product, [], U]
         tags:
-          - { name: ongr_connections.sql_relation, trigger: shop_field_delete }
+          - { name: ongr_connections.extraction_descriptor, trigger: shop_field_delete }
 
     ongr_oxid.relations.shop_field.update:
-        class: %ongr_connections.sql_relations.composed_relation.class%
-        arguments: [oxfield2shop, U, 1, product, OLD.OXARTID, %ongr_oxid.relations.shop_field.track_fields%]
+        class: %ongr_connections.extractor.descriptor.class%
+        arguments: [oxfield2shop, U, OLD.OXARTID, 1, product, %ongr_oxid.relations.shop_field.track_fields%]
         tags:
-          - { name: ongr_connections.sql_relation, trigger: shop_field_update }
+          - { name: ongr_connections.extraction_descriptor, trigger: shop_field_update }
