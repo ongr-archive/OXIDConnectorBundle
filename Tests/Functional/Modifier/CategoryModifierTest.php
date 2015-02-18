@@ -19,12 +19,12 @@ use ONGR\OXIDConnectorBundle\Entity\Category;
 use ONGR\OXIDConnectorBundle\Entity\CategoryToAttribute;
 use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
-use ONGR\OXIDConnectorBundle\Tests\Functional\TestBase;
+use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
 
 /**
  * Tests if category modifier works as expected.
  */
-class CategoryModifierTest extends TestBase
+class CategoryModifierTest extends AbstractTestCase
 {
     /**
      * Test modification.
