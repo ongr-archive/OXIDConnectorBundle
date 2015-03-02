@@ -33,12 +33,13 @@ abstract class AbstractTestCase extends ParentTestBase
      */
     protected function setUp()
     {
-        $this->setSetUpDbFile('/data/database.sql');
-
         $container = static::createClient()->getContainer();
         $container->get('es.manager')->getConnection()->dropAndCreateIndex();
 
         parent::setUp();
+
+        $this->executeLargeSqlFile(static::getRootDir($container) . '/data/database.sql');
+        $this->executeLargeSqlFile(static::getRootDir($container) . '/data/dummyData.sql');
     }
 
     /**
