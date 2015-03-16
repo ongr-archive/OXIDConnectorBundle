@@ -445,7 +445,7 @@ Settings for english OXID shop version "en", to be available on shopdomain.com/e
 ..
 
 
-.. note:: Language tag and id should be taken from OXID.
+.. note:: OXID uses language ids to distinguish between languages and suffixes fields with "_id". Language ids can be checked at OXID admin panel.
 
 .. code-block:: yaml
 
@@ -454,7 +454,7 @@ Settings for english OXID shop version "en", to be available on shopdomain.com/e
             resource: "%kernel.root_dir%/config/routing_en.yml"
 ..
 
-Also new environments routing should be prefixed with "/en". Example:
+Also new environments' routing should be prefixed with "/en". Example:
 
 .. code-block:: yaml
 
