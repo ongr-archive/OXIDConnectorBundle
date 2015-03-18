@@ -50,11 +50,23 @@ Then you will need to add mappings for these documents and entities. Examples:
 .. code-block:: yaml
 
     ongr_elasticsearch:
+        connections:
+            oxid:
+                hosts:
+                    - { host: 127.0.0.1:9200 }
+                index_name: %es_oxid_index_name%
         managers:
-            default:
+            oxid:
+                connection: oxid
                 mappings:
                     - ONGROXIDConnectorBundle
                     - ONGRDemoOXIDBundle
+..
+
+.. code-block:: yaml
+
+    parameters:
+        es_oxid_index_name: ongr_oxid
 ..
 
 Then add configuration for bundles.
@@ -79,7 +91,7 @@ Detailed information for ``ongr_connections`` configuration with information why
             oxid:
                 tags:
                     @shop_tag: '_1'
-                    @lang_tag: '_1_en'
+                    @lang_tag: ''
                 shop_id: 0
                 lang_id: 0
         entity_namespace: ONGRDemoOXIDBundle
@@ -95,6 +107,8 @@ Example import
 .. code-block:: yaml
 
     parameters:
+        ongr_demo.oxid.import.shop_id: 0
+
         ongr_demo.oxid.import.finish.class: ONGR\ConnectionsBundle\EventListener\ImportFinishEventListener
 
         ongr_demo.oxid.import.product.modifier.class: ONGR\OXIDConnectorBundle\Modifier\ProductModifier
@@ -125,8 +139,9 @@ Example import
 
         ongr_demo.oxid.import.product.modifier:
             class: %ongr_demo.oxid.import.product.modifier.class%
-            arguments:
-                - @ongr_oxid.attr_to_doc_service
+            arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+            calls:
+               - [ setLanguageId, [%ongr_oxid.language_id%] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.product.modify, method: onModify }
 
@@ -152,8 +167,9 @@ Example import
 
         ongr_demo.oxid.import.category.modifier:
             class: %ongr_demo.oxid.import.category.modifier.class%
-            arguments:
-                - @ongr_oxid.attr_to_doc_service
+            arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+            calls:
+               - [ setLanguageId, [%ongr_oxid.language_id%] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.category.modify, method: onModify }
 
@@ -179,8 +195,9 @@ Example import
 
         ongr_demo.oxid.import.content.modifier:
             class: %ongr_demo.oxid.import.content.modifier.class%
-            arguments:
-                - @ongr_oxid.attr_to_doc_service
+            arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+            calls:
+               - [ setLanguageId, [%ongr_oxid.language_id%] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.content.modify, method: onModify }
 
@@ -265,8 +282,9 @@ Example sync
 
         ongr_demo.oxid.sync.execute.product.modifier:
             class: %ongr_demo.oxid.sync.execute.product.modifier.class%
-            arguments:
-                - @ongr_oxid.attr_to_doc_service
+            arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+            calls:
+               - [ setLanguageId, [%ongr_oxid.language_id%] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.product.modify, method: onModify }
 
@@ -299,8 +317,9 @@ Example sync
 
         ongr_demo.oxid.sync.execute.category.modifier:
             class: %ongr_demo.oxid.sync.execute.category.modifier.class%
-            arguments:
-                - @ongr_oxid.attr_to_doc_service
+            arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+            calls:
+               - [ setLanguageId, [%ongr_oxid.language_id%] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.category.modify, method: onModify }
 
@@ -333,8 +352,9 @@ Example sync
 
         ongr_demo.oxid.sync.execute.content.modifier:
             class: %ongr_demo.oxid.sync.execute.content.modifier.class%
-            arguments:
-                - @ongr_oxid.attr_to_doc_service
+            arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+            calls:
+               - [ setLanguageId, [%ongr_oxid.language_id%] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.content.modify, method: onModify }
 
@@ -374,6 +394,7 @@ Example sync
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.data_sync.oxid.consume, method: onConsume }
 
+
 ..
 
 This configuration will allow synchronizing with following commands:
@@ -385,5 +406,109 @@ This configuration will allow synchronizing with following commands:
     app/console ongr:sync:execute oxid.content
     app/console ongr:sync:execute oxid.category
     app/console ongr:sync:execute oxid.product
+
+..
+
+Example multi-shops
+-------------------
+
+One of the ways to setup a multi-shop is by creating different environments_ for each shop.
+
+.. _environments: http://symfony.com/doc/current/cookbook/configuration/environments.html
+
+Settings for english OXID shop version "en", to be available on shopdomain.com/en:
+
+.. code-block:: yaml
+
+    parameters:
+        es_oxid_index_name: ongr_oxid_en
+..
+
+.. code-block:: yaml
+
+    ongr_elasticsearch:
+        connections:
+            oxid:
+                index_name: %es_oxid_index_name%
+..
+
+.. code-block:: yaml
+
+    ongr_oxid:
+        database_mapping:
+            oxid:
+                tags:
+                    @shop_tag: '_1'
+                    @lang_tag: '_1'
+                shop_id: 0
+                lang_id: 1
+..
+
+
+.. note:: OXID uses language ids to distinguish between languages and suffixes fields with "_id". Language ids can be checked at OXID admin panel.
+
+.. code-block:: yaml
+
+    framework:
+        router:
+            resource: "%kernel.root_dir%/config/routing_en.yml"
+..
+
+Also new environments' routing should be prefixed with "/en". Example:
+
+.. code-block:: yaml
+
+    ongr_demo:
+        resource: "routing.yml"
+        prefix:   /en
+..
+
+Nginx location config should be updated to use new front controller (app_en.php in this case):
+
+.. code-block::
+
+  location / {
+    root  /var/www/web/;
+    try_files $uri $uri/ /app_dev.php?$args;
+  }
+  location /en {
+    root  /var/www/web/;
+    try_files $uri $uri/ /app_en.php?$args;
+  }
+  location ~ \.php$ {
+    root  /var/www/web/;
+    try_files $uri $uri/ /app_dev.php?$args;
+    index  app_dev.php;
+    fastcgi_index app_dev.php;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    fastcgi_param  PATH_TRANSLATED $document_root$fastcgi_path_info;
+    fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    include fastcgi_params;
+  }
+  location ~ app_en\.php$ {
+    root  /var/www/web/;
+    try_files $uri $uri/ /app_en.php?$args;
+    index  app_en.php;
+    fastcgi_index app_en.php;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    fastcgi_param  PATH_TRANSLATED $document_root$fastcgi_path_info;
+    fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    include fastcgi_params;
+  }
+..
+
+New shop import, sync and Elastic index creation commands should be used with "env" parameter. Import example:
+
+.. code-block:: bash
+
+    app/console es:index:create --manager=oxid --env=en
+
+    app/console ongr:import:full oxid.content --env=en
+    app/console ongr:import:full oxid.category --env=en
+    app/console ongr:import:full oxid.product --env=en
 
 ..
