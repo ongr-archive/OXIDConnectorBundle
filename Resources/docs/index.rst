@@ -51,13 +51,15 @@ Then you will need to add mappings for these documents and entities. Examples:
 
     ongr_elasticsearch:
         connections:
-            oxid:
+            default:
                 hosts:
                     - { host: 127.0.0.1:9200 }
-                index_name: %es_oxid_index_name%
+                index_name: %es_index_name%
+
         managers:
-            oxid:
-                connection: oxid
+            default:
+                connection: default
+                debug: "%kernel.debug%"
                 mappings:
                     - ONGROXIDConnectorBundle
                     - ONGRDemoOXIDBundle
@@ -66,7 +68,7 @@ Then you will need to add mappings for these documents and entities. Examples:
 .. code-block:: yaml
 
     parameters:
-        es_oxid_index_name: ongr_oxid
+        es_index_name: ongr_oxid
 ..
 
 Then add configuration for bundles.
@@ -132,7 +134,7 @@ Example import
             arguments:
                 - @doctrine.orm.default_entity_manager
                 - %ongr_demo.oxid.import.product.doctrine_entity_type%
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.import.product.elastic_document_type%
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.product.source, method: onSource }
@@ -149,7 +151,7 @@ Example import
             class: %ongr_connections.import.consumer.class%
             parent: ongr_connections.import.consumer
             arguments:
-                - @es.manager.oxid
+                - @es.manager
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.product.consume, method: onConsume }
 
@@ -160,7 +162,7 @@ Example import
             arguments:
                 - @doctrine.orm.default_entity_manager
                 - %ongr_demo.oxid.import.category.doctrine_entity_type%
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.import.category.elastic_document_type%
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.category.source, method: onSource }
@@ -177,7 +179,7 @@ Example import
             class: %ongr_connections.import.consumer.class%
             parent: ongr_connections.import.consumer
             arguments:
-                - @es.manager.oxid
+                - @es.manager
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.category.consume, method: onConsume }
 
@@ -188,7 +190,7 @@ Example import
             arguments:
                 - @doctrine.orm.default_entity_manager
                 - %ongr_demo.oxid.import.content.doctrine_entity_type%
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.import.content.elastic_document_type%
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.content.source, method: onSource }
@@ -205,7 +207,7 @@ Example import
             class: %ongr_connections.import.consumer.class%
             parent: ongr_connections.import.consumer
             arguments:
-                - @es.manager.oxid
+                - @es.manager
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.content.consume, method: onConsume }
 
@@ -214,7 +216,7 @@ Example import
             class: %ongr_demo.oxid.import.finish.class%
             parent: ongr_connections.import.finish
             arguments:
-                - @es.manager.oxid
+                - @es.manager
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.product.finish, method: onFinish }
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.category.finish, method: onFinish }
@@ -231,6 +233,8 @@ This configuration will allow importing with following commands:
     app/console ongr:import:full oxid.product
 
 ..
+
+.. note:: Elastic index should be created before import. You can create with command: "app/console es:index:create".
 
 Example sync
 ------------
@@ -270,7 +274,7 @@ Example sync
             arguments:
                 - @doctrine.orm.default_entity_manager
                 - %ongr_demo.oxid.sync.execute.product.doctrine_entity_type%
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.sync.execute.product.elastic_document_type%
                 - @ongr_connections.sync.sync_storage
             calls:
@@ -292,7 +296,7 @@ Example sync
                 class: %ongr_connections.sync.execute.consumer.class%
                 parent: ongr_connections.sync.execute.consumer
                 arguments:
-                    - @es.manager.oxid
+                    - @es.manager
                     - %ongr_demo.oxid.sync.execute.product.elastic_document_type%
                     - @ongr_connections.sync.sync_storage
                 tags:
@@ -305,7 +309,7 @@ Example sync
             arguments:
                 - @doctrine.orm.default_entity_manager
                 - %ongr_demo.oxid.sync.execute.category.doctrine_entity_type%
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.sync.execute.category.elastic_document_type%
                 - @ongr_connections.sync.sync_storage
             calls:
@@ -327,7 +331,7 @@ Example sync
             class: %ongr_connections.sync.execute.consumer.class%
             parent: ongr_connections.sync.execute.consumer
             arguments:
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.sync.execute.category.elastic_document_type%
                 - @ongr_connections.sync.sync_storage
             tags:
@@ -340,7 +344,7 @@ Example sync
             arguments:
                 - @doctrine.orm.default_entity_manager
                 - %ongr_demo.oxid.sync.execute.content.doctrine_entity_type%
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.sync.execute.content.elastic_document_type%
                 - @ongr_connections.sync.sync_storage
             calls:
@@ -362,7 +366,7 @@ Example sync
             class: %ongr_connections.sync.execute.consumer.class%
             parent: ongr_connections.sync.execute.consumer
             arguments:
-                - @es.manager.oxid
+                - @es.manager
                 - %ongr_demo.oxid.sync.execute.content.elastic_document_type%
                 - @ongr_connections.sync.sync_storage
             tags:
@@ -373,7 +377,7 @@ Example sync
             class: %ongr_demo.oxid.sync.execute.finish.class%
             parent: ongr_connections.import.finish
             arguments:
-                - @es.manager.oxid
+                - @es.manager
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.product.finish, method: onFinish }
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.category.finish, method: onFinish }
@@ -421,15 +425,15 @@ Settings for english OXID shop version "en", to be available on shopdomain.com/e
 .. code-block:: yaml
 
     parameters:
-        es_oxid_index_name: ongr_oxid_en
+        es_index_name: ongr_oxid_en
 ..
 
 .. code-block:: yaml
 
     ongr_elasticsearch:
         connections:
-            oxid:
-                index_name: %es_oxid_index_name%
+            default:
+                index_name: %es_index_name%
 ..
 
 .. code-block:: yaml
@@ -505,7 +509,7 @@ New shop import, sync and Elastic index creation commands should be used with "e
 
 .. code-block:: bash
 
-    app/console es:index:create --manager=oxid --env=en
+    app/console es:index:create --env=en
 
     app/console ongr:import:full oxid.content --env=en
     app/console ongr:import:full oxid.category --env=en
