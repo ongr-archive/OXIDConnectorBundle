@@ -134,8 +134,8 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setVendor('Vendor A');
         $expectedDocument->setManufacturer('Manufacturer A');
         $expectedDocument->setVariants($this->getExpectedVariants());
-        $expectedDocument->url = [];
-        $expectedDocument->expiredUrl = [];
+        $expectedDocument->setUrls(new \ArrayIterator());
+        $expectedDocument->setExpiredUrls([]);
         $attObj = new AttributeObject();
         $attObj->setPos(1);
         $attObj->setTitle('testAttributeTitle');

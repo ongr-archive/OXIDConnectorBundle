@@ -51,8 +51,8 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setSnippet(false);
         $expectedDocument->setType(5);
         $expectedDocument->setFolder('testFolder');
-        $expectedDocument->url = [];
-        $expectedDocument->expiredUrl = [];
+        $expectedDocument->setUrls(new \ArrayIterator());
+        $expectedDocument->setExpiredUrls([]);
 
         $document = new ContentDocument();
 

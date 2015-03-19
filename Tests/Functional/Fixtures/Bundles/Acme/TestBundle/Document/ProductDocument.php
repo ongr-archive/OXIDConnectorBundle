@@ -22,43 +22,4 @@ use ONGR\RouterBundle\Document\UrlObject;
  */
 class ProductDocument extends ParentDocument
 {
-    /**
-     * @return \Iterator|UrlObject[]
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param \Iterator|UrlObject[] $url
-     *
-     * @return $this
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getExpiredUrl()
-    {
-        return $this->expiredUrl;
-    }
-
-    /**
-     * @param string[] $expiredUrl
-     *
-     * @return $this
-     */
-    public function setExpiredUrl($expiredUrl)
-    {
-        $this->expiredUrl = $expiredUrl;
-
-        return $this;
-    }
 }

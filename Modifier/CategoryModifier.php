@@ -102,14 +102,14 @@ class CategoryModifier extends AbstractImportModifyEventListener
                 if ($seo->getLang() === $this->languageId) {
                     /** @var Seo $seo */
                     $urlObject = new UrlObject();
-                    $urlObject->url = $seo->getSeoUrl();
+                    $urlObject->setUrl($seo->getSeoUrl());
                     $urls[] = $urlObject;
                 }
             }
         }
 
-        $document->url = $urls;
-        $document->expiredUrl = [];
+        $document->setUrls(new \ArrayIterator($urls));
+        $document->setExpiredUrls([]);
     }
 
     /**

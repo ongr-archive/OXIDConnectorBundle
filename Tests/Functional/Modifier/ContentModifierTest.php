@@ -37,8 +37,8 @@ class ContentModifierTest extends AbstractTestCase
         $expectedContent1->setType(2);
         $expectedContent1->setActive(false);
         $expectedContent1->setPosition('position1');
-        $expectedContent1->url = [];
-        $expectedContent1->expiredUrl = [];
+        $expectedContent1->setUrls(new \ArrayIterator());
+        $expectedContent1->setExpiredUrls([]);
 
         $expectedContent2 = new ContentDocument();
         $expectedContent2->setId('ad542e49bff479009.64538090');
@@ -50,8 +50,8 @@ class ContentModifierTest extends AbstractTestCase
         $expectedContent2->setType(1);
         $expectedContent2->setActive(true);
         $expectedContent2->setPosition('position2');
-        $expectedContent2->url = [];
-        $expectedContent2->expiredUrl = [];
+        $expectedContent2->setUrls(new \ArrayIterator());
+        $expectedContent2->setExpiredUrls([]);
 
         $expectedEntities = [$expectedContent1, $expectedContent2];
 
