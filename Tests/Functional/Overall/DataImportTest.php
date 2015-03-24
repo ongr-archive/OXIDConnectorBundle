@@ -40,7 +40,7 @@ class DataImportTest extends AbstractTestCase
             'target' => 'content_import_test',
             'repository' => 'TestBundle:ContentDocument',
             'resultCount' => 2,
-            'firstValue' => 'ad542e49bff479009.64538090',
+            'firstValue' => '8709e45f31a86909e9f999222e80b1d0',
         ];
 
         // Case No 3. Test Product import.
@@ -87,9 +87,14 @@ class DataImportTest extends AbstractTestCase
             ->addQuery(new MatchAllQuery());
         $documents = $repository->execute($search);
         $this->assertEquals($resultCount, $documents->count());
-
         $documents = iterator_to_array($documents);
+        $documents = array_map(
+            function ($document) {
+                return $document->getId();
+            },
+            $documents
+        );
         sort($documents);
-        $this->assertEquals($firstValue, $documents[0]->getId());
+        $this->assertEquals($firstValue, $documents[0]);
     }
 }

@@ -43,8 +43,8 @@ class ProductModifierTest extends AbstractTestCase
         $expectedProduct1->setVendor(null);
         $expectedProduct1->setStock(5);
         $expectedProduct1->setAttributes([]);
-        $expectedProduct1->url = [];
-        $expectedProduct1->expiredUrl = [];
+        $expectedProduct1->setUrls(new \ArrayIterator());
+        $expectedProduct1->setExpiredUrls([]);
 
         $expectedProduct2 = new VariantObject();
         $expectedProduct2->setId('6b6a6aedca3e438e98d51f0a5d586c0b');
