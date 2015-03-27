@@ -420,20 +420,12 @@ One of the ways to setup a multi-shop is by creating different environments_ for
 
 .. _environments: http://symfony.com/doc/current/cookbook/configuration/environments.html
 
-Settings for english OXID shop version "en", to be available on shopdomain.com/en:
+Settings that should be overridden in new environment for english OXID shop version "en", to be available on shopdomain.com/en:
 
 .. code-block:: yaml
 
     parameters:
         es_index_name: ongr_oxid_en
-..
-
-.. code-block:: yaml
-
-    ongr_elasticsearch:
-        connections:
-            default:
-                index_name: %es_index_name%
 ..
 
 .. code-block:: yaml
