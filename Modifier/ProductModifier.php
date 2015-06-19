@@ -20,8 +20,9 @@ use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Document\VariantObject;
 use ONGR\OXIDConnectorBundle\Entity\Article;
 use ONGR\OXIDConnectorBundle\Entity\ObjectToCategory;
+use ONGR\OXIDConnectorBundle\Entity\Seo;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
-use ONGR\RouterBundle\Document\UrlObject;
+use ONGR\RouterBundle\Document\UrlNested;
 
 /**
  * Converts OXID article to ONGR product document.
@@ -198,7 +199,7 @@ class ProductModifier extends AbstractImportModifyEventListener
             foreach ($seoUrls as $seo) {
                 if ($seo->getLang() === $this->languageId) {
                     /** @var Seo $seo */
-                    $urlObject = new UrlObject();
+                    $urlObject = new UrlNested();
                     $urlObject->setUrl($seo->getSeoUrl());
                     $urls[] = $urlObject;
                 }
