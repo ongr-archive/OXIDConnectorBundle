@@ -16,7 +16,8 @@ use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Entity\Content;
-use ONGR\RouterBundle\Document\UrlObject;
+use ONGR\OXIDConnectorBundle\Entity\Seo;
+use ONGR\RouterBundle\Document\UrlNested;
 
 /**
  * Converts OXID content to ONGR content document.
@@ -76,7 +77,7 @@ class ContentModifier extends AbstractImportModifyEventListener
             foreach ($seoUrls as $seo) {
                 if ($seo->getLang() === $this->languageId) {
                     /** @var Seo $seo */
-                    $urlObject = new UrlObject();
+                    $urlObject = new UrlNested();
                     $urlObject->setUrl($seo->getSeoUrl());
                     $urls[] = $urlObject;
                 }
