@@ -19,6 +19,8 @@ services:
     test.sync.execute.modifier.product:
         class: %ongr_oxid.modifier.product.class%
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        calls:
+            - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_product.modify, method: onModify }
 
@@ -52,6 +54,8 @@ services:
     test.sync.execute.modifier.category:
         class: %ongr_oxid.modifier.category.class%
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        calls:
+            - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_category.modify, method: onModify }
 
@@ -85,6 +89,8 @@ services:
     test.sync.execute.modifier.content:
         class: %ongr_oxid.modifier.content.class%
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        calls:
+            - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.data_execute_content.modify, method: onModify }
 

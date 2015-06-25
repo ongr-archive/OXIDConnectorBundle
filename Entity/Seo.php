@@ -24,6 +24,8 @@ class Seo
      * @var string
      *
      * @ORM\Column(name="OXOBJECTID", type="string")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $objectId;
 
@@ -31,8 +33,6 @@ class Seo
      * @var string
      *
      * @ORM\Column(name="OXIDENT", type="string")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $ident;
 
@@ -40,8 +40,6 @@ class Seo
      * @var int
      *
      * @ORM\Column(name="OXSHOPID", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $shopId;
 
@@ -49,8 +47,6 @@ class Seo
      * @var int
      *
      * @ORM\Column(name="OXLANG", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $lang;
 
@@ -81,6 +77,13 @@ class Seo
      * @ORM\Column(name="OXPARAMS", type="string")
      */
     protected $params;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="OXTYPE", type="string")
+     */
+    protected $type;
 
     /**
      * Sets mapped object ID.

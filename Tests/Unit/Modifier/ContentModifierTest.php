@@ -14,8 +14,11 @@ namespace ONGR\OXIDConnectorBundle\Tests\Unit\Modifier;
 use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
+use ONGR\OXIDConnectorBundle\Entity\Seo;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
+use ONGR\RouterBundle\Document\UrlNested;
 
 class ContentModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,6 +43,18 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
             ->setType(5)
             ->setFolder('testFolder');
 
+        /** @var Seo|\PHPUnit_Framework_MockObject_MockObject $seo */
+        $seo = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Seo');
+        $seo->setSeoUrl('test');
+
+        /** @var SeoFinder|\PHPUnit_Framework_MockObject_MockObject $seoFinder */
+        $seoFinder = $this->getMockBuilder('ONGR\OXIDConnectorBundle\Service\SeoFinder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $seoFinder->expects($this->once())->method('getEntitySeo')->willReturn(new \ArrayIterator([$seo]));
+
+        $modifier->setSeoFinderService($seoFinder);
+
         $expectedDocument = new ContentDocument();
         $expectedDocument->setId('testId');
         $expectedDocument->setActive(true);
@@ -51,7 +66,9 @@ class ContentModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setSnippet(false);
         $expectedDocument->setType(5);
         $expectedDocument->setFolder('testFolder');
-        $expectedDocument->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('test');
+        $expectedDocument->setUrls(new \ArrayIterator([$url]));
         $expectedDocument->setExpiredUrls([]);
 
         $document = new ContentDocument();

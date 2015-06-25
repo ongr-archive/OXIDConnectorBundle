@@ -11,6 +11,7 @@
 
 namespace ONGR\OXIDConnectorBundle\Tests\Functional\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use ONGR\OXIDConnectorBundle\Entity\ObjectToCategory as ParentObjectToCategory;
 
 /**

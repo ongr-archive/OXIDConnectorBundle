@@ -11,7 +11,9 @@
 
 namespace ONGR\OXIDConnectorBundle;
 
+use ONGR\OXIDConnectorBundle\DependencyInjection\Compiler\SeoServicePass;
 use ONGR\OXIDConnectorBundle\DependencyInjection\ONGROXIDConnectorExtension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -25,5 +27,15 @@ class ONGROXIDConnectorBundle extends Bundle
     public function getContainerExtension()
     {
         return new ONGROXIDConnectorExtension();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new SeoServicePass());
     }
 }

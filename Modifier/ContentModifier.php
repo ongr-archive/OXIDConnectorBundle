@@ -17,6 +17,7 @@ use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Entity\Content;
 use ONGR\OXIDConnectorBundle\Entity\Seo;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\RouterBundle\Document\UrlNested;
 
 /**
@@ -28,6 +29,11 @@ class ContentModifier extends AbstractImportModifyEventListener
      * @var int
      */
     private $languageId = 0;
+
+    /**
+     * @var SeoFinder
+     */
+    private $seoFinderService;
 
     /**
      * {@inheritdoc}
@@ -72,15 +78,13 @@ class ContentModifier extends AbstractImportModifyEventListener
     private function extractUrls(Content $content, $document)
     {
         $urls = [];
-        $seoUrls = $content->getSeoUrls();
+        $seoUrls = $this->getSeoFinderService()->getEntitySeo($content, $this->languageId);
         if (count($seoUrls) > 0) {
             foreach ($seoUrls as $seo) {
-                if ($seo->getLang() === $this->languageId) {
-                    /** @var Seo $seo */
-                    $urlObject = new UrlNested();
-                    $urlObject->setUrl($seo->getSeoUrl());
-                    $urls[] = $urlObject;
-                }
+                /** @var Seo $seo */
+                $urlObject = new UrlNested();
+                $urlObject->setUrl($seo->getSeoUrl());
+                $urls[] = $urlObject;
             }
         }
 
@@ -96,5 +100,25 @@ class ContentModifier extends AbstractImportModifyEventListener
     public function setLanguageId($languageId)
     {
         $this->languageId = $languageId;
+    }
+
+    /**
+     * @return SeoFinder
+     */
+    public function getSeoFinderService()
+    {
+        return $this->seoFinderService;
+    }
+
+    /**
+     * @param SeoFinder $seoFinderService
+     *
+     * @return $this
+     */
+    public function setSeoFinderService(SeoFinder $seoFinderService)
+    {
+        $this->seoFinderService = $seoFinderService;
+
+        return $this;
     }
 }

@@ -17,10 +17,12 @@ use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Document\ProductDocument;
 use ONGR\OXIDConnectorBundle\Entity\Category;
+use ONGR\OXIDConnectorBundle\Entity\Seo;
 use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\ObjectToCategory;
@@ -87,17 +89,47 @@ class EntityToDocumentModifierTest extends \PHPUnit_Framework_TestCase
         $this->attrToDocService = $this->getMock('\ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService');
 
         // Mocks for CategoryModifier.
+        /** @var Seo|\PHPUnit_Framework_MockObject_MockObject $seo */
+        $seo = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Seo');
+        $seo->setSeoUrl('test/category');
+        /** @var SeoFinder|\PHPUnit_Framework_MockObject_MockObject $seoFinder */
+        $seoFinder = $this->getMockBuilder('ONGR\OXIDConnectorBundle\Service\SeoFinder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $seoFinder->expects($this->any())->method('getEntitySeo')->willReturn(new \ArrayIterator([$seo]));
+
         $this->catModifierListener = new CategoryModifier($this->attrToDocService);
+        $this->catModifierListener->setSeoFinderService($seoFinder);
         $this->catEntity = $this->getMock('\ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category');
         $this->catDocument = $this->getMock('\ONGR\OXIDConnectorBundle\Document\CategoryDocument');
 
         // Mocks for ContentModifier.
+        /** @var Seo|\PHPUnit_Framework_MockObject_MockObject $seo */
+        $seo = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Seo');
+        $seo->setSeoUrl('test/content');
+        /** @var SeoFinder|\PHPUnit_Framework_MockObject_MockObject $seoFinder */
+        $seoFinder = $this->getMockBuilder('ONGR\OXIDConnectorBundle\Service\SeoFinder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $seoFinder->expects($this->any())->method('getEntitySeo')->willReturn(new \ArrayIterator([$seo]));
+
         $this->contModifierListener = new ContentModifier();
+        $this->contModifierListener->setSeoFinderService($seoFinder);
         $this->contEntity = $this->getMock('\ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Content');
         $this->contDocument = $this->getMock('\ONGR\OXIDConnectorBundle\Document\ContentDocument');
 
         // Mocks for ProductModifier.
+        /** @var Seo|\PHPUnit_Framework_MockObject_MockObject $seo */
+        $seo = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Seo');
+        $seo->setSeoUrl('test/product');
+        /** @var SeoFinder|\PHPUnit_Framework_MockObject_MockObject $seoFinder */
+        $seoFinder = $this->getMockBuilder('ONGR\OXIDConnectorBundle\Service\SeoFinder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $seoFinder->expects($this->any())->method('getEntitySeo')->willReturn(new \ArrayIterator([$seo]));
+
         $this->prodModifierListener = new ProductModifier($this->attrToDocService);
+        $this->prodModifierListener->setSeoFinderService($seoFinder);
         $this->prodEntity = $this->getMock('\ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article');
         $this->prodDocument = $this->getMock('\ONGR\OXIDConnectorBundle\Document\ProductDocument');
     }

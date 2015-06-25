@@ -22,6 +22,7 @@ use ONGR\OXIDConnectorBundle\Entity\Article;
 use ONGR\OXIDConnectorBundle\Entity\ObjectToCategory;
 use ONGR\OXIDConnectorBundle\Entity\Seo;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\RouterBundle\Document\UrlNested;
 
 /**
@@ -38,6 +39,11 @@ class ProductModifier extends AbstractImportModifyEventListener
      * @var int
      */
     private $languageId = 0;
+
+    /**
+     * @var SeoFinder
+     */
+    private $seoFinderService;
 
     /**
      * Dependency injection.
@@ -194,15 +200,13 @@ class ProductModifier extends AbstractImportModifyEventListener
     private function extractUrls(Article $article, $document)
     {
         $urls = [];
-        $seoUrls = $article->getSeoUrls();
+        $seoUrls = $this->getSeoFinderService()->getEntitySeo($article, $this->languageId);
         if (count($seoUrls) > 0) {
             foreach ($seoUrls as $seo) {
-                if ($seo->getLang() === $this->languageId) {
-                    /** @var Seo $seo */
-                    $urlObject = new UrlNested();
-                    $urlObject->setUrl($seo->getSeoUrl());
-                    $urls[] = $urlObject;
-                }
+                /** @var Seo $seo */
+                $urlObject = new UrlNested();
+                $urlObject->setUrl($seo->getSeoUrl());
+                $urls[] = $urlObject;
             }
         }
 
@@ -218,5 +222,25 @@ class ProductModifier extends AbstractImportModifyEventListener
     public function setLanguageId($languageId)
     {
         $this->languageId = $languageId;
+    }
+
+    /**
+     * @return SeoFinder
+     */
+    public function getSeoFinderService()
+    {
+        return $this->seoFinderService;
+    }
+
+    /**
+     * @param SeoFinder $seoFinderService
+     *
+     * @return $this
+     */
+    public function setSeoFinderService(SeoFinder $seoFinderService)
+    {
+        $this->seoFinderService = $seoFinderService;
+
+        return $this;
     }
 }

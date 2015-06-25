@@ -76,6 +76,10 @@ class ONGROXIDConnectorExtension extends Extension
         );
         $definition->addTag('doctrine.event_listener', ['event' => 'loadClassMetadata']);
         $container->setDefinition('ongr_oxid.mapping_listener', $definition);
+
+        $container->setParameter('ongr_oxid.tags.shop_tag', $tags['@shop_tag']);
+        $container->setParameter('ongr_oxid.tags.lang_tag', $tags['@lang_tag']);
+        $container->setParameter('ongr_oxid.tags.view_tag', $tags['{@view_tag}']);
     }
 
     /**

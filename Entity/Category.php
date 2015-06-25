@@ -129,18 +129,12 @@ class Category
     protected $attributes;
 
     /**
-     * @var ArrayCollection Placeholder for seo urls.
-     */
-    protected $seoUrls;
-
-    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->children = new ArrayCollection();
         $this->attributes = new ArrayCollection();
-        $this->seoUrls = new ArrayCollection();
     }
 
     /**
@@ -521,21 +515,5 @@ class Category
         $this->children->removeElement($category);
 
         return $this;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSeoUrls()
-    {
-        return $this->seoUrls;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $seoUrls
-     */
-    public function setSeoUrls($seoUrls)
-    {
-        $this->seoUrls = $seoUrls;
     }
 }

@@ -6,5 +6,6 @@ services:
         class: %ongr_oxid.modifier.content.class%
         calls:
            - [ setLanguageId, [%ongr_oxid.language_id%] ]
+           - [ setSeoFinderService, [@ongr_oxid.seo_finder_service] ]
         tags:
             - { name: 'kernel.event_listener', event: ongr.pipeline.import.default.modify, method: onModify }

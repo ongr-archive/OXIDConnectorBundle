@@ -19,6 +19,7 @@ use ONGR\OXIDConnectorBundle\Entity\Category;
 use ONGR\OXIDConnectorBundle\Entity\CategoryToAttribute;
 use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
 
 /**
@@ -78,7 +79,13 @@ class CategoryModifierTest extends AbstractTestCase
         $categoryToAttribute = $categoryItems[0]->getAttributes();
         $this->assertEquals($attribute->getTitle(), $categoryToAttribute[0]->getAttribute()->getTitle());
 
+        $seoFinder = new SeoFinder();
+        $seoFinder->setEntityManager($this->getEntityManager());
+        $seoFinder->setShopId(0);
+        $seoFinder->setRepository('ONGROXIDConnectorBundleTest:Seo');
+
         $modifier = new CategoryModifier(new AttributesToDocumentsService());
+        $modifier->setSeoFinderService($seoFinder);
 
         /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
         $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);
