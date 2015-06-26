@@ -19,6 +19,7 @@ use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
+use ONGR\RouterBundle\Document\UrlNested;
 
 /**
  * Tests if product modifier works as expected.
@@ -44,7 +45,9 @@ class ProductModifierTest extends AbstractTestCase
         $expectedProduct1->setVendor(null);
         $expectedProduct1->setStock(5);
         $expectedProduct1->setAttributes([]);
-        $expectedProduct1->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('Test/Product/1');
+        $expectedProduct1->setUrls(new \ArrayIterator([$url]));
         $expectedProduct1->setExpiredUrls([]);
 
         $expectedProduct2 = new VariantObject();

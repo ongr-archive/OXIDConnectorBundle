@@ -42,6 +42,8 @@ class SeoFinder
      * @param int|null                 $languageId
      *
      * @return Seo[]
+     *
+     * @throws \InvalidArgumentException
      */
     public function getEntitySeo($entity, $languageId = null)
     {
@@ -69,10 +71,9 @@ class SeoFinder
             'shopId' => $this->getShopId(),
         ];
 
-        if ($languageId) {
-            $queryBuilder->andWhere('s.OXLANG = :lang');
+        if ($languageId !== null) {
+            $queryBuilder->andWhere('s.lang = :lang');
             $parameters['lang'] = $languageId;
-
         }
 
         $query = $queryBuilder
@@ -84,6 +85,8 @@ class SeoFinder
 
     /**
      * @return EntityManager
+     *
+     * @throws \LogicException
      */
     public function getEntityManager()
     {

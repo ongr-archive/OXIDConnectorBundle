@@ -21,6 +21,7 @@ use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
 use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
+use ONGR\RouterBundle\Document\UrlNested;
 
 /**
  * Tests if category modifier works as expected.
@@ -47,7 +48,9 @@ class CategoryModifierTest extends AbstractTestCase
         $attribute->setPos(9999);
         $attribute->setTitle('testAttribute');
         $expectedCategory1->setAttributes([$attribute]);
-        $expectedCategory1->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('Test/Category/1');
+        $expectedCategory1->setUrls(new \ArrayIterator([$url]));
         $expectedCategory1->setExpiredUrls([]);
 
         $expectedCategory2 = new CategoryDocument();
@@ -62,7 +65,9 @@ class CategoryModifierTest extends AbstractTestCase
         $expectedCategory2->setTitle('Trapeze');
         $expectedCategory2->setDescription('Description 2');
         $expectedCategory2->setAttributes([]);
-        $expectedCategory2->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('Test/Category/2');
+        $expectedCategory2->setUrls(new \ArrayIterator([$url]));
         $expectedCategory2->setExpiredUrls([]);
 
         $expectedCategories = [$expectedCategory1, $expectedCategory2];

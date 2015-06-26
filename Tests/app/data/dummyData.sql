@@ -58,9 +58,21 @@ INSERT INTO `oxarticles` (`OXID`, `OXACTIVE`, `OXARTNUM`, `OXMPN`, `OXTITLE`, `O
 #
 # Data for table `oxseo`
 #
-INSERT INTO `oxseo` (`OXOBJECTID`, `OXIDENT`, `OXSHOPID`, `OXLANG`, `OXSTDURL`, `OXSEOURL`, `OXTYPE`, `OXFIXED`, `OXEXPIRED`, `OXPARAMS`) VALUES
-('6b698c33118caee4ca0882c33f513d2f', '023abc17c853f9bccc201c5afd549a92', 1, 0, 'index.php?cl=account_wishlist', 'test/url/for/product1/number/one', 'static', 0, 0, 'product1Key'),
-('6b698c33118caee4ca0882c33f513d2f', '02b4c1e4049b1baffba090c95a7edbf7', 0, 1, 'index.php?cl=invite', 'test/url/for/product1/number/two', 'static', 0, 0, 'product2Key');
+INSERT INTO `oxseo` (`OXOBJECTID`, `OXIDENT`, `OXSHOPID`, `OXLANG`, `OXSTDURL`, `OXSEOURL`, `OXTYPE`, `OXFIXED`, `OXEXPIRED`, `OXPARAMS`, `OXTIMESTAMP`) VALUES
+('6b698c33118caee4ca0882c33f513d2f', '0767edaa8b366a6d4ef3bd584ac48176', 0, 0, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'Test/Product/1', 'oxarticle', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:24:12'),
+('6b698c33118caee4ca0882c33f513d2f', 'c815781a787b8af1ee1ca1cdb0397dc7', 0, 1, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'en/Test/Product/1', 'oxarticle', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:19:00'),
+('6b6a6aedca3e438e98d51f0a5d586c0b', '0767edaa8b366a6d4ef3bd584ac48177', 0, 0, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'Test/Product/2', 'oxarticle', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:24:12'),
+('6b6a6aedca3e438e98d51f0a5d586c0b', 'c815781a787b8af1ee1ca1cdb0397dc8', 0, 1, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'en/Test/Product/2', 'oxarticle', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:19:00'),
+
+('8709e45f31a86909e9f999222e80b1d0', '0767edaa8b366a6d4ef3bd584ac48178', 0, 0, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'Test/Content/1', 'oxcontent', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:24:12'),
+('8709e45f31a86909e9f999222e80b1d0', 'c815781a787b8af1ee1ca1cdb0397dc9', 0, 1, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'en/Test/Content/1', 'oxcontent', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:19:00'),
+('ad542e49bff479009.64538090', '0767edaa8b366a6d4ef3bd584ac48170', 0, 0, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'Test/Content/2', 'oxcontent', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:24:12'),
+('ad542e49bff479009.64538090', 'c815781a787b8af1ee1ca1cdb0397dca', 0, 1, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'en/Test/Content/2', 'oxcontent', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:19:00'),
+
+('fada9485f003c731b7fad08b873214e0', '0767edaa8b366a6d4ef3bd584ac48186', 0, 0, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'Test/Category/1', 'oxcategory', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:24:12'),
+('fada9485f003c731b7fad08b873214e0', 'c815781a787b8af1ee1ca1cdb0397dd7', 0, 1, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'en/Test/Category/1', 'oxcategory', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:19:00'),
+('0f41a4463b227c437f6e6bf57b1697c4', '0767edaa8b366a6d4ef3bd584ac49177', 0, 0, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'Test/Category/2', 'oxcategory', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:24:12'),
+('0f41a4463b227c437f6e6bf57b1697c4', 'c815781a787b8af1ee1ca1cdb0497dc8', 0, 1, 'index.php?cl=details&amp;anid=058de8224773a1d5fd54d523f0c823e0&amp;cnid=0f4f08358666c54b4fde3d83d2b7ef04', 'en/Test/Category/2', 'oxcategory', 0, 0, '0f4f08358666c54b4fde3d83d2b7ef04', '2015-06-23 08:19:00');
 
 #
 # Data for table `oxseohistory`

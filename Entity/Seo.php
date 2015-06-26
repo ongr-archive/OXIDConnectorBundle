@@ -40,6 +40,8 @@ class Seo
      * @var int
      *
      * @ORM\Column(name="OXSHOPID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $shopId;
 
@@ -47,6 +49,8 @@ class Seo
      * @var int
      *
      * @ORM\Column(name="OXLANG", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $lang;
 
