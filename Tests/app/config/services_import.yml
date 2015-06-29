@@ -14,6 +14,8 @@ services:
     test.import.modifier.category:
         class: %ongr_oxid.modifier.category.class%
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        calls:
+            - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.import.category_import_test.modify, method: onModify }
 
@@ -32,6 +34,8 @@ services:
     test.import.modifier.content:
         class: %ongr_oxid.modifier.content.class%
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        calls:
+            - [ setSeoFinderService , [@ongr_oxid.seo_finder_service]]
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.import.content_import_test.modify, method: onModify }
 
@@ -50,6 +54,8 @@ services:
     test.import.modifier.product:
         class: %ongr_oxid.modifier.product.class%
         arguments: [ "@ongr_oxid.attr_to_doc_service" ]
+        calls:
+            - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
         tags:
             - { name: kernel.event_listener, event: ongr.pipeline.import.product_import_test.modify, method: onModify }
 

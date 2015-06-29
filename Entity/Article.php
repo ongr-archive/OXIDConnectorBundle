@@ -172,18 +172,12 @@ class Article
     protected $stockFlag;
 
     /**
-     * @var ArrayCollection Placeholder for seo urls.
-     */
-    protected $seoUrls;
-
-    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->attributes = new ArrayCollection();
-        $this->seoUrls = new ArrayCollection();
     }
 
     /**
@@ -672,21 +666,5 @@ class Article
         $this->parent = $parent;
 
         return $this;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSeoUrls()
-    {
-        return $this->seoUrls;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $seoUrls
-     */
-    public function setSeoUrls($seoUrls)
-    {
-        $this->seoUrls = $seoUrls;
     }
 }

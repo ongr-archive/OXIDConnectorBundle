@@ -69,6 +69,7 @@ Then you will need to add mappings for these documents and entities. Examples:
 
     parameters:
         es_index_name: ongr_oxid
+        ongr_oxid.seo_finder_service.repository: ONGRDemoOXIDBundle:Seo
 ..
 
 Then add configuration for bundles.
@@ -144,6 +145,7 @@ Example import
             arguments: [ "@ongr_oxid.attr_to_doc_service" ]
             calls:
                - [ setLanguageId, [%ongr_oxid.language_id%] ]
+               - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.product.modify, method: onModify }
 
@@ -172,6 +174,7 @@ Example import
             arguments: [ "@ongr_oxid.attr_to_doc_service" ]
             calls:
                - [ setLanguageId, [%ongr_oxid.language_id%] ]
+               - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.category.modify, method: onModify }
 
@@ -200,6 +203,7 @@ Example import
             arguments: [ "@ongr_oxid.attr_to_doc_service" ]
             calls:
                - [ setLanguageId, [%ongr_oxid.language_id%] ]
+               - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.import.oxid.content.modify, method: onModify }
 
@@ -289,6 +293,7 @@ Example sync
             arguments: [ "@ongr_oxid.attr_to_doc_service" ]
             calls:
                - [ setLanguageId, [%ongr_oxid.language_id%] ]
+               - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.product.modify, method: onModify }
 
@@ -324,6 +329,7 @@ Example sync
             arguments: [ "@ongr_oxid.attr_to_doc_service" ]
             calls:
                - [ setLanguageId, [%ongr_oxid.language_id%] ]
+               - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.category.modify, method: onModify }
 
@@ -359,6 +365,7 @@ Example sync
             arguments: [ "@ongr_oxid.attr_to_doc_service" ]
             calls:
                - [ setLanguageId, [%ongr_oxid.language_id%] ]
+               - [ setSeoFinderService, [ @ongr_oxid.seo_finder_service ] ]
             tags:
                 - { name: kernel.event_listener, event: ongr.pipeline.sync.execute.oxid.content.modify, method: onModify }
 

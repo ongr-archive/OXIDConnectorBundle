@@ -19,13 +19,16 @@ use ONGR\OXIDConnectorBundle\Document\VariantObject;
 use ONGR\OXIDConnectorBundle\Entity\ArticleExtension;
 use ONGR\OXIDConnectorBundle\Entity\ArticleToCategory;
 use ONGR\OXIDConnectorBundle\Entity\Manufacturer;
+use ONGR\OXIDConnectorBundle\Entity\Seo;
 use ONGR\OXIDConnectorBundle\Entity\Vendor;
 use ONGR\OXIDConnectorBundle\Modifier\ProductModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Article;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\ArticleToAttribute;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Attribute;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
+use ONGR\RouterBundle\Document\UrlNested;
 
 class ProductModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,6 +49,18 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
     {
         $this->attrToDocService = new AttributesToDocumentsService();
         $this->modifier = new ProductModifier($this->attrToDocService);
+
+        /** @var Seo|\PHPUnit_Framework_MockObject_MockObject $seo */
+        $seo = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Seo');
+        $seo->setSeoUrl('test');
+
+        /** @var SeoFinder|\PHPUnit_Framework_MockObject_MockObject $seoFinder */
+        $seoFinder = $this->getMockBuilder('ONGR\OXIDConnectorBundle\Service\SeoFinder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $seoFinder->expects($this->any())->method('getEntitySeo')->willReturn(new \ArrayIterator([$seo]));
+
+        $this->modifier->setSeoFinderService($seoFinder);
     }
 
     /**
@@ -134,7 +149,9 @@ class ProductModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setVendor('Vendor A');
         $expectedDocument->setManufacturer('Manufacturer A');
         $expectedDocument->setVariants($this->getExpectedVariants());
-        $expectedDocument->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('test');
+        $expectedDocument->setUrls(new \ArrayIterator([$url]));
         $expectedDocument->setExpiredUrls([]);
         $attObj = new AttributeObject();
         $attObj->setPos(1);

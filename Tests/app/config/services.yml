@@ -2,6 +2,8 @@ parameters:
     test.sync.execute.chunk_size: 1
     test.sync.execute.shop_id: 0
 
+    ongr_oxid.seo_finder_service.repository: ONGROXIDConnectorBundleTest:Seo
+
 imports:
     - { resource: services_execute.yml }
     - { resource: services_import.yml }

@@ -15,11 +15,14 @@ use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\AttributeObject;
 use ONGR\OXIDConnectorBundle\Document\CategoryDocument;
+use ONGR\OXIDConnectorBundle\Entity\Seo;
 use ONGR\OXIDConnectorBundle\Modifier\CategoryModifier;
 use ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Attribute;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\Category;
 use ONGR\OXIDConnectorBundle\Tests\Functional\Entity\CategoryToAttribute;
+use ONGR\RouterBundle\Document\UrlNested;
 
 class CategoryModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,6 +43,18 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
     {
         $this->attributesToDocumentsService = new AttributesToDocumentsService();
         $this->modifier = new CategoryModifier($this->attributesToDocumentsService);
+
+        /** @var Seo|\PHPUnit_Framework_MockObject_MockObject $seo */
+        $seo = $this->getMockForAbstractClass('ONGR\OXIDConnectorBundle\Entity\Seo');
+        $seo->setSeoUrl('test');
+
+        /** @var SeoFinder|\PHPUnit_Framework_MockObject_MockObject $seoFinder */
+        $seoFinder = $this->getMockBuilder('ONGR\OXIDConnectorBundle\Service\SeoFinder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $seoFinder->expects($this->once())->method('getEntitySeo')->willReturn(new \ArrayIterator([$seo]));
+
+        $this->modifier->setSeoFinderService($seoFinder);
     }
 
     /**
@@ -91,7 +106,9 @@ class CategoryModifierTest extends \PHPUnit_Framework_TestCase
         $expectedDocument->setParentId('oxrootid');
         $expectedDocument->setLeft(102);
         $expectedDocument->setRight(501);
-        $expectedDocument->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('test');
+        $expectedDocument->setUrls(new \ArrayIterator([$url]));
         $expectedDocument->setExpiredUrls([]);
         $attrObj = new AttributeObject();
         $attrObj->setPos(1);

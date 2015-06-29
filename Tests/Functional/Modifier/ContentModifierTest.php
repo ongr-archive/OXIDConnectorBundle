@@ -15,7 +15,9 @@ use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
 use ONGR\ConnectionsBundle\Pipeline\Item\ImportItem;
 use ONGR\OXIDConnectorBundle\Document\ContentDocument;
 use ONGR\OXIDConnectorBundle\Modifier\ContentModifier;
+use ONGR\OXIDConnectorBundle\Service\SeoFinder;
 use ONGR\OXIDConnectorBundle\Tests\Functional\AbstractTestCase;
+use ONGR\RouterBundle\Document\UrlNested;
 
 /**
  * Tests if category modifier works as expected.
@@ -37,7 +39,9 @@ class ContentModifierTest extends AbstractTestCase
         $expectedContent1->setType(2);
         $expectedContent1->setActive(false);
         $expectedContent1->setPosition('position1');
-        $expectedContent1->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('Test/Content/1');
+        $expectedContent1->setUrls(new \ArrayIterator([$url]));
         $expectedContent1->setExpiredUrls([]);
 
         $expectedContent2 = new ContentDocument();
@@ -50,7 +54,9 @@ class ContentModifierTest extends AbstractTestCase
         $expectedContent2->setType(1);
         $expectedContent2->setActive(true);
         $expectedContent2->setPosition('position2');
-        $expectedContent2->setUrls(new \ArrayIterator());
+        $url = new UrlNested();
+        $url->setUrl('Test/Content/2');
+        $expectedContent2->setUrls(new \ArrayIterator([$url]));
         $expectedContent2->setExpiredUrls([]);
 
         $expectedEntities = [$expectedContent1, $expectedContent2];
@@ -61,7 +67,13 @@ class ContentModifierTest extends AbstractTestCase
         );
         $this->assertCount(2, $contentItems);
 
+        $seoFinder = new SeoFinder();
+        $seoFinder->setEntityManager($this->getEntityManager());
+        $seoFinder->setShopId(0);
+        $seoFinder->setRepository('ONGROXIDConnectorBundleTest:Seo');
+
         $modifier = new ContentModifier();
+        $modifier->setSeoFinderService($seoFinder);
 
         /** @var ItemPipelineEvent|\PHPUnit_Framework_MockObject_MockObject $event */
         $event = $this->getMock('ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent', [], [], '', false);

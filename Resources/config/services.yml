@@ -1,7 +1,14 @@
 parameters:
     ongr_oxid.mapping_listener.class: ONGR\ConnectionsBundle\EventListener\LoadClassMetadataListener
     ongr_oxid.attributes_to_documents_service.class: ONGR\OXIDConnectorBundle\Service\AttributesToDocumentsService
+    ongr_oxid.seo_finder_service.class: ONGR\OXIDConnectorBundle\Service\SeoFinder
 
 services:
     ongr_oxid.attr_to_doc_service:
         class: %ongr_oxid.attributes_to_documents_service.class%
+
+    ongr_oxid.seo_finder_service:
+        class: %ongr_oxid.seo_finder_service.class%
+        calls:
+          - [ setEntityManager, [ @doctrine.orm.default_entity_manager ] ]
+          - [ setRepository, [ %ongr_oxid.seo_finder_service.repository% ] ]
