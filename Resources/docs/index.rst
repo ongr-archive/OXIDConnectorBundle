@@ -28,22 +28,23 @@ Then you will need to add mappings for these documents and entities. Examples:
 
 .. code-block:: yaml
 
-    orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
-        mappings:
-            ONGROXIDConnectorBundle:
-                type: annotation
-                alias: OXIDConnectorBundle
-                dir: Entity
-                prefix: ONGR\OXIDConnectorBundle\Entity
-                is_bundle: true
-            ONGRDemoOXIDBundle:
-                type: annotation
-                alias: DemoOXIDBundle
-                dir: Entity
-                prefix: ONGR\DemoOXIDBundle\Entity
-                is_bundle: true
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: "%kernel.debug%"
+            auto_mapping: true
+            mappings:
+                ONGROXIDConnectorBundle:
+                    type: annotation
+                    alias: OXIDConnectorBundle
+                    dir: Entity
+                    prefix: ONGR\OXIDConnectorBundle\Entity
+                    is_bundle: true
+                ONGRDemoOXIDBundle:
+                    type: annotation
+                    alias: DemoOXIDBundle
+                    dir: Entity
+                    prefix: ONGR\DemoOXIDBundle\Entity
+                    is_bundle: true
 
 ..
 
@@ -69,7 +70,7 @@ Then you will need to add mappings for these documents and entities. Examples:
 
     parameters:
         es_index_name: ongr_oxid
-        ongr_oxid.seo_finder_service.repository: ONGRDemoOXIDBundle:Seo
+        ongr_oxid.seo_finder_service.repository: DemoOXIDBundle:Seo
 ..
 
 Then add configuration for bundles.
